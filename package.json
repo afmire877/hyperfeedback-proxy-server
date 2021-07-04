@@ -9,6 +9,7 @@
   "license": "MIT",
   "keywords": [],
   "scripts": {
+    "start": "node build/module",
     "build": "run-p build:*",
     "dev": "ts-node src/index.ts",
     "build:main": "tsc -p tsconfig.json",
