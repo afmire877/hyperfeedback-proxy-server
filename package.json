@@ -10,6 +10,7 @@
   "keywords": [],
   "scripts": {
     "build": "run-p build:*",
+    "dev": "ts-node src/index.ts",
     "build:main": "tsc -p tsconfig.json",
     "build:module": "tsc -p tsconfig.module.json",
     "fix": "run-s fix:*",
@@ -36,17 +37,29 @@
     "doc:publish": "gh-pages -m \"[ci skip] Updates\" -d build/docs",
     "version": "standard-version",
     "reset-hard": "git clean -dfx && git reset --hard && yarn",
-    "prepare-release": "run-s reset-hard test cov:check doc:html version doc:publish"
+    "prepare-release": "run-s reset-hard test cov:check doc:html version doc:publish",
+    "update-types": "npx openapi-typescript https://rrmogqijedgnegnuxcmb.supabase.co/rest/v1/?apikey=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTYyNDExMTkyMSwiZXhwIjoxOTM5Njg3OTIxfQ.P0g8kXvJsL2zNRRsY34_9YhKfty-VrTYtx1F3dGIHe4 --output ./src/types/supabase.ts"
   },
   "engines": {
     "node": ">=10"
   },
   "dependencies": {
-    "@bitauth/libauth": "^1.17.1"
+    "@bitauth/libauth": "^1.17.1",
+    "@supabase/supabase-js": "^1.15.1",
+    "@types/node": "^15.12.5",
+    "body-parser": "^1.19.0",
+    "chalk": "^4.1.1",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "request": "^2.88.2"
   },
   "devDependencies": {
     "@ava/typescript": "^1.1.1",
     "@istanbuljs/nyc-config-typescript": "^1.0.1",
+    "@types/cors": "^2.8.10",
+    "@types/express": "^4.17.12",
+    "@types/request": "^2.48.5",
     "@typescript-eslint/eslint-plugin": "^4.0.1",
     "@typescript-eslint/parser": "^4.0.1",
     "ava": "^3.12.1",
@@ -64,7 +77,7 @@
     "open-cli": "^6.0.1",
     "prettier": "^2.1.1",
     "standard-version": "^9.0.0",
-    "ts-node": "^9.0.0",
+    "ts-node": "^10.0.0",
     "typedoc": "^0.19.0",
     "typescript": "^4.0.2"
   },
