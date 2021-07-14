@@ -1,8 +1,10 @@
 import chalk from 'chalk';
-import express, { Request, Response } from 'express';
+import express, { Response } from 'express';
 import request from 'request';
 import { supabase } from '../lib/supabase-client';
 import { definitions } from '../types/supabase';
+import isUUID from '../lib/isUUID';
+
 const router = express.Router();
 
 // Allow proxying self-signed SSL certificates
@@ -10,42 +12,48 @@ console.log("Disabling Node's rejection of invalid/unauthorised certificates");
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '1';
 
 // const hashHapOf404s: { [key: string]: Boolean } = {};
+router.use('/', async (req, res) => {
+  const [proxyType, pid] = req.subdomains;
+  if (proxyType !== 'p' && !pid) return;
 
-router.use('/p/:pid', async (req, res) => {
-  const { pid } = req.params;
-  // Ask WEBSITE1
-  if (!pid) return;
-  console.log(pid);
-  let { data, error } = await supabase
-    .from<definitions['projects']>('projects')
-    .select()
-    .eq('pid', pid)
-    .single();
-  if (error) {
-    return console.log('Supabase Error', error);
+  let asset_url: string | undefined = undefined;
+
+  if (isUUID(pid)) {
+    let { data, error } = await supabase
+      .from<definitions['projects']>('projects')
+      .select()
+      .eq('pid', pid)
+      .single();
+    if (error) {
+      return console.log('Supabase Error', error);
+    }
+
+    asset_url = data?.asset_url;
   }
-  if (data?.asset_url) {
-    requestFromUrl(req, data?.asset_url, (proxyRes1: any) => {
-      const statusCode = proxyRes1.statusCode;
-      const contentType = proxyRes1.headers['content-type'];
+
+  if (asset_url) {
+    requestFromUrl(req, asset_url, (proxyRes: any) => {
+      const statusCode = proxyRes.statusCode;
+      const contentType = proxyRes.headers['content-type'];
 
       if (statusCode === 404) {
         // hashHapOf404s[url] = true;
         res.send(404);
       } else if (!contentType || !contentType.includes('html')) {
-        setHeaders(proxyRes1, res);
-        proxyRes1.pipe(res);
+        setHeaders(proxyRes, res);
+        proxyRes.pipe(res);
       } else {
-        res.end(proxyRes1.html);
+        setHeaders(proxyRes, res);
+        res.end(proxyRes.html);
       }
     });
   }
 });
 
-const requestFromUrl = (req: Request, url: string, callback: Function) => {
-  const { body, headers, method } = req;
+const requestFromUrl = (req: any, url: string, callback: Function) => {
+  const { _body, body, headers, method } = req;
 
-  const bodyStr = JSON.stringify(body);
+  const bodyStr = _body === true ? JSON.stringify(body) : undefined;
 
   headers['accept-encoding'] = 'identity'; // Request non-gzipped code, so we can alter the HTML below and inject our own code]
   delete headers['host']; // So the request doesn't seem to come from localhost
@@ -70,18 +78,10 @@ const requestFromUrl = (req: Request, url: string, callback: Function) => {
       proxyRes.on('data', (chunk: any) => dataArr.push(chunk));
       proxyRes.on('end', () => {
         proxyRes.html = Buffer.concat(dataArr).toString();
-        proxyRes.html = getAllRelativeAssets(proxyRes.html, url);
         callback(proxyRes);
       });
     }
   });
-};
-
-const getAllRelativeAssets = (html: string, url: string) => {
-  let regex = new RegExp(/((href="\/|src="\/))/gim);
-  if (url[url.length - 1] !== '/') url += '/';
-  console.log(url);
-  return html.replace(regex, `href="${url}`);
 };
 
 // const injectWebsite2Into1 = (html1, html2) => {
