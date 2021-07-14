@@ -12,13 +12,13 @@ console.log("Disabling Node's rejection of invalid/unauthorised certificates");
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '1';
 
 // const hashHapOf404s: { [key: string]: Boolean } = {};
-router.use('/', async (req, res) => {
+router.use('/', async (req: any, res: Response) => {
   const [proxyType, pid] = req.subdomains;
   if (proxyType !== 'p' && !pid) return;
 
-  let asset_url: string | undefined = undefined;
+  let asset_url: string | undefined = req?.session?.asset_url;
 
-  if (isUUID(pid)) {
+  if (!req.session.asset_url && isUUID(pid)) {
     let { data, error } = await supabase
       .from<definitions['projects']>('projects')
       .select()
@@ -29,6 +29,7 @@ router.use('/', async (req, res) => {
     }
 
     asset_url = data?.asset_url;
+    req.session.asset_url = data?.asset_url;
   }
 
   if (asset_url) {
