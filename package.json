@@ -48,9 +48,11 @@
   "dependencies": {
     "@bitauth/libauth": "^1.17.1",
     "@supabase/supabase-js": "^1.15.1",
+    "@types/cookie-parser": "^1.4.2",
     "@types/node": "^15.12.5",
     "body-parser": "^1.19.0",
     "chalk": "^4.1.1",
+    "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",

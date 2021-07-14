@@ -7,15 +7,19 @@ dotenv.config();
 import express from 'express';
 import session from 'express-session';
 import proxyRoute from './routes/proxy';
+import cookieParser from 'cookie-parser';
 const PORT = process.env.PORT || 5000;
 
 // Express set up
 const app = express();
 app.set('port', PORT);
 app.use(cors());
+app.use(cookieParser());
 app.use(
   session({
     secret: 'clnWVutlVogJR3a0E0JQa8m',
+    resave: true,
+    saveUninitialized: true,
     cookie: { path: '/', httpOnly: true, secure: false, maxAge: 3600000 },
   })
 );
