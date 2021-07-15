@@ -34,7 +34,8 @@ router.use('/', async (req: any, res: Response) => {
   }
 
   if (asset_url) {
-    requestFromUrl(req, asset_url, (proxyRes: any) => {
+    let url = req.session?.asset_url ? asset_url + req.path : asset_url;
+    requestFromUrl(req, url, (proxyRes: any) => {
       const statusCode = proxyRes.statusCode;
       const contentType = proxyRes.headers['content-type'];
 
