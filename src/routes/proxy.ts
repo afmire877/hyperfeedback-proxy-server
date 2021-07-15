@@ -14,11 +14,12 @@ process.env.NODE_TLS_REJECT_UNAUTHORIZED = '1';
 // const hashHapOf404s: { [key: string]: Boolean } = {};
 router.use('/', async (req: any, res: Response) => {
   const [proxyType, pid] = req.subdomains;
+  console.log(req.session);
   if (proxyType !== 'p' && !pid) return;
 
-  let asset_url: string | undefined = req?.session?.asset_url;
+  let asset_url: string | undefined = req.session?.asset_url;
 
-  if (!req.session.asset_url && isUUID(pid)) {
+  if (!asset_url && isUUID(pid)) {
     let { data, error } = await supabase
       .from<definitions['projects']>('projects')
       .select()
