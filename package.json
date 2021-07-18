@@ -8,7 +8,7 @@
   "repository": "https://github.com/afmire877/hyperfeedback-proxy-server",
   "license": "MIT",
   "keywords": [],
-  "type": "module",
+
   "scripts": {
     "start": "node --experimental-modules --es-module-specifier-resolution=node build/module",
     "build": "run-p build:*",
