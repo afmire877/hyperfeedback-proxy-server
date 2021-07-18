@@ -1,36 +1,19 @@
 import http from 'http';
 
 import bodyParser from 'body-parser';
-import cookieParser from 'cookie-parser';
-import cors, { CorsOptions } from 'cors';
+import cors from 'cors';
 import * as dotenv from 'dotenv';
 dotenv.config();
 import express from 'express';
 import session from 'express-session';
-
 import proxyRoute from './routes/proxy';
-
+import cookieParser from 'cookie-parser';
 const PORT = process.env.PORT || 5000;
-const whitelist = [
-  'https://hyperfeedback.io',
-  'http://hyperfeedback.io',
-  'https://*.p.hyperfeedback.io',
-  'http://*.p.hyperfeedback.io',
-  'http://localhost:300',
-];
-const corsOptions: CorsOptions = {
-  origin: function (origin, callback) {
-    if (origin && whitelist.indexOf(origin) !== -1) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
-};
+
 // Express set up
 const app = express();
 app.set('port', PORT);
-app.use(cors(corsOptions));
+app.use(cors());
 app.use(cookieParser());
 app.use(
   session({
@@ -40,6 +23,10 @@ app.use(
     cookie: { path: '/', httpOnly: true, secure: false, maxAge: 3600000 },
   })
 );
+app.use((_, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  next();
+});
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
