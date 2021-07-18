@@ -1,13 +1,15 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable functional/immutable-data */
 import chalk from 'chalk';
 import express, { Response } from 'express';
 import request from 'request';
+
+import isUUID from '../lib/isUUID';
 import { supabase } from '../lib/supabase-client';
 import { definitions } from '../types/supabase';
-import isUUID from '../lib/isUUID';
 
 const router = express.Router();
 
-// Allow proxying self-signed SSL certificates
 console.log("Disabling Node's rejection of invalid/unauthorised certificates");
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '1';
 
@@ -17,10 +19,11 @@ router.use('/', async (req: any, res: Response) => {
   console.log(req.session);
   if (proxyType !== 'p' && !pid) return;
 
+  // eslint-disable-next-line functional/no-let
   let asset_url: string | undefined = req.session?.asset_url;
 
   if (!asset_url && isUUID(pid)) {
-    let { data, error } = await supabase
+    const { data, error } = await supabase
       .from<definitions['projects']>('projects')
       .select()
       .eq('pid', pid)
@@ -34,7 +37,7 @@ router.use('/', async (req: any, res: Response) => {
   }
 
   if (asset_url) {
-    let url = req.session?.asset_url ? asset_url + req.path : asset_url;
+    const url = req.session?.asset_url ? asset_url + req.path : asset_url;
     requestFromUrl(req, url, (proxyRes: any) => {
       const statusCode = proxyRes.statusCode;
       const contentType = proxyRes.headers['content-type'];
@@ -53,7 +56,7 @@ router.use('/', async (req: any, res: Response) => {
   }
 });
 
-const requestFromUrl = (req: any, url: string, callback: Function) => {
+const requestFromUrl = (req: any, url: string, callback: any) => {
   const { _body, body, headers, method } = req;
 
   const bodyStr = _body === true ? JSON.stringify(body) : undefined;
@@ -86,49 +89,6 @@ const requestFromUrl = (req: any, url: string, callback: Function) => {
     }
   });
 };
-
-// const injectWebsite2Into1 = (html1, html2) => {
-//   const html2Modified = html2
-//     .replace('<!DOCTYPE html>', '')
-//     .replace(/<html[\w\W]*?>/gi, '')
-//     .replace(/<head[\w\W]*?>/gi, '')
-//     .replace(/<meta[\w\W]*?>/gi, '')
-//     .replace('</head>', '')
-//     .replace('<body', '<div class="WEBSITE2"')
-//     .replace('</body>', '</div>')
-//     .replace('</html>', '');
-
-//   const html2in1 = html1
-//     .replace(new RegExp(WEBSITE1, 'gi'), '') // Ensure all absolute links to relative so links don't navigate to the actual website
-//     .replace(
-//       '</body>',
-//       `
-//         <style>
-//           .WEBSITE2 {
-//             position: fixed;
-//             top: 0;
-//             width: 100vw;
-//             z-index: 999999;
-//             pointer-events: none;             /* Allow click through to WEBSITE1 */
-//             text-shadow: 1px 1px 1px black;
-//           }
-
-//           .WEBSITE2 * {
-//             background: none !important;      /* Make sure we can see WEBSITE1 */
-//           }
-
-//           .WEBSITE2 a {
-//             pointer-events: initial;          /* Links should still be clickable */
-//           }
-//         </style>
-
-//         ${html2Modified}
-//       </body>
-//     `
-//     );
-
-//   return html2in1;
-// };
 
 const logResponse = (url: string, res: any) => {
   const statusCode = res.statusCode;
