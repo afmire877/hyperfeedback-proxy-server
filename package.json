@@ -8,11 +8,10 @@
   "repository": "https://github.com/afmire877/hyperfeedback-proxy-server",
   "license": "MIT",
   "keywords": [],
-  "type": "module",
   "scripts": {
-    "start": "node --experimental-modules --es-module-specifier-resolution=node build/module",
+    "start": "node build/main",
     "build": "run-p build:*",
-    "dev": "ts-node src/index.ts",
+    "dev": "ts-node src/index.ts -p tsconfig.json",
     "build:main": "tsc -p tsconfig.json",
     "build:module": "tsc -p tsconfig.module.json",
     "fix": "run-s fix:*",
