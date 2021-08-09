@@ -1,13 +1,16 @@
 import http from 'http';
 
 import bodyParser from 'body-parser';
+import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import * as dotenv from 'dotenv';
 dotenv.config();
 import express from 'express';
 import session from 'express-session';
+
 import proxyRoute from './routes/proxy';
-import cookieParser from 'cookie-parser';
+
+
 const PORT = process.env.PORT || 5000;
 
 // Express set up
