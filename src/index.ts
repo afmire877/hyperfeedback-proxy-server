@@ -12,7 +12,10 @@ import proxyRoute from './routes/proxy';
 
 
 const PORT = process.env.PORT || 5000;
-
+// const allowedRoutes = ['https://hyperfeedback.io', 'http://localhost:3000', 'http://a4b2-79-69-253-85.ngrok.io'];
+const corsOptions = {
+  origin:  '*'
+}
 // Express set up
 const app = express();
 app.set('port', PORT);
@@ -33,7 +36,7 @@ app.use((_, res, next) => {
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.use('/', proxyRoute);
+app.use('/', cors(corsOptions),  proxyRoute);
 
 const server = http.createServer(app);
 server.listen(PORT);
