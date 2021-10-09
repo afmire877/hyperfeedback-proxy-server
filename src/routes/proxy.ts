@@ -1,22 +1,24 @@
 /* eslint-disable functional/immutable-data */
+import { readFileSync } from 'fs';
+
 import chalk from 'chalk';
+import * as cheerio from 'cheerio';
 import express, { Response } from 'express';
 import request from 'request';
 
 import isUUID from '../lib/isUUID';
 import { supabase } from '../lib/supabase-client';
 import { definitions } from '../types/supabase';
+import path from 'path/posix';
 
 const router = express.Router();
-
 // Allow proxying self-signed SSL certificates
 console.log("Disabling Node's rejection of invalid/unauthorised certificates");
+
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '1';
 
-// const hashHapOf404s: { [key: string]: Boolean } = {};
 router.use('/', async (req: any, res: Response) => {
   const [proxyType, pid] = req.subdomains;
-  console.log(req.session);
   if (proxyType !== 'p' && !pid) return;
 
   // eslint-disable-next-line functional/no-let
@@ -50,7 +52,7 @@ router.use('/', async (req: any, res: Response) => {
         proxyRes.pipe(res);
       } else {
         setHeaders(proxyRes, res);
-        res.end(proxyRes.html);
+        res.end(injectJSIntoWebsite(proxyRes.html));
       }
     });
   }
@@ -75,7 +77,7 @@ const requestFromUrl = (
   });
 
   proxy.on('response', (proxyRes: any) => {
-    logResponse(url, proxyRes);
+    // logResponse(url, proxyRes);
 
     // non-HTML -> return proxyRes so we can pipe it
     const contentType = proxyRes.headers['content-type'];
@@ -94,17 +96,33 @@ const requestFromUrl = (
   });
 };
 
-const logResponse = (url: string, res: any) => {
-  const statusCode = res.statusCode;
-
-  // prettier-ignore
-  const color =
-    statusCode >= 200 && statusCode < 300 ? 'green' :
-    statusCode > 400 ? 'red' :
-    'yellow';
-
-  console.log(`${chalk[color](statusCode)} ${url}`);
+const injectJSIntoWebsite = (html: string) => {
+  console.log('Injecting JS');
+  const js = readFileSync(
+    path.resolve(__dirname, '../frontend-scripts/canvas.js'),
+    'utf8'
+  );
+  const css = readFileSync(
+    path.resolve(__dirname, '../frontend-scripts/canvas.css'),
+    'utf8'
+  );
+  const $ = cheerio.load(html);
+  $('body').append(`<script>${js}</script>`);
+  $('body').append(`<style>${css}</style>`);
+  return $.html();
 };
+
+// const logResponse = (url: string, res: any) => {
+//   const statusCode = res.statusCode;
+
+//   // prettier-ignore
+//   const color =
+//     statusCode >= 200 && statusCode < 300 ? 'green' :
+//     statusCode > 400 ? 'red' :
+//     'yellow';
+
+//   console.log(`${chalk[color](statusCode)} ${url}`);
+// };
 
 const setHeaders = (proxyRes: any, res: Response) => {
   delete proxyRes.headers['content-length'];

@@ -11,7 +11,7 @@
   "scripts": {
     "start": "node build/main",
     "build": "run-p build:*",
-    "dev": "ts-node src/index.ts -p tsconfig.json",
+    "dev": "nodemon",
     "build:main": "tsc -p tsconfig.json",
     "build:module": "tsc -p tsconfig.module.json",
     "fix": "run-s fix:*",
@@ -51,11 +51,14 @@
     "@types/node": "^15.12.5",
     "body-parser": "^1.19.0",
     "chalk": "^4.1.1",
+    "cheerio": "^1.0.0-rc.10",
     "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
+    "css-class-generator": "^2.0.0",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "express-session": "^1.17.2",
+    "nodemon": "^2.0.12",
     "request": "^2.88.2"
   },
   "devDependencies": {
