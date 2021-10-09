@@ -32,8 +32,8 @@ router.use('/', async (req: any, res: Response) => {
       return console.log('Supabase Error', error);
     }
 
-    asset_url = data?.asset_url;
-    req.session.asset_url = data?.asset_url;
+    asset_url = data?.website_url;
+    req.session.asset_url = data?.website_url;
   }
 
   if (asset_url) {
@@ -56,7 +56,11 @@ router.use('/', async (req: any, res: Response) => {
   }
 });
 
-const requestFromUrl = (req: any, url: string, callback: (ProxyRes: any) => any ) => {
+const requestFromUrl = (
+  req: any,
+  url: string,
+  callback: (ProxyRes: any) => any
+) => {
   const { _body, body, headers, method } = req;
 
   const bodyStr = _body === true ? JSON.stringify(body) : undefined;
@@ -89,7 +93,6 @@ const requestFromUrl = (req: any, url: string, callback: (ProxyRes: any) => any 
     }
   });
 };
-
 
 const logResponse = (url: string, res: any) => {
   const statusCode = res.statusCode;
