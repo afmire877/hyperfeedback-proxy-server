@@ -4,7 +4,7 @@
  */
 
 export interface paths {
-  '/': {
+  "/": {
     get: {
       responses: {
         /** OK */
@@ -12,39 +12,37 @@ export interface paths {
       };
     };
   };
-  '/comments': {
+  "/comments": {
     get: {
       parameters: {
         query: {
-          id?: parameters['rowFilter.comments.id'];
-          content?: parameters['rowFilter.comments.content'];
-          project_id?: parameters['rowFilter.comments.project_id'];
-          x_pos?: parameters['rowFilter.comments.x_pos'];
-          y_pos?: parameters['rowFilter.comments.y_pos'];
-          is_completed?: parameters['rowFilter.comments.is_completed'];
-          author_id?: parameters['rowFilter.comments.author_id'];
+          id?: parameters["rowFilter.comments.id"];
+          is_completed?: parameters["rowFilter.comments.is_completed"];
+          author_id?: parameters["rowFilter.comments.author_id"];
+          content?: parameters["rowFilter.comments.content"];
+          project_id?: parameters["rowFilter.comments.project_id"];
           /** Filtering Columns */
-          select?: parameters['select'];
+          select?: parameters["select"];
           /** Ordering */
-          order?: parameters['order'];
+          order?: parameters["order"];
           /** Limiting and Pagination */
-          offset?: parameters['offset'];
+          offset?: parameters["offset"];
           /** Limiting and Pagination */
-          limit?: parameters['limit'];
+          limit?: parameters["limit"];
         };
         header: {
           /** Limiting and Pagination */
-          Range?: parameters['range'];
+          Range?: parameters["range"];
           /** Limiting and Pagination */
-          'Range-Unit'?: parameters['rangeUnit'];
+          "Range-Unit"?: parameters["rangeUnit"];
           /** Preference */
-          Prefer?: parameters['preferCount'];
+          Prefer?: parameters["preferCount"];
         };
       };
       responses: {
         /** OK */
         200: {
-          schema: definitions['comments'][];
+          schema: definitions["comments"][];
         };
         /** Partial Content */
         206: unknown;
@@ -54,15 +52,15 @@ export interface paths {
       parameters: {
         body: {
           /** comments */
-          comments?: definitions['comments'];
+          comments?: definitions["comments"];
         };
         query: {
           /** Filtering Columns */
-          select?: parameters['select'];
+          select?: parameters["select"];
         };
         header: {
           /** Preference */
-          Prefer?: parameters['preferReturn'];
+          Prefer?: parameters["preferReturn"];
         };
       };
       responses: {
@@ -73,17 +71,15 @@ export interface paths {
     delete: {
       parameters: {
         query: {
-          id?: parameters['rowFilter.comments.id'];
-          content?: parameters['rowFilter.comments.content'];
-          project_id?: parameters['rowFilter.comments.project_id'];
-          x_pos?: parameters['rowFilter.comments.x_pos'];
-          y_pos?: parameters['rowFilter.comments.y_pos'];
-          is_completed?: parameters['rowFilter.comments.is_completed'];
-          author_id?: parameters['rowFilter.comments.author_id'];
+          id?: parameters["rowFilter.comments.id"];
+          is_completed?: parameters["rowFilter.comments.is_completed"];
+          author_id?: parameters["rowFilter.comments.author_id"];
+          content?: parameters["rowFilter.comments.content"];
+          project_id?: parameters["rowFilter.comments.project_id"];
         };
         header: {
           /** Preference */
-          Prefer?: parameters['preferReturn'];
+          Prefer?: parameters["preferReturn"];
         };
       };
       responses: {
@@ -94,21 +90,19 @@ export interface paths {
     patch: {
       parameters: {
         query: {
-          id?: parameters['rowFilter.comments.id'];
-          content?: parameters['rowFilter.comments.content'];
-          project_id?: parameters['rowFilter.comments.project_id'];
-          x_pos?: parameters['rowFilter.comments.x_pos'];
-          y_pos?: parameters['rowFilter.comments.y_pos'];
-          is_completed?: parameters['rowFilter.comments.is_completed'];
-          author_id?: parameters['rowFilter.comments.author_id'];
+          id?: parameters["rowFilter.comments.id"];
+          is_completed?: parameters["rowFilter.comments.is_completed"];
+          author_id?: parameters["rowFilter.comments.author_id"];
+          content?: parameters["rowFilter.comments.content"];
+          project_id?: parameters["rowFilter.comments.project_id"];
         };
         body: {
           /** comments */
-          comments?: definitions['comments'];
+          comments?: definitions["comments"];
         };
         header: {
           /** Preference */
-          Prefer?: parameters['preferReturn'];
+          Prefer?: parameters["preferReturn"];
         };
       };
       responses: {
@@ -117,34 +111,34 @@ export interface paths {
       };
     };
   };
-  '/customers': {
+  "/customers": {
     get: {
       parameters: {
         query: {
-          id?: parameters['rowFilter.customers.id'];
-          stripe_customer_id?: parameters['rowFilter.customers.stripe_customer_id'];
+          id?: parameters["rowFilter.customers.id"];
+          stripe_customer_id?: parameters["rowFilter.customers.stripe_customer_id"];
           /** Filtering Columns */
-          select?: parameters['select'];
+          select?: parameters["select"];
           /** Ordering */
-          order?: parameters['order'];
+          order?: parameters["order"];
           /** Limiting and Pagination */
-          offset?: parameters['offset'];
+          offset?: parameters["offset"];
           /** Limiting and Pagination */
-          limit?: parameters['limit'];
+          limit?: parameters["limit"];
         };
         header: {
           /** Limiting and Pagination */
-          Range?: parameters['range'];
+          Range?: parameters["range"];
           /** Limiting and Pagination */
-          'Range-Unit'?: parameters['rangeUnit'];
+          "Range-Unit"?: parameters["rangeUnit"];
           /** Preference */
-          Prefer?: parameters['preferCount'];
+          Prefer?: parameters["preferCount"];
         };
       };
       responses: {
         /** OK */
         200: {
-          schema: definitions['customers'][];
+          schema: definitions["customers"][];
         };
         /** Partial Content */
         206: unknown;
@@ -154,15 +148,15 @@ export interface paths {
       parameters: {
         body: {
           /** customers */
-          customers?: definitions['customers'];
+          customers?: definitions["customers"];
         };
         query: {
           /** Filtering Columns */
-          select?: parameters['select'];
+          select?: parameters["select"];
         };
         header: {
           /** Preference */
-          Prefer?: parameters['preferReturn'];
+          Prefer?: parameters["preferReturn"];
         };
       };
       responses: {
@@ -173,12 +167,12 @@ export interface paths {
     delete: {
       parameters: {
         query: {
-          id?: parameters['rowFilter.customers.id'];
-          stripe_customer_id?: parameters['rowFilter.customers.stripe_customer_id'];
+          id?: parameters["rowFilter.customers.id"];
+          stripe_customer_id?: parameters["rowFilter.customers.stripe_customer_id"];
         };
         header: {
           /** Preference */
-          Prefer?: parameters['preferReturn'];
+          Prefer?: parameters["preferReturn"];
         };
       };
       responses: {
@@ -189,16 +183,16 @@ export interface paths {
     patch: {
       parameters: {
         query: {
-          id?: parameters['rowFilter.customers.id'];
-          stripe_customer_id?: parameters['rowFilter.customers.stripe_customer_id'];
+          id?: parameters["rowFilter.customers.id"];
+          stripe_customer_id?: parameters["rowFilter.customers.stripe_customer_id"];
         };
         body: {
           /** customers */
-          customers?: definitions['customers'];
+          customers?: definitions["customers"];
         };
         header: {
           /** Preference */
-          Prefer?: parameters['preferReturn'];
+          Prefer?: parameters["preferReturn"];
         };
       };
       responses: {
@@ -207,43 +201,157 @@ export interface paths {
       };
     };
   };
-  '/prices': {
+  "/flyway_schema_history": {
     get: {
       parameters: {
         query: {
-          id?: parameters['rowFilter.prices.id'];
-          product_id?: parameters['rowFilter.prices.product_id'];
-          active?: parameters['rowFilter.prices.active'];
-          description?: parameters['rowFilter.prices.description'];
-          unit_amount?: parameters['rowFilter.prices.unit_amount'];
-          currency?: parameters['rowFilter.prices.currency'];
-          type?: parameters['rowFilter.prices.type'];
-          interval?: parameters['rowFilter.prices.interval'];
-          interval_count?: parameters['rowFilter.prices.interval_count'];
-          trial_period_days?: parameters['rowFilter.prices.trial_period_days'];
-          metadata?: parameters['rowFilter.prices.metadata'];
+          installed_rank?: parameters["rowFilter.flyway_schema_history.installed_rank"];
+          version?: parameters["rowFilter.flyway_schema_history.version"];
+          description?: parameters["rowFilter.flyway_schema_history.description"];
+          type?: parameters["rowFilter.flyway_schema_history.type"];
+          script?: parameters["rowFilter.flyway_schema_history.script"];
+          checksum?: parameters["rowFilter.flyway_schema_history.checksum"];
+          installed_by?: parameters["rowFilter.flyway_schema_history.installed_by"];
+          installed_on?: parameters["rowFilter.flyway_schema_history.installed_on"];
+          execution_time?: parameters["rowFilter.flyway_schema_history.execution_time"];
+          success?: parameters["rowFilter.flyway_schema_history.success"];
           /** Filtering Columns */
-          select?: parameters['select'];
+          select?: parameters["select"];
           /** Ordering */
-          order?: parameters['order'];
+          order?: parameters["order"];
           /** Limiting and Pagination */
-          offset?: parameters['offset'];
+          offset?: parameters["offset"];
           /** Limiting and Pagination */
-          limit?: parameters['limit'];
+          limit?: parameters["limit"];
         };
         header: {
           /** Limiting and Pagination */
-          Range?: parameters['range'];
+          Range?: parameters["range"];
           /** Limiting and Pagination */
-          'Range-Unit'?: parameters['rangeUnit'];
+          "Range-Unit"?: parameters["rangeUnit"];
           /** Preference */
-          Prefer?: parameters['preferCount'];
+          Prefer?: parameters["preferCount"];
         };
       };
       responses: {
         /** OK */
         200: {
-          schema: definitions['prices'][];
+          schema: definitions["flyway_schema_history"][];
+        };
+        /** Partial Content */
+        206: unknown;
+      };
+    };
+    post: {
+      parameters: {
+        body: {
+          /** flyway_schema_history */
+          flyway_schema_history?: definitions["flyway_schema_history"];
+        };
+        query: {
+          /** Filtering Columns */
+          select?: parameters["select"];
+        };
+        header: {
+          /** Preference */
+          Prefer?: parameters["preferReturn"];
+        };
+      };
+      responses: {
+        /** Created */
+        201: unknown;
+      };
+    };
+    delete: {
+      parameters: {
+        query: {
+          installed_rank?: parameters["rowFilter.flyway_schema_history.installed_rank"];
+          version?: parameters["rowFilter.flyway_schema_history.version"];
+          description?: parameters["rowFilter.flyway_schema_history.description"];
+          type?: parameters["rowFilter.flyway_schema_history.type"];
+          script?: parameters["rowFilter.flyway_schema_history.script"];
+          checksum?: parameters["rowFilter.flyway_schema_history.checksum"];
+          installed_by?: parameters["rowFilter.flyway_schema_history.installed_by"];
+          installed_on?: parameters["rowFilter.flyway_schema_history.installed_on"];
+          execution_time?: parameters["rowFilter.flyway_schema_history.execution_time"];
+          success?: parameters["rowFilter.flyway_schema_history.success"];
+        };
+        header: {
+          /** Preference */
+          Prefer?: parameters["preferReturn"];
+        };
+      };
+      responses: {
+        /** No Content */
+        204: never;
+      };
+    };
+    patch: {
+      parameters: {
+        query: {
+          installed_rank?: parameters["rowFilter.flyway_schema_history.installed_rank"];
+          version?: parameters["rowFilter.flyway_schema_history.version"];
+          description?: parameters["rowFilter.flyway_schema_history.description"];
+          type?: parameters["rowFilter.flyway_schema_history.type"];
+          script?: parameters["rowFilter.flyway_schema_history.script"];
+          checksum?: parameters["rowFilter.flyway_schema_history.checksum"];
+          installed_by?: parameters["rowFilter.flyway_schema_history.installed_by"];
+          installed_on?: parameters["rowFilter.flyway_schema_history.installed_on"];
+          execution_time?: parameters["rowFilter.flyway_schema_history.execution_time"];
+          success?: parameters["rowFilter.flyway_schema_history.success"];
+        };
+        body: {
+          /** flyway_schema_history */
+          flyway_schema_history?: definitions["flyway_schema_history"];
+        };
+        header: {
+          /** Preference */
+          Prefer?: parameters["preferReturn"];
+        };
+      };
+      responses: {
+        /** No Content */
+        204: never;
+      };
+    };
+  };
+  "/prices": {
+    get: {
+      parameters: {
+        query: {
+          id?: parameters["rowFilter.prices.id"];
+          product_id?: parameters["rowFilter.prices.product_id"];
+          active?: parameters["rowFilter.prices.active"];
+          description?: parameters["rowFilter.prices.description"];
+          unit_amount?: parameters["rowFilter.prices.unit_amount"];
+          currency?: parameters["rowFilter.prices.currency"];
+          type?: parameters["rowFilter.prices.type"];
+          interval?: parameters["rowFilter.prices.interval"];
+          interval_count?: parameters["rowFilter.prices.interval_count"];
+          trial_period_days?: parameters["rowFilter.prices.trial_period_days"];
+          metadata?: parameters["rowFilter.prices.metadata"];
+          /** Filtering Columns */
+          select?: parameters["select"];
+          /** Ordering */
+          order?: parameters["order"];
+          /** Limiting and Pagination */
+          offset?: parameters["offset"];
+          /** Limiting and Pagination */
+          limit?: parameters["limit"];
+        };
+        header: {
+          /** Limiting and Pagination */
+          Range?: parameters["range"];
+          /** Limiting and Pagination */
+          "Range-Unit"?: parameters["rangeUnit"];
+          /** Preference */
+          Prefer?: parameters["preferCount"];
+        };
+      };
+      responses: {
+        /** OK */
+        200: {
+          schema: definitions["prices"][];
         };
         /** Partial Content */
         206: unknown;
@@ -253,15 +361,15 @@ export interface paths {
       parameters: {
         body: {
           /** prices */
-          prices?: definitions['prices'];
+          prices?: definitions["prices"];
         };
         query: {
           /** Filtering Columns */
-          select?: parameters['select'];
+          select?: parameters["select"];
         };
         header: {
           /** Preference */
-          Prefer?: parameters['preferReturn'];
+          Prefer?: parameters["preferReturn"];
         };
       };
       responses: {
@@ -272,21 +380,21 @@ export interface paths {
     delete: {
       parameters: {
         query: {
-          id?: parameters['rowFilter.prices.id'];
-          product_id?: parameters['rowFilter.prices.product_id'];
-          active?: parameters['rowFilter.prices.active'];
-          description?: parameters['rowFilter.prices.description'];
-          unit_amount?: parameters['rowFilter.prices.unit_amount'];
-          currency?: parameters['rowFilter.prices.currency'];
-          type?: parameters['rowFilter.prices.type'];
-          interval?: parameters['rowFilter.prices.interval'];
-          interval_count?: parameters['rowFilter.prices.interval_count'];
-          trial_period_days?: parameters['rowFilter.prices.trial_period_days'];
-          metadata?: parameters['rowFilter.prices.metadata'];
+          id?: parameters["rowFilter.prices.id"];
+          product_id?: parameters["rowFilter.prices.product_id"];
+          active?: parameters["rowFilter.prices.active"];
+          description?: parameters["rowFilter.prices.description"];
+          unit_amount?: parameters["rowFilter.prices.unit_amount"];
+          currency?: parameters["rowFilter.prices.currency"];
+          type?: parameters["rowFilter.prices.type"];
+          interval?: parameters["rowFilter.prices.interval"];
+          interval_count?: parameters["rowFilter.prices.interval_count"];
+          trial_period_days?: parameters["rowFilter.prices.trial_period_days"];
+          metadata?: parameters["rowFilter.prices.metadata"];
         };
         header: {
           /** Preference */
-          Prefer?: parameters['preferReturn'];
+          Prefer?: parameters["preferReturn"];
         };
       };
       responses: {
@@ -297,25 +405,25 @@ export interface paths {
     patch: {
       parameters: {
         query: {
-          id?: parameters['rowFilter.prices.id'];
-          product_id?: parameters['rowFilter.prices.product_id'];
-          active?: parameters['rowFilter.prices.active'];
-          description?: parameters['rowFilter.prices.description'];
-          unit_amount?: parameters['rowFilter.prices.unit_amount'];
-          currency?: parameters['rowFilter.prices.currency'];
-          type?: parameters['rowFilter.prices.type'];
-          interval?: parameters['rowFilter.prices.interval'];
-          interval_count?: parameters['rowFilter.prices.interval_count'];
-          trial_period_days?: parameters['rowFilter.prices.trial_period_days'];
-          metadata?: parameters['rowFilter.prices.metadata'];
+          id?: parameters["rowFilter.prices.id"];
+          product_id?: parameters["rowFilter.prices.product_id"];
+          active?: parameters["rowFilter.prices.active"];
+          description?: parameters["rowFilter.prices.description"];
+          unit_amount?: parameters["rowFilter.prices.unit_amount"];
+          currency?: parameters["rowFilter.prices.currency"];
+          type?: parameters["rowFilter.prices.type"];
+          interval?: parameters["rowFilter.prices.interval"];
+          interval_count?: parameters["rowFilter.prices.interval_count"];
+          trial_period_days?: parameters["rowFilter.prices.trial_period_days"];
+          metadata?: parameters["rowFilter.prices.metadata"];
         };
         body: {
           /** prices */
-          prices?: definitions['prices'];
+          prices?: definitions["prices"];
         };
         header: {
           /** Preference */
-          Prefer?: parameters['preferReturn'];
+          Prefer?: parameters["preferReturn"];
         };
       };
       responses: {
@@ -324,38 +432,38 @@ export interface paths {
       };
     };
   };
-  '/products': {
+  "/products": {
     get: {
       parameters: {
         query: {
-          id?: parameters['rowFilter.products.id'];
-          active?: parameters['rowFilter.products.active'];
-          name?: parameters['rowFilter.products.name'];
-          description?: parameters['rowFilter.products.description'];
-          image?: parameters['rowFilter.products.image'];
-          metadata?: parameters['rowFilter.products.metadata'];
+          id?: parameters["rowFilter.products.id"];
+          active?: parameters["rowFilter.products.active"];
+          name?: parameters["rowFilter.products.name"];
+          description?: parameters["rowFilter.products.description"];
+          image?: parameters["rowFilter.products.image"];
+          metadata?: parameters["rowFilter.products.metadata"];
           /** Filtering Columns */
-          select?: parameters['select'];
+          select?: parameters["select"];
           /** Ordering */
-          order?: parameters['order'];
+          order?: parameters["order"];
           /** Limiting and Pagination */
-          offset?: parameters['offset'];
+          offset?: parameters["offset"];
           /** Limiting and Pagination */
-          limit?: parameters['limit'];
+          limit?: parameters["limit"];
         };
         header: {
           /** Limiting and Pagination */
-          Range?: parameters['range'];
+          Range?: parameters["range"];
           /** Limiting and Pagination */
-          'Range-Unit'?: parameters['rangeUnit'];
+          "Range-Unit"?: parameters["rangeUnit"];
           /** Preference */
-          Prefer?: parameters['preferCount'];
+          Prefer?: parameters["preferCount"];
         };
       };
       responses: {
         /** OK */
         200: {
-          schema: definitions['products'][];
+          schema: definitions["products"][];
         };
         /** Partial Content */
         206: unknown;
@@ -365,15 +473,15 @@ export interface paths {
       parameters: {
         body: {
           /** products */
-          products?: definitions['products'];
+          products?: definitions["products"];
         };
         query: {
           /** Filtering Columns */
-          select?: parameters['select'];
+          select?: parameters["select"];
         };
         header: {
           /** Preference */
-          Prefer?: parameters['preferReturn'];
+          Prefer?: parameters["preferReturn"];
         };
       };
       responses: {
@@ -384,16 +492,16 @@ export interface paths {
     delete: {
       parameters: {
         query: {
-          id?: parameters['rowFilter.products.id'];
-          active?: parameters['rowFilter.products.active'];
-          name?: parameters['rowFilter.products.name'];
-          description?: parameters['rowFilter.products.description'];
-          image?: parameters['rowFilter.products.image'];
-          metadata?: parameters['rowFilter.products.metadata'];
+          id?: parameters["rowFilter.products.id"];
+          active?: parameters["rowFilter.products.active"];
+          name?: parameters["rowFilter.products.name"];
+          description?: parameters["rowFilter.products.description"];
+          image?: parameters["rowFilter.products.image"];
+          metadata?: parameters["rowFilter.products.metadata"];
         };
         header: {
           /** Preference */
-          Prefer?: parameters['preferReturn'];
+          Prefer?: parameters["preferReturn"];
         };
       };
       responses: {
@@ -404,20 +512,20 @@ export interface paths {
     patch: {
       parameters: {
         query: {
-          id?: parameters['rowFilter.products.id'];
-          active?: parameters['rowFilter.products.active'];
-          name?: parameters['rowFilter.products.name'];
-          description?: parameters['rowFilter.products.description'];
-          image?: parameters['rowFilter.products.image'];
-          metadata?: parameters['rowFilter.products.metadata'];
+          id?: parameters["rowFilter.products.id"];
+          active?: parameters["rowFilter.products.active"];
+          name?: parameters["rowFilter.products.name"];
+          description?: parameters["rowFilter.products.description"];
+          image?: parameters["rowFilter.products.image"];
+          metadata?: parameters["rowFilter.products.metadata"];
         };
         body: {
           /** products */
-          products?: definitions['products'];
+          products?: definitions["products"];
         };
         header: {
           /** Preference */
-          Prefer?: parameters['preferReturn'];
+          Prefer?: parameters["preferReturn"];
         };
       };
       responses: {
@@ -426,39 +534,132 @@ export interface paths {
       };
     };
   };
-  '/projects': {
+  "/project_user": {
     get: {
       parameters: {
         query: {
-          id?: parameters['rowFilter.projects.id'];
-          title?: parameters['rowFilter.projects.title'];
-          owner_id?: parameters['rowFilter.projects.owner_id'];
-          public_url?: parameters['rowFilter.projects.public_url'];
-          asset_url?: parameters['rowFilter.projects.asset_url'];
-          /** Project ID used in the URL */
-          pid?: parameters['rowFilter.projects.pid'];
+          project_id?: parameters["rowFilter.project_user.project_id"];
+          user_id?: parameters["rowFilter.project_user.user_id"];
+          is_owner?: parameters["rowFilter.project_user.is_owner"];
           /** Filtering Columns */
-          select?: parameters['select'];
+          select?: parameters["select"];
           /** Ordering */
-          order?: parameters['order'];
+          order?: parameters["order"];
           /** Limiting and Pagination */
-          offset?: parameters['offset'];
+          offset?: parameters["offset"];
           /** Limiting and Pagination */
-          limit?: parameters['limit'];
+          limit?: parameters["limit"];
         };
         header: {
           /** Limiting and Pagination */
-          Range?: parameters['range'];
+          Range?: parameters["range"];
           /** Limiting and Pagination */
-          'Range-Unit'?: parameters['rangeUnit'];
+          "Range-Unit"?: parameters["rangeUnit"];
           /** Preference */
-          Prefer?: parameters['preferCount'];
+          Prefer?: parameters["preferCount"];
         };
       };
       responses: {
         /** OK */
         200: {
-          schema: definitions['projects'][];
+          schema: definitions["project_user"][];
+        };
+        /** Partial Content */
+        206: unknown;
+      };
+    };
+    post: {
+      parameters: {
+        body: {
+          /** project_user */
+          project_user?: definitions["project_user"];
+        };
+        query: {
+          /** Filtering Columns */
+          select?: parameters["select"];
+        };
+        header: {
+          /** Preference */
+          Prefer?: parameters["preferReturn"];
+        };
+      };
+      responses: {
+        /** Created */
+        201: unknown;
+      };
+    };
+    delete: {
+      parameters: {
+        query: {
+          project_id?: parameters["rowFilter.project_user.project_id"];
+          user_id?: parameters["rowFilter.project_user.user_id"];
+          is_owner?: parameters["rowFilter.project_user.is_owner"];
+        };
+        header: {
+          /** Preference */
+          Prefer?: parameters["preferReturn"];
+        };
+      };
+      responses: {
+        /** No Content */
+        204: never;
+      };
+    };
+    patch: {
+      parameters: {
+        query: {
+          project_id?: parameters["rowFilter.project_user.project_id"];
+          user_id?: parameters["rowFilter.project_user.user_id"];
+          is_owner?: parameters["rowFilter.project_user.is_owner"];
+        };
+        body: {
+          /** project_user */
+          project_user?: definitions["project_user"];
+        };
+        header: {
+          /** Preference */
+          Prefer?: parameters["preferReturn"];
+        };
+      };
+      responses: {
+        /** No Content */
+        204: never;
+      };
+    };
+  };
+  "/projects": {
+    get: {
+      parameters: {
+        query: {
+          id?: parameters["rowFilter.projects.id"];
+          title?: parameters["rowFilter.projects.title"];
+          pid?: parameters["rowFilter.projects.pid"];
+          website_url?: parameters["rowFilter.projects.website_url"];
+          invite_id?: parameters["rowFilter.projects.invite_id"];
+          updated_at?: parameters["rowFilter.projects.updated_at"];
+          created_at?: parameters["rowFilter.projects.created_at"];
+          /** Filtering Columns */
+          select?: parameters["select"];
+          /** Ordering */
+          order?: parameters["order"];
+          /** Limiting and Pagination */
+          offset?: parameters["offset"];
+          /** Limiting and Pagination */
+          limit?: parameters["limit"];
+        };
+        header: {
+          /** Limiting and Pagination */
+          Range?: parameters["range"];
+          /** Limiting and Pagination */
+          "Range-Unit"?: parameters["rangeUnit"];
+          /** Preference */
+          Prefer?: parameters["preferCount"];
+        };
+      };
+      responses: {
+        /** OK */
+        200: {
+          schema: definitions["projects"][];
         };
         /** Partial Content */
         206: unknown;
@@ -468,15 +669,15 @@ export interface paths {
       parameters: {
         body: {
           /** projects */
-          projects?: definitions['projects'];
+          projects?: definitions["projects"];
         };
         query: {
           /** Filtering Columns */
-          select?: parameters['select'];
+          select?: parameters["select"];
         };
         header: {
           /** Preference */
-          Prefer?: parameters['preferReturn'];
+          Prefer?: parameters["preferReturn"];
         };
       };
       responses: {
@@ -487,17 +688,17 @@ export interface paths {
     delete: {
       parameters: {
         query: {
-          id?: parameters['rowFilter.projects.id'];
-          title?: parameters['rowFilter.projects.title'];
-          owner_id?: parameters['rowFilter.projects.owner_id'];
-          public_url?: parameters['rowFilter.projects.public_url'];
-          asset_url?: parameters['rowFilter.projects.asset_url'];
-          /** Project ID used in the URL */
-          pid?: parameters['rowFilter.projects.pid'];
+          id?: parameters["rowFilter.projects.id"];
+          title?: parameters["rowFilter.projects.title"];
+          pid?: parameters["rowFilter.projects.pid"];
+          website_url?: parameters["rowFilter.projects.website_url"];
+          invite_id?: parameters["rowFilter.projects.invite_id"];
+          updated_at?: parameters["rowFilter.projects.updated_at"];
+          created_at?: parameters["rowFilter.projects.created_at"];
         };
         header: {
           /** Preference */
-          Prefer?: parameters['preferReturn'];
+          Prefer?: parameters["preferReturn"];
         };
       };
       responses: {
@@ -508,21 +709,21 @@ export interface paths {
     patch: {
       parameters: {
         query: {
-          id?: parameters['rowFilter.projects.id'];
-          title?: parameters['rowFilter.projects.title'];
-          owner_id?: parameters['rowFilter.projects.owner_id'];
-          public_url?: parameters['rowFilter.projects.public_url'];
-          asset_url?: parameters['rowFilter.projects.asset_url'];
-          /** Project ID used in the URL */
-          pid?: parameters['rowFilter.projects.pid'];
+          id?: parameters["rowFilter.projects.id"];
+          title?: parameters["rowFilter.projects.title"];
+          pid?: parameters["rowFilter.projects.pid"];
+          website_url?: parameters["rowFilter.projects.website_url"];
+          invite_id?: parameters["rowFilter.projects.invite_id"];
+          updated_at?: parameters["rowFilter.projects.updated_at"];
+          created_at?: parameters["rowFilter.projects.created_at"];
         };
         body: {
           /** projects */
-          projects?: definitions['projects'];
+          projects?: definitions["projects"];
         };
         header: {
           /** Preference */
-          Prefer?: parameters['preferReturn'];
+          Prefer?: parameters["preferReturn"];
         };
       };
       responses: {
@@ -531,47 +732,47 @@ export interface paths {
       };
     };
   };
-  '/subscriptions': {
+  "/subscriptions": {
     get: {
       parameters: {
         query: {
-          id?: parameters['rowFilter.subscriptions.id'];
-          user_id?: parameters['rowFilter.subscriptions.user_id'];
-          status?: parameters['rowFilter.subscriptions.status'];
-          metadata?: parameters['rowFilter.subscriptions.metadata'];
-          price_id?: parameters['rowFilter.subscriptions.price_id'];
-          quantity?: parameters['rowFilter.subscriptions.quantity'];
-          cancel_at_period_end?: parameters['rowFilter.subscriptions.cancel_at_period_end'];
-          created?: parameters['rowFilter.subscriptions.created'];
-          current_period_start?: parameters['rowFilter.subscriptions.current_period_start'];
-          current_period_end?: parameters['rowFilter.subscriptions.current_period_end'];
-          ended_at?: parameters['rowFilter.subscriptions.ended_at'];
-          cancel_at?: parameters['rowFilter.subscriptions.cancel_at'];
-          canceled_at?: parameters['rowFilter.subscriptions.canceled_at'];
-          trial_start?: parameters['rowFilter.subscriptions.trial_start'];
-          trial_end?: parameters['rowFilter.subscriptions.trial_end'];
+          id?: parameters["rowFilter.subscriptions.id"];
+          user_id?: parameters["rowFilter.subscriptions.user_id"];
+          status?: parameters["rowFilter.subscriptions.status"];
+          metadata?: parameters["rowFilter.subscriptions.metadata"];
+          price_id?: parameters["rowFilter.subscriptions.price_id"];
+          quantity?: parameters["rowFilter.subscriptions.quantity"];
+          cancel_at_period_end?: parameters["rowFilter.subscriptions.cancel_at_period_end"];
+          created?: parameters["rowFilter.subscriptions.created"];
+          current_period_start?: parameters["rowFilter.subscriptions.current_period_start"];
+          current_period_end?: parameters["rowFilter.subscriptions.current_period_end"];
+          ended_at?: parameters["rowFilter.subscriptions.ended_at"];
+          cancel_at?: parameters["rowFilter.subscriptions.cancel_at"];
+          canceled_at?: parameters["rowFilter.subscriptions.canceled_at"];
+          trial_start?: parameters["rowFilter.subscriptions.trial_start"];
+          trial_end?: parameters["rowFilter.subscriptions.trial_end"];
           /** Filtering Columns */
-          select?: parameters['select'];
+          select?: parameters["select"];
           /** Ordering */
-          order?: parameters['order'];
+          order?: parameters["order"];
           /** Limiting and Pagination */
-          offset?: parameters['offset'];
+          offset?: parameters["offset"];
           /** Limiting and Pagination */
-          limit?: parameters['limit'];
+          limit?: parameters["limit"];
         };
         header: {
           /** Limiting and Pagination */
-          Range?: parameters['range'];
+          Range?: parameters["range"];
           /** Limiting and Pagination */
-          'Range-Unit'?: parameters['rangeUnit'];
+          "Range-Unit"?: parameters["rangeUnit"];
           /** Preference */
-          Prefer?: parameters['preferCount'];
+          Prefer?: parameters["preferCount"];
         };
       };
       responses: {
         /** OK */
         200: {
-          schema: definitions['subscriptions'][];
+          schema: definitions["subscriptions"][];
         };
         /** Partial Content */
         206: unknown;
@@ -581,15 +782,15 @@ export interface paths {
       parameters: {
         body: {
           /** subscriptions */
-          subscriptions?: definitions['subscriptions'];
+          subscriptions?: definitions["subscriptions"];
         };
         query: {
           /** Filtering Columns */
-          select?: parameters['select'];
+          select?: parameters["select"];
         };
         header: {
           /** Preference */
-          Prefer?: parameters['preferReturn'];
+          Prefer?: parameters["preferReturn"];
         };
       };
       responses: {
@@ -600,25 +801,25 @@ export interface paths {
     delete: {
       parameters: {
         query: {
-          id?: parameters['rowFilter.subscriptions.id'];
-          user_id?: parameters['rowFilter.subscriptions.user_id'];
-          status?: parameters['rowFilter.subscriptions.status'];
-          metadata?: parameters['rowFilter.subscriptions.metadata'];
-          price_id?: parameters['rowFilter.subscriptions.price_id'];
-          quantity?: parameters['rowFilter.subscriptions.quantity'];
-          cancel_at_period_end?: parameters['rowFilter.subscriptions.cancel_at_period_end'];
-          created?: parameters['rowFilter.subscriptions.created'];
-          current_period_start?: parameters['rowFilter.subscriptions.current_period_start'];
-          current_period_end?: parameters['rowFilter.subscriptions.current_period_end'];
-          ended_at?: parameters['rowFilter.subscriptions.ended_at'];
-          cancel_at?: parameters['rowFilter.subscriptions.cancel_at'];
-          canceled_at?: parameters['rowFilter.subscriptions.canceled_at'];
-          trial_start?: parameters['rowFilter.subscriptions.trial_start'];
-          trial_end?: parameters['rowFilter.subscriptions.trial_end'];
+          id?: parameters["rowFilter.subscriptions.id"];
+          user_id?: parameters["rowFilter.subscriptions.user_id"];
+          status?: parameters["rowFilter.subscriptions.status"];
+          metadata?: parameters["rowFilter.subscriptions.metadata"];
+          price_id?: parameters["rowFilter.subscriptions.price_id"];
+          quantity?: parameters["rowFilter.subscriptions.quantity"];
+          cancel_at_period_end?: parameters["rowFilter.subscriptions.cancel_at_period_end"];
+          created?: parameters["rowFilter.subscriptions.created"];
+          current_period_start?: parameters["rowFilter.subscriptions.current_period_start"];
+          current_period_end?: parameters["rowFilter.subscriptions.current_period_end"];
+          ended_at?: parameters["rowFilter.subscriptions.ended_at"];
+          cancel_at?: parameters["rowFilter.subscriptions.cancel_at"];
+          canceled_at?: parameters["rowFilter.subscriptions.canceled_at"];
+          trial_start?: parameters["rowFilter.subscriptions.trial_start"];
+          trial_end?: parameters["rowFilter.subscriptions.trial_end"];
         };
         header: {
           /** Preference */
-          Prefer?: parameters['preferReturn'];
+          Prefer?: parameters["preferReturn"];
         };
       };
       responses: {
@@ -629,29 +830,29 @@ export interface paths {
     patch: {
       parameters: {
         query: {
-          id?: parameters['rowFilter.subscriptions.id'];
-          user_id?: parameters['rowFilter.subscriptions.user_id'];
-          status?: parameters['rowFilter.subscriptions.status'];
-          metadata?: parameters['rowFilter.subscriptions.metadata'];
-          price_id?: parameters['rowFilter.subscriptions.price_id'];
-          quantity?: parameters['rowFilter.subscriptions.quantity'];
-          cancel_at_period_end?: parameters['rowFilter.subscriptions.cancel_at_period_end'];
-          created?: parameters['rowFilter.subscriptions.created'];
-          current_period_start?: parameters['rowFilter.subscriptions.current_period_start'];
-          current_period_end?: parameters['rowFilter.subscriptions.current_period_end'];
-          ended_at?: parameters['rowFilter.subscriptions.ended_at'];
-          cancel_at?: parameters['rowFilter.subscriptions.cancel_at'];
-          canceled_at?: parameters['rowFilter.subscriptions.canceled_at'];
-          trial_start?: parameters['rowFilter.subscriptions.trial_start'];
-          trial_end?: parameters['rowFilter.subscriptions.trial_end'];
+          id?: parameters["rowFilter.subscriptions.id"];
+          user_id?: parameters["rowFilter.subscriptions.user_id"];
+          status?: parameters["rowFilter.subscriptions.status"];
+          metadata?: parameters["rowFilter.subscriptions.metadata"];
+          price_id?: parameters["rowFilter.subscriptions.price_id"];
+          quantity?: parameters["rowFilter.subscriptions.quantity"];
+          cancel_at_period_end?: parameters["rowFilter.subscriptions.cancel_at_period_end"];
+          created?: parameters["rowFilter.subscriptions.created"];
+          current_period_start?: parameters["rowFilter.subscriptions.current_period_start"];
+          current_period_end?: parameters["rowFilter.subscriptions.current_period_end"];
+          ended_at?: parameters["rowFilter.subscriptions.ended_at"];
+          cancel_at?: parameters["rowFilter.subscriptions.cancel_at"];
+          canceled_at?: parameters["rowFilter.subscriptions.canceled_at"];
+          trial_start?: parameters["rowFilter.subscriptions.trial_start"];
+          trial_end?: parameters["rowFilter.subscriptions.trial_end"];
         };
         body: {
           /** subscriptions */
-          subscriptions?: definitions['subscriptions'];
+          subscriptions?: definitions["subscriptions"];
         };
         header: {
           /** Preference */
-          Prefer?: parameters['preferReturn'];
+          Prefer?: parameters["preferReturn"];
         };
       };
       responses: {
@@ -660,37 +861,34 @@ export interface paths {
       };
     };
   };
-  '/users': {
+  "/team_user": {
     get: {
       parameters: {
         query: {
-          id?: parameters['rowFilter.users.id'];
-          full_name?: parameters['rowFilter.users.full_name'];
-          avatar_url?: parameters['rowFilter.users.avatar_url'];
-          billing_address?: parameters['rowFilter.users.billing_address'];
-          payment_method?: parameters['rowFilter.users.payment_method'];
+          team_id?: parameters["rowFilter.team_user.team_id"];
+          user_id?: parameters["rowFilter.team_user.user_id"];
           /** Filtering Columns */
-          select?: parameters['select'];
+          select?: parameters["select"];
           /** Ordering */
-          order?: parameters['order'];
+          order?: parameters["order"];
           /** Limiting and Pagination */
-          offset?: parameters['offset'];
+          offset?: parameters["offset"];
           /** Limiting and Pagination */
-          limit?: parameters['limit'];
+          limit?: parameters["limit"];
         };
         header: {
           /** Limiting and Pagination */
-          Range?: parameters['range'];
+          Range?: parameters["range"];
           /** Limiting and Pagination */
-          'Range-Unit'?: parameters['rangeUnit'];
+          "Range-Unit"?: parameters["rangeUnit"];
           /** Preference */
-          Prefer?: parameters['preferCount'];
+          Prefer?: parameters["preferCount"];
         };
       };
       responses: {
         /** OK */
         200: {
-          schema: definitions['users'][];
+          schema: definitions["team_user"][];
         };
         /** Partial Content */
         206: unknown;
@@ -699,16 +897,16 @@ export interface paths {
     post: {
       parameters: {
         body: {
-          /** users */
-          users?: definitions['users'];
+          /** team_user */
+          team_user?: definitions["team_user"];
         };
         query: {
           /** Filtering Columns */
-          select?: parameters['select'];
+          select?: parameters["select"];
         };
         header: {
           /** Preference */
-          Prefer?: parameters['preferReturn'];
+          Prefer?: parameters["preferReturn"];
         };
       };
       responses: {
@@ -719,15 +917,12 @@ export interface paths {
     delete: {
       parameters: {
         query: {
-          id?: parameters['rowFilter.users.id'];
-          full_name?: parameters['rowFilter.users.full_name'];
-          avatar_url?: parameters['rowFilter.users.avatar_url'];
-          billing_address?: parameters['rowFilter.users.billing_address'];
-          payment_method?: parameters['rowFilter.users.payment_method'];
+          team_id?: parameters["rowFilter.team_user.team_id"];
+          user_id?: parameters["rowFilter.team_user.user_id"];
         };
         header: {
           /** Preference */
-          Prefer?: parameters['preferReturn'];
+          Prefer?: parameters["preferReturn"];
         };
       };
       responses: {
@@ -738,19 +933,16 @@ export interface paths {
     patch: {
       parameters: {
         query: {
-          id?: parameters['rowFilter.users.id'];
-          full_name?: parameters['rowFilter.users.full_name'];
-          avatar_url?: parameters['rowFilter.users.avatar_url'];
-          billing_address?: parameters['rowFilter.users.billing_address'];
-          payment_method?: parameters['rowFilter.users.payment_method'];
+          team_id?: parameters["rowFilter.team_user.team_id"];
+          user_id?: parameters["rowFilter.team_user.user_id"];
         };
         body: {
-          /** users */
-          users?: definitions['users'];
+          /** team_user */
+          team_user?: definitions["team_user"];
         };
         header: {
           /** Preference */
-          Prefer?: parameters['preferReturn'];
+          Prefer?: parameters["preferReturn"];
         };
       };
       responses: {
@@ -759,15 +951,348 @@ export interface paths {
       };
     };
   };
-  '/rpc/handle_new_user': {
+  "/teams": {
+    get: {
+      parameters: {
+        query: {
+          id?: parameters["rowFilter.teams.id"];
+          name?: parameters["rowFilter.teams.name"];
+          photo_url?: parameters["rowFilter.teams.photo_url"];
+          stripe_id?: parameters["rowFilter.teams.stripe_id"];
+          current_billing_plan?: parameters["rowFilter.teams.current_billing_plan"];
+          /** Filtering Columns */
+          select?: parameters["select"];
+          /** Ordering */
+          order?: parameters["order"];
+          /** Limiting and Pagination */
+          offset?: parameters["offset"];
+          /** Limiting and Pagination */
+          limit?: parameters["limit"];
+        };
+        header: {
+          /** Limiting and Pagination */
+          Range?: parameters["range"];
+          /** Limiting and Pagination */
+          "Range-Unit"?: parameters["rangeUnit"];
+          /** Preference */
+          Prefer?: parameters["preferCount"];
+        };
+      };
+      responses: {
+        /** OK */
+        200: {
+          schema: definitions["teams"][];
+        };
+        /** Partial Content */
+        206: unknown;
+      };
+    };
     post: {
       parameters: {
         body: {
-          args: { [key: string]: any };
+          /** teams */
+          teams?: definitions["teams"];
+        };
+        query: {
+          /** Filtering Columns */
+          select?: parameters["select"];
         };
         header: {
           /** Preference */
-          Prefer?: parameters['preferParams'];
+          Prefer?: parameters["preferReturn"];
+        };
+      };
+      responses: {
+        /** Created */
+        201: unknown;
+      };
+    };
+    delete: {
+      parameters: {
+        query: {
+          id?: parameters["rowFilter.teams.id"];
+          name?: parameters["rowFilter.teams.name"];
+          photo_url?: parameters["rowFilter.teams.photo_url"];
+          stripe_id?: parameters["rowFilter.teams.stripe_id"];
+          current_billing_plan?: parameters["rowFilter.teams.current_billing_plan"];
+        };
+        header: {
+          /** Preference */
+          Prefer?: parameters["preferReturn"];
+        };
+      };
+      responses: {
+        /** No Content */
+        204: never;
+      };
+    };
+    patch: {
+      parameters: {
+        query: {
+          id?: parameters["rowFilter.teams.id"];
+          name?: parameters["rowFilter.teams.name"];
+          photo_url?: parameters["rowFilter.teams.photo_url"];
+          stripe_id?: parameters["rowFilter.teams.stripe_id"];
+          current_billing_plan?: parameters["rowFilter.teams.current_billing_plan"];
+        };
+        body: {
+          /** teams */
+          teams?: definitions["teams"];
+        };
+        header: {
+          /** Preference */
+          Prefer?: parameters["preferReturn"];
+        };
+      };
+      responses: {
+        /** No Content */
+        204: never;
+      };
+    };
+  };
+  "/teams_subscriptions": {
+    get: {
+      parameters: {
+        query: {
+          id?: parameters["rowFilter.teams_subscriptions.id"];
+          team_id?: parameters["rowFilter.teams_subscriptions.team_id"];
+          status?: parameters["rowFilter.teams_subscriptions.status"];
+          metadata?: parameters["rowFilter.teams_subscriptions.metadata"];
+          price_id?: parameters["rowFilter.teams_subscriptions.price_id"];
+          quantity?: parameters["rowFilter.teams_subscriptions.quantity"];
+          cancel_at_period_end?: parameters["rowFilter.teams_subscriptions.cancel_at_period_end"];
+          created?: parameters["rowFilter.teams_subscriptions.created"];
+          current_period_start?: parameters["rowFilter.teams_subscriptions.current_period_start"];
+          current_period_end?: parameters["rowFilter.teams_subscriptions.current_period_end"];
+          ended_at?: parameters["rowFilter.teams_subscriptions.ended_at"];
+          cancel_at?: parameters["rowFilter.teams_subscriptions.cancel_at"];
+          canceled_at?: parameters["rowFilter.teams_subscriptions.canceled_at"];
+          trial_start?: parameters["rowFilter.teams_subscriptions.trial_start"];
+          trial_end?: parameters["rowFilter.teams_subscriptions.trial_end"];
+          /** Filtering Columns */
+          select?: parameters["select"];
+          /** Ordering */
+          order?: parameters["order"];
+          /** Limiting and Pagination */
+          offset?: parameters["offset"];
+          /** Limiting and Pagination */
+          limit?: parameters["limit"];
+        };
+        header: {
+          /** Limiting and Pagination */
+          Range?: parameters["range"];
+          /** Limiting and Pagination */
+          "Range-Unit"?: parameters["rangeUnit"];
+          /** Preference */
+          Prefer?: parameters["preferCount"];
+        };
+      };
+      responses: {
+        /** OK */
+        200: {
+          schema: definitions["teams_subscriptions"][];
+        };
+        /** Partial Content */
+        206: unknown;
+      };
+    };
+    post: {
+      parameters: {
+        body: {
+          /** teams_subscriptions */
+          teams_subscriptions?: definitions["teams_subscriptions"];
+        };
+        query: {
+          /** Filtering Columns */
+          select?: parameters["select"];
+        };
+        header: {
+          /** Preference */
+          Prefer?: parameters["preferReturn"];
+        };
+      };
+      responses: {
+        /** Created */
+        201: unknown;
+      };
+    };
+    delete: {
+      parameters: {
+        query: {
+          id?: parameters["rowFilter.teams_subscriptions.id"];
+          team_id?: parameters["rowFilter.teams_subscriptions.team_id"];
+          status?: parameters["rowFilter.teams_subscriptions.status"];
+          metadata?: parameters["rowFilter.teams_subscriptions.metadata"];
+          price_id?: parameters["rowFilter.teams_subscriptions.price_id"];
+          quantity?: parameters["rowFilter.teams_subscriptions.quantity"];
+          cancel_at_period_end?: parameters["rowFilter.teams_subscriptions.cancel_at_period_end"];
+          created?: parameters["rowFilter.teams_subscriptions.created"];
+          current_period_start?: parameters["rowFilter.teams_subscriptions.current_period_start"];
+          current_period_end?: parameters["rowFilter.teams_subscriptions.current_period_end"];
+          ended_at?: parameters["rowFilter.teams_subscriptions.ended_at"];
+          cancel_at?: parameters["rowFilter.teams_subscriptions.cancel_at"];
+          canceled_at?: parameters["rowFilter.teams_subscriptions.canceled_at"];
+          trial_start?: parameters["rowFilter.teams_subscriptions.trial_start"];
+          trial_end?: parameters["rowFilter.teams_subscriptions.trial_end"];
+        };
+        header: {
+          /** Preference */
+          Prefer?: parameters["preferReturn"];
+        };
+      };
+      responses: {
+        /** No Content */
+        204: never;
+      };
+    };
+    patch: {
+      parameters: {
+        query: {
+          id?: parameters["rowFilter.teams_subscriptions.id"];
+          team_id?: parameters["rowFilter.teams_subscriptions.team_id"];
+          status?: parameters["rowFilter.teams_subscriptions.status"];
+          metadata?: parameters["rowFilter.teams_subscriptions.metadata"];
+          price_id?: parameters["rowFilter.teams_subscriptions.price_id"];
+          quantity?: parameters["rowFilter.teams_subscriptions.quantity"];
+          cancel_at_period_end?: parameters["rowFilter.teams_subscriptions.cancel_at_period_end"];
+          created?: parameters["rowFilter.teams_subscriptions.created"];
+          current_period_start?: parameters["rowFilter.teams_subscriptions.current_period_start"];
+          current_period_end?: parameters["rowFilter.teams_subscriptions.current_period_end"];
+          ended_at?: parameters["rowFilter.teams_subscriptions.ended_at"];
+          cancel_at?: parameters["rowFilter.teams_subscriptions.cancel_at"];
+          canceled_at?: parameters["rowFilter.teams_subscriptions.canceled_at"];
+          trial_start?: parameters["rowFilter.teams_subscriptions.trial_start"];
+          trial_end?: parameters["rowFilter.teams_subscriptions.trial_end"];
+        };
+        body: {
+          /** teams_subscriptions */
+          teams_subscriptions?: definitions["teams_subscriptions"];
+        };
+        header: {
+          /** Preference */
+          Prefer?: parameters["preferReturn"];
+        };
+      };
+      responses: {
+        /** No Content */
+        204: never;
+      };
+    };
+  };
+  "/users": {
+    get: {
+      parameters: {
+        query: {
+          id?: parameters["rowFilter.users.id"];
+          full_name?: parameters["rowFilter.users.full_name"];
+          avatar_url?: parameters["rowFilter.users.avatar_url"];
+          billing_address?: parameters["rowFilter.users.billing_address"];
+          payment_method?: parameters["rowFilter.users.payment_method"];
+          role?: parameters["rowFilter.users.role"];
+          email?: parameters["rowFilter.users.email"];
+          /** Filtering Columns */
+          select?: parameters["select"];
+          /** Ordering */
+          order?: parameters["order"];
+          /** Limiting and Pagination */
+          offset?: parameters["offset"];
+          /** Limiting and Pagination */
+          limit?: parameters["limit"];
+        };
+        header: {
+          /** Limiting and Pagination */
+          Range?: parameters["range"];
+          /** Limiting and Pagination */
+          "Range-Unit"?: parameters["rangeUnit"];
+          /** Preference */
+          Prefer?: parameters["preferCount"];
+        };
+      };
+      responses: {
+        /** OK */
+        200: {
+          schema: definitions["users"][];
+        };
+        /** Partial Content */
+        206: unknown;
+      };
+    };
+    post: {
+      parameters: {
+        body: {
+          /** users */
+          users?: definitions["users"];
+        };
+        query: {
+          /** Filtering Columns */
+          select?: parameters["select"];
+        };
+        header: {
+          /** Preference */
+          Prefer?: parameters["preferReturn"];
+        };
+      };
+      responses: {
+        /** Created */
+        201: unknown;
+      };
+    };
+    delete: {
+      parameters: {
+        query: {
+          id?: parameters["rowFilter.users.id"];
+          full_name?: parameters["rowFilter.users.full_name"];
+          avatar_url?: parameters["rowFilter.users.avatar_url"];
+          billing_address?: parameters["rowFilter.users.billing_address"];
+          payment_method?: parameters["rowFilter.users.payment_method"];
+          role?: parameters["rowFilter.users.role"];
+          email?: parameters["rowFilter.users.email"];
+        };
+        header: {
+          /** Preference */
+          Prefer?: parameters["preferReturn"];
+        };
+      };
+      responses: {
+        /** No Content */
+        204: never;
+      };
+    };
+    patch: {
+      parameters: {
+        query: {
+          id?: parameters["rowFilter.users.id"];
+          full_name?: parameters["rowFilter.users.full_name"];
+          avatar_url?: parameters["rowFilter.users.avatar_url"];
+          billing_address?: parameters["rowFilter.users.billing_address"];
+          payment_method?: parameters["rowFilter.users.payment_method"];
+          role?: parameters["rowFilter.users.role"];
+          email?: parameters["rowFilter.users.email"];
+        };
+        body: {
+          /** users */
+          users?: definitions["users"];
+        };
+        header: {
+          /** Preference */
+          Prefer?: parameters["preferReturn"];
+        };
+      };
+      responses: {
+        /** No Content */
+        204: never;
+      };
+    };
+  };
+  "/rpc/handle_new_user": {
+    post: {
+      parameters: {
+        body: {
+          args: { [key: string]: unknown };
+        };
+        header: {
+          /** Preference */
+          Prefer?: parameters["preferParams"];
         };
       };
       responses: {
@@ -785,29 +1310,42 @@ export interface definitions {
      * This is a Primary Key.<pk/>
      */
     id: number;
-    content?: string;
-    /**
-     * Note:
-     * This is a Foreign Key to `projects.id`.<fk table='projects' column='id'/>
-     */
-    project_id?: number;
-    x_pos?: number;
-    y_pos?: number;
-    is_completed: boolean;
+    is_completed?: boolean;
     /**
      * Note:
      * This is a Foreign Key to `users.id`.<fk table='users' column='id'/>
      */
     author_id: string;
+    content: string;
+    /**
+     * Note:
+     * This is a Foreign Key to `projects.id`.<fk table='projects' column='id'/>
+     */
+    project_id: number;
   };
   customers: {
     /**
      * Note:
      * This is a Primary Key.<pk/>
-     * This is a Foreign Key to `users.id`.<fk table='users' column='id'/>
      */
     id: string;
     stripe_customer_id?: string;
+  };
+  flyway_schema_history: {
+    /**
+     * Note:
+     * This is a Primary Key.<pk/>
+     */
+    installed_rank: number;
+    version?: string;
+    description: string;
+    type: string;
+    script: string;
+    checksum?: number;
+    installed_by: string;
+    installed_on: string;
+    execution_time: number;
+    success: boolean;
   };
   prices: {
     /**
@@ -824,8 +1362,8 @@ export interface definitions {
     description?: string;
     unit_amount?: number;
     currency?: string;
-    type?: 'one_time' | 'recurring';
-    interval?: 'day' | 'week' | 'month' | 'year';
+    type?: "one_time" | "recurring";
+    interval?: "day" | "week" | "month" | "year";
     interval_count?: number;
     trial_period_days?: number;
     metadata?: string;
@@ -842,6 +1380,21 @@ export interface definitions {
     image?: string;
     metadata?: string;
   };
+  project_user: {
+    /**
+     * Note:
+     * This is a Primary Key.<pk/>
+     * This is a Foreign Key to `projects.id`.<fk table='projects' column='id'/>
+     */
+    project_id: number;
+    /**
+     * Note:
+     * This is a Primary Key.<pk/>
+     * This is a Foreign Key to `users.id`.<fk table='users' column='id'/>
+     */
+    user_id: string;
+    is_owner?: boolean;
+  };
   projects: {
     /**
      * Note:
@@ -849,15 +1402,11 @@ export interface definitions {
      */
     id: number;
     title?: string;
-    /**
-     * Note:
-     * This is a Foreign Key to `users.id`.<fk table='users' column='id'/>
-     */
-    owner_id: string;
-    public_url?: string;
-    asset_url?: string;
-    /** Project ID used in the URL */
     pid?: string;
+    website_url: string;
+    invite_id: string;
+    updated_at: string;
+    created_at: string;
   };
   subscriptions: {
     /**
@@ -865,19 +1414,76 @@ export interface definitions {
      * This is a Primary Key.<pk/>
      */
     id: string;
+    user_id: string;
+    status?:
+      | "trialing"
+      | "active"
+      | "canceled"
+      | "incomplete"
+      | "incomplete_expired"
+      | "past_due"
+      | "unpaid";
+    metadata?: string;
     /**
      * Note:
+     * This is a Foreign Key to `prices.id`.<fk table='prices' column='id'/>
+     */
+    price_id?: string;
+    quantity?: number;
+    cancel_at_period_end?: boolean;
+    created: string;
+    current_period_start: string;
+    current_period_end: string;
+    ended_at?: string;
+    cancel_at?: string;
+    canceled_at?: string;
+    trial_start?: string;
+    trial_end?: string;
+  };
+  team_user: {
+    /**
+     * Note:
+     * This is a Primary Key.<pk/>
+     * This is a Foreign Key to `teams.id`.<fk table='teams' column='id'/>
+     */
+    team_id: number;
+    /**
+     * Note:
+     * This is a Primary Key.<pk/>
      * This is a Foreign Key to `users.id`.<fk table='users' column='id'/>
      */
     user_id: string;
+  };
+  teams: {
+    /**
+     * Note:
+     * This is a Primary Key.<pk/>
+     */
+    id: number;
+    name: string;
+    photo_url?: string;
+    stripe_id?: string;
+    current_billing_plan?: string;
+  };
+  teams_subscriptions: {
+    /**
+     * Note:
+     * This is a Primary Key.<pk/>
+     */
+    id: string;
+    /**
+     * Note:
+     * This is a Foreign Key to `teams.id`.<fk table='teams' column='id'/>
+     */
+    team_id: number;
     status?:
-      | 'trialing'
-      | 'active'
-      | 'canceled'
-      | 'incomplete'
-      | 'incomplete_expired'
-      | 'past_due'
-      | 'unpaid';
+      | "trialing"
+      | "active"
+      | "canceled"
+      | "incomplete"
+      | "incomplete_expired"
+      | "past_due"
+      | "unpaid";
     metadata?: string;
     /**
      * Note:
@@ -899,23 +1505,24 @@ export interface definitions {
     /**
      * Note:
      * This is a Primary Key.<pk/>
-     * This is a Foreign Key to `users.id`.<fk table='users' column='id'/>
      */
     id: string;
     full_name?: string;
     avatar_url?: string;
     billing_address?: string;
     payment_method?: string;
+    role?: "team_member" | "team_admin" | "individual";
+    email?: string;
   };
 }
 
 export interface parameters {
   /** Preference */
-  preferParams: 'params=single-object';
+  preferParams: "params=single-object";
   /** Preference */
-  preferReturn: 'return=representation' | 'return=minimal' | 'return=none';
+  preferReturn: "return=representation" | "return=minimal" | "return=none";
   /** Preference */
-  preferCount: 'count=none';
+  preferCount: "count=none";
   /** Filtering Columns */
   select: string;
   /** On Conflict */
@@ -931,72 +1538,117 @@ export interface parameters {
   /** Limiting and Pagination */
   limit: string;
   /** comments */
-  'body.comments': definitions['comments'];
-  'rowFilter.comments.id': string;
-  'rowFilter.comments.content': string;
-  'rowFilter.comments.project_id': string;
-  'rowFilter.comments.x_pos': string;
-  'rowFilter.comments.y_pos': string;
-  'rowFilter.comments.is_completed': string;
-  'rowFilter.comments.author_id': string;
+  "body.comments": definitions["comments"];
+  "rowFilter.comments.id": string;
+  "rowFilter.comments.is_completed": string;
+  "rowFilter.comments.author_id": string;
+  "rowFilter.comments.content": string;
+  "rowFilter.comments.project_id": string;
   /** customers */
-  'body.customers': definitions['customers'];
-  'rowFilter.customers.id': string;
-  'rowFilter.customers.stripe_customer_id': string;
+  "body.customers": definitions["customers"];
+  "rowFilter.customers.id": string;
+  "rowFilter.customers.stripe_customer_id": string;
+  /** flyway_schema_history */
+  "body.flyway_schema_history": definitions["flyway_schema_history"];
+  "rowFilter.flyway_schema_history.installed_rank": string;
+  "rowFilter.flyway_schema_history.version": string;
+  "rowFilter.flyway_schema_history.description": string;
+  "rowFilter.flyway_schema_history.type": string;
+  "rowFilter.flyway_schema_history.script": string;
+  "rowFilter.flyway_schema_history.checksum": string;
+  "rowFilter.flyway_schema_history.installed_by": string;
+  "rowFilter.flyway_schema_history.installed_on": string;
+  "rowFilter.flyway_schema_history.execution_time": string;
+  "rowFilter.flyway_schema_history.success": string;
   /** prices */
-  'body.prices': definitions['prices'];
-  'rowFilter.prices.id': string;
-  'rowFilter.prices.product_id': string;
-  'rowFilter.prices.active': string;
-  'rowFilter.prices.description': string;
-  'rowFilter.prices.unit_amount': string;
-  'rowFilter.prices.currency': string;
-  'rowFilter.prices.type': string;
-  'rowFilter.prices.interval': string;
-  'rowFilter.prices.interval_count': string;
-  'rowFilter.prices.trial_period_days': string;
-  'rowFilter.prices.metadata': string;
+  "body.prices": definitions["prices"];
+  "rowFilter.prices.id": string;
+  "rowFilter.prices.product_id": string;
+  "rowFilter.prices.active": string;
+  "rowFilter.prices.description": string;
+  "rowFilter.prices.unit_amount": string;
+  "rowFilter.prices.currency": string;
+  "rowFilter.prices.type": string;
+  "rowFilter.prices.interval": string;
+  "rowFilter.prices.interval_count": string;
+  "rowFilter.prices.trial_period_days": string;
+  "rowFilter.prices.metadata": string;
   /** products */
-  'body.products': definitions['products'];
-  'rowFilter.products.id': string;
-  'rowFilter.products.active': string;
-  'rowFilter.products.name': string;
-  'rowFilter.products.description': string;
-  'rowFilter.products.image': string;
-  'rowFilter.products.metadata': string;
+  "body.products": definitions["products"];
+  "rowFilter.products.id": string;
+  "rowFilter.products.active": string;
+  "rowFilter.products.name": string;
+  "rowFilter.products.description": string;
+  "rowFilter.products.image": string;
+  "rowFilter.products.metadata": string;
+  /** project_user */
+  "body.project_user": definitions["project_user"];
+  "rowFilter.project_user.project_id": string;
+  "rowFilter.project_user.user_id": string;
+  "rowFilter.project_user.is_owner": string;
   /** projects */
-  'body.projects': definitions['projects'];
-  'rowFilter.projects.id': string;
-  'rowFilter.projects.title': string;
-  'rowFilter.projects.owner_id': string;
-  'rowFilter.projects.public_url': string;
-  'rowFilter.projects.asset_url': string;
-  /** Project ID used in the URL */
-  'rowFilter.projects.pid': string;
+  "body.projects": definitions["projects"];
+  "rowFilter.projects.id": string;
+  "rowFilter.projects.title": string;
+  "rowFilter.projects.pid": string;
+  "rowFilter.projects.website_url": string;
+  "rowFilter.projects.invite_id": string;
+  "rowFilter.projects.updated_at": string;
+  "rowFilter.projects.created_at": string;
   /** subscriptions */
-  'body.subscriptions': definitions['subscriptions'];
-  'rowFilter.subscriptions.id': string;
-  'rowFilter.subscriptions.user_id': string;
-  'rowFilter.subscriptions.status': string;
-  'rowFilter.subscriptions.metadata': string;
-  'rowFilter.subscriptions.price_id': string;
-  'rowFilter.subscriptions.quantity': string;
-  'rowFilter.subscriptions.cancel_at_period_end': string;
-  'rowFilter.subscriptions.created': string;
-  'rowFilter.subscriptions.current_period_start': string;
-  'rowFilter.subscriptions.current_period_end': string;
-  'rowFilter.subscriptions.ended_at': string;
-  'rowFilter.subscriptions.cancel_at': string;
-  'rowFilter.subscriptions.canceled_at': string;
-  'rowFilter.subscriptions.trial_start': string;
-  'rowFilter.subscriptions.trial_end': string;
+  "body.subscriptions": definitions["subscriptions"];
+  "rowFilter.subscriptions.id": string;
+  "rowFilter.subscriptions.user_id": string;
+  "rowFilter.subscriptions.status": string;
+  "rowFilter.subscriptions.metadata": string;
+  "rowFilter.subscriptions.price_id": string;
+  "rowFilter.subscriptions.quantity": string;
+  "rowFilter.subscriptions.cancel_at_period_end": string;
+  "rowFilter.subscriptions.created": string;
+  "rowFilter.subscriptions.current_period_start": string;
+  "rowFilter.subscriptions.current_period_end": string;
+  "rowFilter.subscriptions.ended_at": string;
+  "rowFilter.subscriptions.cancel_at": string;
+  "rowFilter.subscriptions.canceled_at": string;
+  "rowFilter.subscriptions.trial_start": string;
+  "rowFilter.subscriptions.trial_end": string;
+  /** team_user */
+  "body.team_user": definitions["team_user"];
+  "rowFilter.team_user.team_id": string;
+  "rowFilter.team_user.user_id": string;
+  /** teams */
+  "body.teams": definitions["teams"];
+  "rowFilter.teams.id": string;
+  "rowFilter.teams.name": string;
+  "rowFilter.teams.photo_url": string;
+  "rowFilter.teams.stripe_id": string;
+  "rowFilter.teams.current_billing_plan": string;
+  /** teams_subscriptions */
+  "body.teams_subscriptions": definitions["teams_subscriptions"];
+  "rowFilter.teams_subscriptions.id": string;
+  "rowFilter.teams_subscriptions.team_id": string;
+  "rowFilter.teams_subscriptions.status": string;
+  "rowFilter.teams_subscriptions.metadata": string;
+  "rowFilter.teams_subscriptions.price_id": string;
+  "rowFilter.teams_subscriptions.quantity": string;
+  "rowFilter.teams_subscriptions.cancel_at_period_end": string;
+  "rowFilter.teams_subscriptions.created": string;
+  "rowFilter.teams_subscriptions.current_period_start": string;
+  "rowFilter.teams_subscriptions.current_period_end": string;
+  "rowFilter.teams_subscriptions.ended_at": string;
+  "rowFilter.teams_subscriptions.cancel_at": string;
+  "rowFilter.teams_subscriptions.canceled_at": string;
+  "rowFilter.teams_subscriptions.trial_start": string;
+  "rowFilter.teams_subscriptions.trial_end": string;
   /** users */
-  'body.users': definitions['users'];
-  'rowFilter.users.id': string;
-  'rowFilter.users.full_name': string;
-  'rowFilter.users.avatar_url': string;
-  'rowFilter.users.billing_address': string;
-  'rowFilter.users.payment_method': string;
+  "body.users": definitions["users"];
+  "rowFilter.users.id": string;
+  "rowFilter.users.full_name": string;
+  "rowFilter.users.avatar_url": string;
+  "rowFilter.users.billing_address": string;
+  "rowFilter.users.payment_method": string;
+  "rowFilter.users.role": string;
+  "rowFilter.users.email": string;
 }
 
 export interface operations {}
