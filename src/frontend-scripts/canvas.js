@@ -1,9 +1,13 @@
-const body = document.body;
+const body = document.querySelector('body');
 const excludedElements = ['main', 'svg', 'body', 'footer', 'head'];
 let currentZIndex;
 
+const OUTLINE_ID = 'hf-outline';
+const PIN_CLASSNAME = 'hf-pin';
+
 let width = 0;
 let height = 0;
+const pins = [];
 
 const generateRandomString = function (length = 6) {
   return Math.random().toString(36).substr(2, length).replace(/[0-9]/g, '');
@@ -26,64 +30,94 @@ var stringToHTML = function (str) {
 };
 
 function addElementOutline(element) {
-  if (element.nextElementSibling.id === 'hf-outline') {
+  if (element.nextElementSibling.id === OUTLINE_ID) {
     element.nextElementSibling.remove();
     return;
   }
-  if (element.id !== 'hf-outline') {
+  if (element.id !== OUTLINE_ID) {
     let outline = document.createElement('div');
-    outline.id = 'hf-outline';
+    outline.id = OUTLINE_ID;
     element.dataset.hfid = 'hf-target';
     element.insertAdjacentElement('beforeend', outline);
   }
 }
 function removeElementOutline(element) {
-  if (element.querySelector('#hf-outline') && element.id !== 'hf-outline') {
-    let outline = element.querySelector('#hf-outline');
+  if (element.querySelector(`#${OUTLINE_ID}`) && element.id !== OUTLINE_ID) {
+    let outline = element.querySelector(`#${OUTLINE_ID}`);
     let target = outline.closest('[data-hfid=hf-target]');
     if (target) target.dataset.hfid = '';
     outline.remove();
   }
 }
 
-const repositionPin = (event) => {
-  const pins = document.querySelectorAll('.hf-pin');
-
+const repositionPins = (event) => {
   pins.forEach((pin) => {
-    let newX = Math.floor(
-      (parseInt(pin.dataset.hfX) * window.innerWidth) / width
-    );
-    let newY = Math.floor(
-      (parseInt(pin.dataset.hfY) * window.innerHeight) / height
-    );
-    console.table({
-      newWindow: [window.innerWidth, window.innerHeight],
-      oldWindow: [width, height],
-      newValues: [newX, newY],
-      oldValues: [pin.dataset.hfX, pin.dataset.hfY],
-    });
-    pin.dataset.hfX = newX;
-    pin.dataset.hfY = newY;
-    pin.style.top = newY + 'px';
-    pin.style.left = newX + 'px';
+    const { left, top } = pin.relativeElement.getBoundingClientRect();
+    const pointX = pin.relativeX + left + window.pageXOffset;
+    const pointY = pin.relativeY + top + window.pageYOffset;
+    console.log(pin.idSelector);
+    document.querySelector(`#${pin.idSelector}`).remove();
+    const newPin = pinHTML(pointX, pointY, pin.idSelector);
+    body.appendChild(newPin);
   });
 };
 
 const placePin = (event) => {
-  const pin = pinHTML(event.x, event.y, generateRandomString());
+  event.preventDefault();
+  const randId = generateRandomString();
+  const el = findTopElement(event);
+  const { left, top } = el.getBoundingClientRect();
+  const relativeX = event.clientX - left; //x position within the element.
+  const relativeY = event.clientY - top; //y position within the element.
+  const pointX = relativeX + left + window.pageXOffset;
+  const pointY = relativeY + top + window.pageYOffset;
+  console.log('Left? : ' + pointX + ' ; Top? : ' + pointY + '.');
+
+  pins.push({
+    idSelector: randId,
+    relativeElement: el,
+    elementLeft: left,
+    elementTop: top,
+    relativeX,
+    relativeY,
+    MouseX: event.clientX,
+    MouseY: event.clientY,
+  });
+  const pin = pinHTML(pointX, pointY, randId);
 
   body.appendChild(pin);
-  console.log(event.element.path);
   if (window.location !== window.parent.location) {
-    let data = JSON.stringify({ x: event.x, y: event.y });
-    parent.postMessage(data, '*');
+    let data = JSON.stringify({ x: pointX, y: pointY, randId });
+    parent.postMessage({ x: pointX, y: pointY, randId }, '*');
   }
+};
 
-  window.addEventListener('resize', repositionPin);
+const disableAllLinks = () => {
+  const links = document.querySelectorAll('a');
+  for (let i = 0; i <= links.length - 1; i++) {
+    links[i].onclick = function () {
+      return false;
+    };
+  }
+};
+
+const findTopElement = (event) => {
+  const els = window.document.elementsFromPoint(event.clientX, event.clientY);
+
+  for (let i = 0; i <= els.length - 1; i++) {
+    if (els[i] instanceof SVGElement) return els[i];
+    if (els[i] instanceof HTMLElement) return els[i];
+  }
+  return null;
 };
 
 document.addEventListener('DOMContentLoaded', () => {
+  // setup
+  disableAllLinks();
   width = window.innerWidth;
   height = window.innerHeight;
+
+  // Event Listeners
   window.document.addEventListener('click', placePin);
+  window.addEventListener('resize', repositionPins);
 });
