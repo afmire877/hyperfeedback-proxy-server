@@ -71,7 +71,11 @@ const placePin = (event) => {
   const relativeY = event.clientY - top; //y position within the element.
   const pointX = relativeX + left + window.pageXOffset;
   const pointY = relativeY + top + window.pageYOffset;
-  console.log('Left? : ' + pointX + ' ; Top? : ' + pointY + '.');
+  console.log(
+    'Left? : ' + pointX + ' ; Top? : ' + pointY + '.',
+    'WINDOW:',
+    window
+  );
 
   pins.push({
     idSelector: randId,
@@ -86,10 +90,17 @@ const placePin = (event) => {
   const pin = pinHTML(pointX, pointY, randId);
 
   body.appendChild(pin);
-  if (window.location !== window.parent.location) {
-    let data = JSON.stringify({ x: pointX, y: pointY, randId });
-    parent.postMessage({ x: pointX, y: pointY, randId }, '*');
-  }
+
+  parent.postMessage(
+    {
+      x: pointX,
+      y: pointY,
+      randId,
+      mouseX: event.clientX,
+      mouseY: event.clientY,
+    },
+    '*'
+  );
 };
 
 const disableAllLinks = () => {
