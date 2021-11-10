@@ -1,14 +1,22 @@
+// CONSTANTS
+const PUBLIC_ANON_KEY =
+  'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzdXBhYmFzZSIsImlhdCI6MTYwMzk2ODgzNCwiZXhwIjoyNTUwNjUzNjM0LCJyb2xlIjoiYW5vbiJ9.36fUebxgx1mcBo4s19v0SzqmzunP--hm_hep0uLX0ew';
+const SUPABASE_URL = 'http://localhost:8000';
+const HF_URL = 'http://localhost:3000';
+
 const body = document.querySelector('body');
 const excludedElements = ['main', 'svg', 'body', 'footer', 'head'];
 let currentZIndex;
+let pid;
 
 const OUTLINE_ID = 'hf-outline';
 const PIN_CLASSNAME = 'hf-pin';
 
 let width = 0;
 let height = 0;
-const pins = [];
+let pins = [];
 
+// HELPERS
 const generateRandomString = function (length = 6) {
   return Math.random().toString(36).substr(2, length).replace(/[0-9]/g, '');
 };
@@ -27,6 +35,30 @@ var stringToHTML = function (str) {
   var parser = new DOMParser();
   var doc = parser.parseFromString(str, 'text/html');
   return doc.body;
+};
+
+const disableAllLinks = () => {
+  const links = document.querySelectorAll('a');
+  for (let i = 0; i <= links.length - 1; i++) {
+    links[i].onclick = function () {
+      return false;
+    };
+  }
+};
+
+// UI Controllers
+
+const getPins = async () => {
+  if (!supabase) return;
+
+  const { data, error } = await supabase
+    .from('projects')
+    .select('*, comments(*)')
+    .eq('pid', pid)
+    .single();
+
+  pins = data.comments;
+  repositionPins();
 };
 
 function addElementOutline(element) {
@@ -50,7 +82,7 @@ function removeElementOutline(element) {
   }
 }
 
-const repositionPins = (event) => {
+const repositionPins = () => {
   pins.forEach((pin) => {
     const { left, top } = pin.relativeElement.getBoundingClientRect();
     const pointX = pin.relativeX + left + window.pageXOffset;
@@ -80,8 +112,6 @@ const placePin = (event) => {
   pins.push({
     idSelector: randId,
     relativeElement: el,
-    elementLeft: left,
-    elementTop: top,
     relativeX,
     relativeY,
     MouseX: event.clientX,
@@ -95,21 +125,13 @@ const placePin = (event) => {
     {
       x: pointX,
       y: pointY,
-      randId,
+      idSelector: randId,
       mouseX: event.clientX,
       mouseY: event.clientY,
+      // relativeElement: el,
     },
     '*'
   );
-};
-
-const disableAllLinks = () => {
-  const links = document.querySelectorAll('a');
-  for (let i = 0; i <= links.length - 1; i++) {
-    links[i].onclick = function () {
-      return false;
-    };
-  }
 };
 
 const findTopElement = (event) => {
@@ -122,11 +144,25 @@ const findTopElement = (event) => {
   return null;
 };
 
+// INIT FUNC
+
 document.addEventListener('DOMContentLoaded', () => {
   // setup
   disableAllLinks();
   width = window.innerWidth;
   height = window.innerHeight;
+  pid = location.hostname.split('.')[0];
+
+  const { createClient } = supabase;
+  supabase = createClient(SUPABASE_URL, PUBLIC_ANON_KEY);
+  window.addEventListener('message', (event) => {
+    if (event.origin === HF_URL) {
+      if (!event.data) return;
+      console.log(`Received IFRAME:`, event.data, event);
+      localStorage.setItem('supabase.auth.token', event.data);
+      getPins();
+    }
+  });
 
   // Event Listeners
   window.document.addEventListener('click', placePin);

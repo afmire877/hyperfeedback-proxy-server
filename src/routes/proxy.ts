@@ -97,7 +97,7 @@ const requestFromUrl = (
 };
 
 const injectJSIntoWebsite = (html: string) => {
-  console.log('Injecting JS');
+  console.log('Injecting JS and CSS');
   const js = readFileSync(
     path.resolve(__dirname, '../frontend-scripts/canvas.js'),
     'utf8'
@@ -107,8 +107,13 @@ const injectJSIntoWebsite = (html: string) => {
     'utf8'
   );
   const $ = cheerio.load(html);
-  $('body').append(`<script>${js}</script>`);
-  $('body').append(`<style>${css}</style>`);
+  const body = $('body');
+  body.append(
+    `<script src='https://cdn.jsdelivr.net/npm/@supabase/supabase-js' ></script>`
+  );
+
+  body.append(`<script>${js}</script>`);
+  body.append(`<style>${css}</style>`);
   return $.html();
 };
 
