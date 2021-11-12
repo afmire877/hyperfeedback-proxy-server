@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 import { createClient } from '@supabase/supabase-js';
 const SUPABASE_URL = 'http://localhost:8000';
 const PUBLIC_ANON_KEY =
@@ -12,17 +10,19 @@ const body = document.querySelector('body');
 let pid: string;
 
 const OUTLINE_ID = 'hf-outline';
+// @ts-ignore
 const PIN_CLASSNAME = 'hf-pin';
 // @ts-ignore
 let width = 0;
+// @ts-ignore
 let height = 0;
 
 interface Pin {
   relativeX: number;
   relativeY: number;
   idSelector: string;
-  mouseX: string;
-  mouseY: string;
+  MouseX: number;
+  MouseY: number;
   relativeElement: HTMLElement | Element;
 }
 let pins: Pin[] = [];
@@ -32,7 +32,7 @@ const generateRandomString = function (length = 6) {
   return Math.random().toString(36).substr(2, length).replace(/[0-9]/g, '');
 };
 
-let pinHTML = (x, y, id) =>
+let pinHTML = (x: number, y: number, id: string) =>
   stringToHTML(
     `<div id='${id}' class='hf-pin' style=" translate(-50%, -50%) scale(1, 1) scale(1, 1) skew(0deg) rotate(0deg) !important; position: absolute; height: 15px; width:15px; background:red; border-radius: 100%; z-index: 1000; top: ${y}px; left: ${x}px;" data-hf-x='${x}' data-hf-y='${y}' ></div>`
   );
@@ -42,7 +42,7 @@ let pinHTML = (x, y, id) =>
  * @param  {String} str The template string
  * @return {Node}       The template HTML
  */
-var stringToHTML = function (str) {
+var stringToHTML = function (str: string) {
   var parser = new DOMParser();
   var doc = parser.parseFromString(str, 'text/html');
   return doc.body;
@@ -71,7 +71,7 @@ const getPins = async () => {
   pins = data.comments;
   repositionPins();
 };
-
+// @ts-ignore
 function addElementOutline(element) {
   if (element.nextElementSibling.id === OUTLINE_ID) {
     element.nextElementSibling.remove();
@@ -84,6 +84,7 @@ function addElementOutline(element) {
     element.insertAdjacentElement('beforeend', outline);
   }
 }
+// @ts-ignore
 function removeElementOutline(element: HTMLElement) {
   if (element.querySelector(`#${OUTLINE_ID}`) && element.id !== OUTLINE_ID) {
     let outline = element.querySelector(`#${OUTLINE_ID}`);
