@@ -62,7 +62,7 @@ const disableAllLinks = () => {
 const getPins = async () => {
   if (!supabase) return;
 
-  const { data, error } = await supabase
+  const { data } = await supabase
     .from('projects')
     .select('*, comments(*)')
     .eq('pid', pid)
