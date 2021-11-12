@@ -6,8 +6,8 @@ import * as cheerio from 'cheerio';
 import express, { Response } from 'express';
 import request from 'request';
 
-import isUUID from '../lib/isUUID';
-import { supabase } from '../lib/supabase-client';
+import isUUID from '../utils/isUUID';
+import { supabase } from '../utils/supabase-client';
 import { definitions } from '../types/supabase';
 import path from 'path/posix';
 
@@ -95,15 +95,17 @@ const requestFromUrl = (
     }
   });
 };
-
+console.log(process.env.NODE_ENV);
+const buildPath =
+  process.env.NODE_ENV === 'development' ? '../../build/main/lib' : '../lib';
 const injectJSIntoWebsite = (html: string) => {
   console.log('Injecting JS and CSS');
   const js = readFileSync(
-    path.resolve(__dirname, '../frontend-scripts/canvas.js'),
+    path.resolve(__dirname, `${buildPath}/main.iife.js`),
     'utf8'
   );
   const css = readFileSync(
-    path.resolve(__dirname, '../frontend-scripts/canvas.css'),
+    path.resolve(__dirname, `${buildPath}/style.css`),
     'utf8'
   );
   const $ = cheerio.load(html);
