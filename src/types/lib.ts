@@ -5,4 +5,5 @@ export interface Pin {
   mouseX: number;
   mouseY: number;
   relativeElement: HTMLElement | Element | string;
+  isCompleted?: boolean;
 }
