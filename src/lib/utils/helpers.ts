@@ -1,8 +1,13 @@
+import { handleOnClickPin } from '../ui.controller';
+import { body } from './elements';
+
 export const generateRandomString = function (length = 6) {
   return Math.random().toString(36).substr(2, length).replace(/[0-9]/g, '');
 };
-const queryCheck = (s: string) =>
-  document.createDocumentFragment().querySelector(s);
+
+const queryCheck = (s: string) => {
+  return document.createDocumentFragment().querySelector(s);
+};
 
 export const isSelectorValid = (selector: string) => {
   try {
@@ -13,21 +18,30 @@ export const isSelectorValid = (selector: string) => {
   return true;
 };
 
-/**
- * Convert a template string into HTML DOM nodes
- * @param  {String} str The template string
- * @return {Node}       The template HTML
- */
 const stringToHTML = function (str: string) {
   const parser = new DOMParser();
   const doc = parser.parseFromString(str, 'text/html');
   return doc.body;
 };
 
-export const pinHTML = (x: number, y: number, id: string) =>
-  stringToHTML(
-    `<div id='${id}' class='hf-pin' style=" translate(-50%, -50%) scale(1, 1) scale(1, 1) skew(0deg) rotate(0deg) !important; position: absolute; height: 15px; width:15px; background:red; border-radius: 100%; z-index: 1000; top: ${y}px; left: ${x}px;" data-hf-x='${x}' data-hf-y='${y}' ></div>`
+export const renderPin = (
+  x: number,
+  y: number,
+  id: string,
+  number?: number
+) => {
+  const pin = stringToHTML(
+    `
+    <div id='${id}' class='hf-pin' style="top: ${y}px; left: ${x}px;" data-hf-x='${x}' data-hf-y='${y}' >
+      ${number ?? ''}
+    </div>
+    `
   );
+
+  body?.appendChild(pin);
+  pin.addEventListener('click', handleOnClickPin);
+  return;
+};
 
 export const disableAllLinks = () => {
   const links = document.querySelectorAll('a');

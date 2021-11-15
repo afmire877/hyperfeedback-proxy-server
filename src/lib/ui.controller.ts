@@ -2,11 +2,11 @@ import { supabase } from './utils/supabase-client';
 import unique from 'unique-selector';
 import { Pin } from '../types/lib';
 import { uniqueSelectorOptions, pid } from './constants';
-import { body } from './utils/elements';
 import {
   generateRandomString,
   isSelectorValid,
-  pinHTML,
+  renderPin,
+  sendMessageToParent,
 } from './utils/helpers';
 
 let pins: Pin[] = [];
@@ -37,22 +37,29 @@ export const getPins = async () => {
       mouseX: p.mouse_x,
       mouseY: p.mouse_y,
       relativeElement: relativeElement,
+      isCompleted: p.is_completed,
     };
   });
-  console.log(pins);
   repositionPins();
 };
 
 export const repositionPins = () => {
-  pins.forEach((pin) => {
-    const { relativeElement: el, idSelector, relativeX, relativeY } = pin;
+  pins.forEach((pin, index) => {
+    const {
+      relativeElement: el,
+      idSelector,
+      relativeX,
+      relativeY,
+      isCompleted,
+    } = pin;
+    document.querySelector(`#${pin.idSelector}`)?.remove();
+    if (isCompleted) return;
 
     if (el instanceof HTMLElement) {
       const { left, top } = el.getBoundingClientRect();
       const pointX = relativeX + left + window.scrollX;
       const pointY = relativeY + top + window.scrollY;
-      document.querySelector(`#${pin.idSelector}`)?.remove();
-      body?.appendChild(pinHTML(pointX, pointY, idSelector));
+      renderPin(pointX, pointY, idSelector, index + 1);
     }
 
     return null;
@@ -68,8 +75,6 @@ export const placePin = (
     const { left, top } = el.getBoundingClientRect();
     const relativeX = clientX - left; //x position within the element.
     const relativeY = clientY - top; //y position within the element.
-    const pointX = relativeX + left + window.pageXOffset;
-    const pointY = relativeY + top + window.pageYOffset;
 
     pins.push({
       idSelector: randId,
@@ -79,8 +84,6 @@ export const placePin = (
       mouseX: clientX,
       mouseY: clientY,
     });
-
-    body?.appendChild(pinHTML(pointX, pointY, randId));
 
     return {
       relativeX: relativeX,
@@ -94,4 +97,17 @@ export const placePin = (
     console.log(err);
     return;
   }
+};
+export const handleOnClickPin = (e: Event) => {
+  const target = e.target;
+
+  sendMessageToParent({
+    type: 'uiAction',
+    action: 'focus',
+    data: {
+      // @ts-ignore
+      idSelector: target?.id,
+    },
+  });
+  return;
 };
