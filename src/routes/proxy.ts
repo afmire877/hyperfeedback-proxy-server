@@ -109,13 +109,9 @@ const injectJSIntoWebsite = (html: string) => {
     'utf8'
   );
   const $ = cheerio.load(html);
-  const body = $('body');
-  body.append(
-    `<script src='https://cdn.jsdelivr.net/npm/@supabase/supabase-js' ></script>`
-  );
 
-  body.append(`<script>${js}</script>`);
-  body.append(`<style>${css}</style>`);
+  $('body').append(`<script>${js}</script>`);
+  $('body').append(`<style>${css}</style>`);
   return $.html();
 };
 
