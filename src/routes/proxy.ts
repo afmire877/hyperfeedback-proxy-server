@@ -71,7 +71,7 @@ const requestFromUrl = (
   delete headers['host']; // So the request doesn't seem to come from localhost
 
   const proxy = request({ body: bodyStr, headers, method, url });
-
+  proxy.setMaxListeners(Infinity);
   proxy.on('error', (error) => {
     console.error(`${chalk.red('ERROR:')} ${url}`, error);
   });
