@@ -5,7 +5,7 @@ import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import * as dotenv from 'dotenv';
 dotenv.config();
-import express from 'express';
+import express, { ErrorRequestHandler } from 'express';
 import session from 'express-session';
 import * as Sentry from '@sentry/node';
 import * as Tracing from '@sentry/tracing';
@@ -61,14 +61,12 @@ app.use(Sentry.Handlers.tracingHandler());
 app.use('/', cors(corsOptions), proxyRoute);
 
 app.use(Sentry.Handlers.errorHandler());
-
-// Optional fallthrough error handler
-app.use((_, __, res: any) => {
-  // The error id is attached to `res.sentry` to be returned
-  // and optionally displayed to the user for support.
+const errorHandler: ErrorRequestHandler = (_, __, res) => {
   res.statusCode = 500;
+  // @ts-ignore
   res.end(res.sentry + '\n');
-});
+};
+app.use(errorHandler);
 
 const server = http.createServer(app);
 
