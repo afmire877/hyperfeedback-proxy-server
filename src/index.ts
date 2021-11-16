@@ -7,15 +7,16 @@ import * as dotenv from 'dotenv';
 dotenv.config();
 import express from 'express';
 import session from 'express-session';
+import * as Sentry from '@sentry/node';
+import * as Tracing from '@sentry/tracing';
 
 import proxyRoute from './routes/proxy';
-
 
 const PORT = process.env.PORT || 5000;
 // const allowedRoutes = ['https://hyperfeedback.io', 'http://localhost:3000', 'http://a4b2-79-69-253-85.ngrok.io'];
 const corsOptions = {
-  origin:  '*'
-}
+  origin: '*',
+};
 // Express set up
 const app = express();
 app.set('port', PORT);
@@ -36,9 +37,41 @@ app.use((_, res, next) => {
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.use('/', cors(corsOptions),  proxyRoute);
+Sentry.init({
+  dsn: 'https://5f3308363e944667aa718f5283e45c80@o1070880.ingest.sentry.io/6067284',
+  integrations: [
+    // enable HTTP calls tracing
+    new Sentry.Integrations.Http({ tracing: true }),
+    // enable Express.js middleware tracing
+    new Tracing.Integrations.Express({ app }),
+  ],
+
+  // Set tracesSampleRate to 1.0 to capture 100%
+  // of transactions for performance monitoring.
+  // We recommend adjusting this value in production
+  tracesSampleRate: 1.0,
+});
+
+// RequestHandler creates a separate execution context using domains, so that every
+// transaction/span/breadcrumb is attached to its own Hub instance
+app.use(Sentry.Handlers.requestHandler());
+// TracingHandler creates a trace for every incoming request
+app.use(Sentry.Handlers.tracingHandler());
+
+app.use('/', cors(corsOptions), proxyRoute);
+
+app.use(Sentry.Handlers.errorHandler());
+
+// Optional fallthrough error handler
+app.use((_, __, res: any) => {
+  // The error id is attached to `res.sentry` to be returned
+  // and optionally displayed to the user for support.
+  res.statusCode = 500;
+  res.end(res.sentry + '\n');
+});
 
 const server = http.createServer(app);
+
 server.listen(PORT);
 server.on('listening', () => {
   console.log('Listening on port', PORT);
