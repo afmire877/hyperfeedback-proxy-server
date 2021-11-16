@@ -16,7 +16,7 @@ const router = express.Router();
 console.log("Disabling Node's rejection of invalid/unauthorised certificates");
 
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '1';
-
+process.setMaxListeners(15);
 router.use('/', async (req: any, res: Response) => {
   const [pid, proxyType] = req.subdomains.reverse();
   if (proxyType !== 'p' && !pid) return;
