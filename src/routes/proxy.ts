@@ -10,6 +10,7 @@ import isUUID from '../utils/isUUID';
 import { supabase } from '../utils/supabase-client';
 import { definitions } from '../types/supabase';
 import path from 'path/posix';
+import { NotFoundHTMLPath } from '../utils/helpers';
 
 const router = express.Router();
 // Allow proxying self-signed SSL certificates
@@ -31,7 +32,8 @@ router.use('/', async (req: any, res: Response) => {
       .eq('pid', pid)
       .single();
     if (error) {
-      return console.log('Supabase Error', error);
+      console.error('Supabase Error', error);
+      return res.sendFile(NotFoundHTMLPath);
     }
 
     asset_url = data?.website_url;
