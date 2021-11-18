@@ -6,19 +6,20 @@ import * as cheerio from 'cheerio';
 import express, { Response } from 'express';
 import request from 'request';
 
-import isUUID from '../lib/isUUID';
-import { supabase } from '../lib/supabase-client';
+import isUUID from '../utils/isUUID';
+import { supabase } from '../utils/supabase-client';
 import { definitions } from '../types/supabase';
 import path from 'path/posix';
+import { NotFoundHTMLPath } from '../utils/helpers';
 
 const router = express.Router();
 // Allow proxying self-signed SSL certificates
 console.log("Disabling Node's rejection of invalid/unauthorised certificates");
 
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '1';
-
+process.setMaxListeners(15);
 router.use('/', async (req: any, res: Response) => {
-  const [proxyType, pid] = req.subdomains;
+  const [pid, proxyType] = req.subdomains.reverse();
   if (proxyType !== 'p' && !pid) return;
 
   // eslint-disable-next-line functional/no-let
@@ -31,7 +32,8 @@ router.use('/', async (req: any, res: Response) => {
       .eq('pid', pid)
       .single();
     if (error) {
-      return console.log('Supabase Error', error);
+      console.error('Supabase Error', error);
+      return res.sendFile(NotFoundHTMLPath);
     }
 
     asset_url = data?.website_url;
@@ -71,7 +73,7 @@ const requestFromUrl = (
   delete headers['host']; // So the request doesn't seem to come from localhost
 
   const proxy = request({ body: bodyStr, headers, method, url });
-
+  proxy.setMaxListeners(Infinity);
   proxy.on('error', (error) => {
     console.error(`${chalk.red('ERROR:')} ${url}`, error);
   });
@@ -95,25 +97,23 @@ const requestFromUrl = (
     }
   });
 };
-
+console.log(process.env.NODE_ENV);
+const buildPath =
+  process.env.NODE_ENV === 'development' ? '../../build/main/lib' : '../lib';
 const injectJSIntoWebsite = (html: string) => {
   console.log('Injecting JS and CSS');
   const js = readFileSync(
-    path.resolve(__dirname, '../frontend-scripts/canvas.js'),
+    path.resolve(__dirname, `${buildPath}/main.iife.js`),
     'utf8'
   );
   const css = readFileSync(
-    path.resolve(__dirname, '../frontend-scripts/canvas.css'),
+    path.resolve(__dirname, `${buildPath}/style.css`),
     'utf8'
   );
   const $ = cheerio.load(html);
-  const body = $('body');
-  body.append(
-    `<script src='https://cdn.jsdelivr.net/npm/@supabase/supabase-js' ></script>`
-  );
 
-  body.append(`<script>${js}</script>`);
-  body.append(`<style>${css}</style>`);
+  $('body').append(`<script>${js}</script>`);
+  $('body').append(`<style>${css}</style>`);
   return $.html();
 };
 
