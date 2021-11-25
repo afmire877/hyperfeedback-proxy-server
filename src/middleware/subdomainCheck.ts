@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import path from 'path/posix';
+import path from 'path';
 import isUUID from '../utils/isUUID';
 
 const checkValidSubdomain = (
