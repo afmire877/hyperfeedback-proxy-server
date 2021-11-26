@@ -55,8 +55,11 @@ const handleUIEvents = (event: MessageEvent) => {
 };
 
 const handleMessage = (event: MessageEvent) => {
-  console.log(event.origin, HF_URL, event.data, process.env.HF_APP_URL);
-  if (event.origin !== HF_URL || !event.data) return;
+  // @ts-ignore
+  console.log(import.meta.env.VITE_HF_APP_URL, import.meta.env.MODE);
+  console.log(event.origin, HF_URL, event.data, process.env.VITE_HF_APP_URL);
+  // @ts-ignore
+  if (event.origin !== import.meta.env.VITE_HF_APP_URL || !event.data) return;
   console.log(`Received message PROXY:`, event.data);
 
   handleUIEvents(event);
