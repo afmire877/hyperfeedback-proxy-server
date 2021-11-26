@@ -55,6 +55,7 @@ const handleUIEvents = (event: MessageEvent) => {
 };
 
 const handleMessage = (event: MessageEvent) => {
+  console.log(event);
   if (event.origin !== HF_URL || !event.data) return;
   console.log(`Received message PROXY:`, event.data);
 
