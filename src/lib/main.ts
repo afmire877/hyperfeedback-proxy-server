@@ -57,7 +57,9 @@ const handleUIEvents = (event: MessageEvent) => {
 const handleMessage = (event: MessageEvent) => {
   if (event.origin !== HF_URL || !event.data) return;
   handleUIEvents(event);
-  localStorage.setItem('supabase.auth.token', event.data);
+  if (JSON.parse(event.data)?.currentSession) {
+    localStorage.setItem('supabase.auth.token', event.data);
+  }
   getPins();
 };
 

@@ -38,6 +38,7 @@ export const getPins = async () => {
         isCompleted: p.is_completed,
       };
     });
+    console.log('pins', window.hf.pins);
     repositionPins();
   } catch (error) {
     console.log('error', error);

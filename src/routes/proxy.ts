@@ -9,7 +9,7 @@ import request from 'request';
 import isUUID from '../utils/isUUID';
 import { supabase } from '../utils/supabase-client';
 import { definitions } from '../types/supabase';
-import path from 'path/posix';
+import path from 'path';
 import { NotFoundHTMLPath } from '../utils/helpers';
 
 const router = express.Router();
