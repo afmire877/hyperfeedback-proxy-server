@@ -1,5 +1,5 @@
 import { Pin } from '../types/lib';
-import { pid } from './constants';
+import { pid, SQLnotFoundMessage } from './constants';
 import {
   generateRandomString,
   isSelectorValid,
@@ -15,11 +15,19 @@ export interface Position {
 
 export const getPins = async () => {
   try {
-    const { data } = await supabase
+    const { data, error } = await supabase
       .from('projects')
       .select('*, comments(*)')
       .eq('pid', pid)
       .single();
+
+    if (error) {
+      if (error.message === SQLnotFoundMessage) {
+        location.reload();
+      }
+
+      throw new Error(error.message);
+    }
 
     // update types
     window.hf.pins = data?.comments?.map((p: any) => {

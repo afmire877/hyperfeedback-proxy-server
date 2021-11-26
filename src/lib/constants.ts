@@ -5,7 +5,8 @@ export const pid = location.hostname.split('.')[0];
 export const uniqueSelectorOptions: Options = {
   selectorTypes: ['Tag', 'NthChild', 'ID', 'Attributes'],
 };
-
+export const SQLnotFoundMessage =
+  'JSON object requested, multiple (or no) rows returned';
 // CSS Classes
 
 export const PIN_CLASSNAME = 'hf-pin';

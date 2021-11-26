@@ -56,17 +56,23 @@ const handleUIEvents = (event: MessageEvent) => {
 
 const handleMessage = (event: MessageEvent) => {
   if (event.origin !== HF_URL || !event.data) return;
+  console.log(`Received message PROXY:`, event.data);
+
   handleUIEvents(event);
-  if (JSON.parse(event.data)?.currentSession) {
+  if (
+    typeof event.data === 'string' &&
+    JSON.parse(event.data)?.currentSession
+  ) {
     localStorage.setItem('supabase.auth.token', event.data);
+    getPins();
   }
-  getPins();
 };
 
 const main = async () => {
   disableAllLinks();
   if (!window?.hf?.pins) {
     console.log('window.hf.pins is undefined', window.hf.pins);
+    // sometimes for some reason, the pins are not defined on the first load
     window.hf = { pins: [] };
   }
 
@@ -80,8 +86,9 @@ const main = async () => {
   });
 };
 
-(function (root) {
-  root.hf = root.hf || { pins: [] };
+(function (window) {
+  // for some reason, the pins are not defined on the first load
+  window.hf = window.hf || { pins: [] };
 })(window);
 
 document.addEventListener('DOMContentLoaded', main);
