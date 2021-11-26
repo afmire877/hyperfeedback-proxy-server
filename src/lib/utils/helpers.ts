@@ -24,16 +24,11 @@ const stringToHTML = function (str: string) {
   return doc.body;
 };
 
-export const renderPin = (
-  x: number,
-  y: number,
-  id: string,
-  number?: number
-) => {
+export const renderPin = (x: number, y: number, id: string, number: number) => {
   const pin = stringToHTML(
     `
     <div id='${id}' class='hf-pin' style="top: ${y}px; left: ${x}px;" data-hf-x='${x}' data-hf-y='${y}' >
-      ${number ?? ''}
+      ${number}
     </div>
     `
   );
