@@ -1,18 +1,19 @@
+import unique from 'unique-selector';
+import { Pin } from '../types/lib';
+import { uniqueSelectorOptions } from './constants';
 import './styles.css';
+import {
+  calculatePinMatrix,
+  getPins,
+  handleOnClickPin,
+  repositionPins,
+  setPins,
+} from './ui.controller';
 import {
   disableAllLinks,
   findTopElement,
   sendMessageToParent,
 } from './utils/helpers';
-import {
-  getPins,
-  handleOnClickPin,
-  placePin,
-  repositionPins,
-} from './ui.controller';
-import { HF_URL, uniqueSelectorOptions } from './constants';
-import { Pin } from '../types/lib';
-import unique from 'unique-selector';
 
 declare global {
   interface Window {
@@ -28,7 +29,10 @@ const handleCreateComment = (event: MouseEvent) => {
   const el = findTopElement(event);
   if (el.classList?.contains('hf-pin')) return;
 
-  const pin = placePin(el, { clientX: event.clientX, clientY: event.clientY });
+  const pin = calculatePinMatrix(el, {
+    clientX: event.clientX,
+    clientY: event.clientY,
+  });
 
   if (pin)
     sendMessageToParent({
@@ -43,33 +47,47 @@ const handleCreateComment = (event: MouseEvent) => {
     });
 };
 
-const handleUIEvents = (event: MessageEvent) => {
-  if (event?.data?.type !== 'uiAction') return;
+const handleEvents = (event: MessageEvent) => {
+  if (event?.data?.type === 'uiAction') {
+    return handleUIAction(event.data);
+  } else if (event?.data?.type === 'dataSyncAction') {
+    return handleDataSyncAction(event.data);
+  }
+};
 
-  switch (event.data.action) {
+interface ActionEvents {
+  type: 'uiAction' | 'dataSyncAction';
+  action: 'repositionPins' | 'addedComment' | 'syncComments';
+  data: any;
+}
+
+const handleDataSyncAction = (event: ActionEvents) => {
+  switch (event.action) {
+    case 'syncComments':
+      console.log('syncComments', event);
+      return setPins(event.data);
+    default:
+      return;
+  }
+};
+
+const handleUIAction = (data: ActionEvents) => {
+  switch (data.action) {
     case 'repositionPins':
       return repositionPins();
     case 'addedComment':
       return getPins();
+    default:
+      return;
   }
 };
 
 const handleMessage = (event: MessageEvent) => {
   // @ts-ignore
-  console.log(import.meta.env.VITE_HF_APP_URL, import.meta.env.MODE);
-  console.log(event.origin, HF_URL, event.data, process.env.VITE_HF_APP_URL);
-  // @ts-ignore
   if (event.origin !== import.meta.env.VITE_HF_APP_URL || !event.data) return;
-  console.log(`Received message PROXY:`, event.data);
+  console.log(`Received message PROXY:`, event);
 
-  handleUIEvents(event);
-  if (
-    typeof event.data === 'string' &&
-    JSON.parse(event.data)?.currentSession
-  ) {
-    localStorage.setItem('supabase.auth.token', event.data);
-    getPins();
-  }
+  handleEvents(event);
 };
 
 const main = async () => {
@@ -84,6 +102,7 @@ const main = async () => {
   window.addEventListener('message', handleMessage);
   window.document.addEventListener('click', handleCreateComment);
   window.addEventListener('resize', repositionPins);
+
   document.querySelectorAll('.hf-pin').forEach((pin) => {
     pin.addEventListener('click', handleOnClickPin);
     console.log('window.hf', window.hf);
@@ -92,7 +111,7 @@ const main = async () => {
 
 (function (window) {
   // for some reason, the pins are not defined on the first load
-  window.hf = window.hf || { pins: [] };
+  window.hf = { pins: [] };
 })(window);
 
 document.addEventListener('DOMContentLoaded', main);

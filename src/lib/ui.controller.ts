@@ -13,24 +13,11 @@ export interface Position {
   clientY: number;
 }
 
-export const getPins = async () => {
+export const setPins = (data: any) => {
   try {
-    const { data, error } = await supabase
-      .from('projects')
-      .select('*, comments(*)')
-      .eq('pid', pid)
-      .single();
-
-    if (error) {
-      if (error.message === SQLnotFoundMessage) {
-        location.reload();
-      }
-
-      throw new Error(error.message);
-    }
-
-    // update types
-    window.hf.pins = data?.comments?.map((p: any) => {
+    console.log('setPins', data);
+    removeAllPins();
+    window.hf.pins = data?.map((p: any) => {
       let relativeElement = p.relative_element_selector;
       if (isSelectorValid(relativeElement)) {
         relativeElement = document?.querySelector(relativeElement);
@@ -49,8 +36,39 @@ export const getPins = async () => {
     console.log('pins', window.hf.pins);
     repositionPins();
   } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getPins = async () => {
+  try {
+    const { data, error } = await supabase
+      .from('projects')
+      .select('*, comments(*)')
+      .eq('pid', pid)
+      .single();
+
+    if (error) {
+      if (error.message === SQLnotFoundMessage) {
+        location.reload();
+      }
+
+      throw new Error(error.message);
+    }
+
+    // update types
+    setPins(data);
+  } catch (error) {
     console.log('error', error);
   }
+};
+
+const removeAllPins = () => {
+  window.hf.pins = [];
+  const pins = document.querySelectorAll('.hf-pin');
+  pins.forEach((pin: HTMLElement | Element) => {
+    pin.remove();
+  });
 };
 
 export const repositionPins = () => {
@@ -76,7 +94,7 @@ export const repositionPins = () => {
   });
 };
 
-export const placePin = (
+export const calculatePinMatrix = (
   el: HTMLElement | SVGElement,
   { clientY, clientX }: Position
 ): Pin | void => {

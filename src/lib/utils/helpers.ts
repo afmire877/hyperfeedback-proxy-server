@@ -67,3 +67,8 @@ export const sendMessageToParent = (message: object): boolean => {
     return false;
   }
 };
+
+export const getProxyURL = (pid: string) =>
+  process.env.NODE_ENV === 'development'
+    ? `http://${pid}.p.subdomain.test:4333`
+    : `https://${pid}.p.${process.env.NEXT_PUBLIC_PROXY_BASE_URL}`;
