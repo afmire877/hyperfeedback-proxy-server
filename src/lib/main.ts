@@ -1,6 +1,6 @@
 import unique from 'unique-selector';
-import { Pin } from '../types/lib';
-import { uniqueSelectorOptions } from './constants';
+import { ActionEvents } from '../types/lib';
+import { initialHFState, uniqueSelectorOptions } from './constants';
 import './styles.css';
 import {
   calculatePinMatrix,
@@ -14,14 +14,6 @@ import {
   findTopElement,
   sendMessageToParent,
 } from './utils/helpers';
-
-declare global {
-  interface Window {
-    hf: {
-      pins: Pin[];
-    };
-  }
-}
 
 const handleCreateComment = (event: MouseEvent) => {
   event.preventDefault();
@@ -46,20 +38,6 @@ const handleCreateComment = (event: MouseEvent) => {
       },
     });
 };
-
-const handleEvents = (event: MessageEvent) => {
-  if (event?.data?.type === 'uiAction') {
-    return handleUIAction(event.data);
-  } else if (event?.data?.type === 'dataSyncAction') {
-    return handleDataSyncAction(event.data);
-  }
-};
-
-interface ActionEvents {
-  type: 'uiAction' | 'dataSyncAction';
-  action: 'repositionPins' | 'addedComment' | 'syncComments';
-  data: any;
-}
 
 const handleDataSyncAction = (event: ActionEvents) => {
   switch (event.action) {
@@ -87,7 +65,11 @@ const handleMessage = (event: MessageEvent) => {
   if (event.origin !== import.meta.env.VITE_HF_APP_URL || !event.data) return;
   console.log(`Received message PROXY:`, event);
 
-  handleEvents(event);
+  if (event?.data?.type === 'uiAction') {
+    return handleUIAction(event.data);
+  } else if (event?.data?.type === 'dataSyncAction') {
+    return handleDataSyncAction(event.data);
+  }
 };
 
 const main = async () => {
@@ -95,7 +77,7 @@ const main = async () => {
   if (!window?.hf?.pins) {
     console.log('window.hf.pins is undefined', window.hf.pins);
     // sometimes for some reason, the pins are not defined on the first load
-    window.hf = { pins: [] };
+    window.hf = initialHFState;
   }
 
   // Event Listeners
@@ -111,7 +93,7 @@ const main = async () => {
 
 (function (window) {
   // for some reason, the pins are not defined on the first load
-  window.hf = { pins: [] };
+  window.hf = initialHFState;
 })(window);
 
 document.addEventListener('DOMContentLoaded', main);
