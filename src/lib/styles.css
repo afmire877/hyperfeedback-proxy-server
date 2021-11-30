@@ -31,3 +31,7 @@
 [data-hfid='hf-target'] {
   position: 'relative';
 }
+
+body[data-hf-mode='comment'] a {
+  pointer-events: none !important;
+}

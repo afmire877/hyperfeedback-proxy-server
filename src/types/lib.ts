@@ -2,7 +2,7 @@ declare global {
   interface Window {
     hf: {
       pins: Pin[];
-      mode?: 'browse' | 'comment';
+      mode: 'browse' | 'comment';
     };
   }
 }
@@ -18,6 +18,6 @@ export interface Pin {
 }
 export interface ActionEvents {
   type: 'uiAction' | 'dataSyncAction';
-  action: 'repositionPins' | 'addedComment' | 'syncComments';
+  action: 'repositionPins' | 'addedComment' | 'syncComments' | 'modeChange';
   data: any;
 }

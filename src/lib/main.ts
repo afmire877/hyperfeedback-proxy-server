@@ -9,13 +9,10 @@ import {
   repositionPins,
   setPins,
 } from './ui.controller';
-import {
-  disableAllLinks,
-  findTopElement,
-  sendMessageToParent,
-} from './utils/helpers';
+import { findTopElement, sendMessageToParent } from './utils/helpers';
 
 const handleCreateComment = (event: MouseEvent) => {
+  if (window.hf.mode === 'browse') return;
   event.preventDefault();
 
   const el = findTopElement(event);
@@ -49,12 +46,24 @@ const handleDataSyncAction = (event: ActionEvents) => {
   }
 };
 
+const changeMode = (mode: Window['hf']['mode']) => {
+  window.hf.mode = mode;
+
+  if (typeof mode === 'string' && mode) {
+    window.document.body.setAttribute('data-hf-mode', window.hf.mode);
+  }
+
+  repositionPins();
+};
+
 const handleUIAction = (data: ActionEvents) => {
   switch (data.action) {
     case 'repositionPins':
       return repositionPins();
     case 'addedComment':
       return getPins();
+    case 'modeChange':
+      return changeMode(data.data.newMode);
     default:
       return;
   }
@@ -73,13 +82,13 @@ const handleMessage = (event: MessageEvent) => {
 };
 
 const main = async () => {
-  disableAllLinks();
   if (!window?.hf?.pins) {
     console.log('window.hf.pins is undefined', window.hf.pins);
     // sometimes for some reason, the pins are not defined on the first load
     window.hf = initialHFState;
   }
 
+  window.document.body.setAttribute('data-hf-mode', window.hf.mode);
   // Event Listeners
   window.addEventListener('message', handleMessage);
   window.document.addEventListener('click', handleCreateComment);
@@ -96,4 +105,4 @@ const main = async () => {
   window.hf = initialHFState;
 })(window);
 
-document.addEventListener('DOMContentLoaded', main);
+window.document.addEventListener('DOMContentLoaded', main);
