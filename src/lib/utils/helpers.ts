@@ -46,6 +46,16 @@ export const disableAllLinks = () => {
     };
   }
 };
+export const openExternalLinkInNewTab = () => {
+  const links = document.querySelectorAll('a');
+  for (let i = 0; i <= links.length - 1; i++) {
+    isExternalURL(links[i].href) && (links[i].target = '_blank');
+  }
+};
+
+export const isExternalURL = (url: string) => {
+  return new URL(url).origin !== window.location.origin;
+};
 
 export const findTopElement = (event: MouseEvent): HTMLElement | SVGElement => {
   const els = window.document.elementsFromPoint(event.clientX, event.clientY);

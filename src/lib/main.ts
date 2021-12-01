@@ -9,7 +9,11 @@ import {
   repositionPins,
   setPins,
 } from './ui.controller';
-import { findTopElement, sendMessageToParent } from './utils/helpers';
+import {
+  findTopElement,
+  openExternalLinkInNewTab,
+  sendMessageToParent,
+} from './utils/helpers';
 
 const handleCreateComment = (event: MouseEvent) => {
   if (window.hf.mode === 'browse') return;
@@ -88,8 +92,11 @@ const main = async () => {
     // sometimes for some reason, the pins are not defined on the first load
     window.hf = initialHFState;
   }
+  openExternalLinkInNewTab();
+
   window.document.body.setAttribute('data-hf-mode', window.hf.mode);
   window.document.body.setAttribute('hf-pathname', window.location.pathname);
+
   // Event Listeners
   window.addEventListener('message', handleMessage);
   window.document.addEventListener('click', handleCreateComment);
