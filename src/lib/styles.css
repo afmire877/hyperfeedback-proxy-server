@@ -26,6 +26,7 @@
   color: white;
   font-weight: bold;
   cursor: pointer;
+  font-family: 'Inter', sans-serif;
 }
 
 [data-hfid='hf-target'] {
