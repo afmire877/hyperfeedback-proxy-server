@@ -104,6 +104,5 @@ const main = async () => {
 (function (window) {
   // for some reason, the pins are not defined on the first load
   window.hf = initialHFState;
+  window.document.addEventListener('DOMContentLoaded', main);
 })(window);
-
-window.document.addEventListener('DOMContentLoaded', main);
