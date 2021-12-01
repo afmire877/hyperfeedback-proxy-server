@@ -1,6 +1,6 @@
 import unique from 'unique-selector';
-import { Pin } from '../types/lib';
-import { uniqueSelectorOptions } from './constants';
+import { ActionEvents } from '../types/lib';
+import { initialHFState, uniqueSelectorOptions } from './constants';
 import './styles.css';
 import {
   calculatePinMatrix,
@@ -9,21 +9,10 @@ import {
   repositionPins,
   setPins,
 } from './ui.controller';
-import {
-  disableAllLinks,
-  findTopElement,
-  sendMessageToParent,
-} from './utils/helpers';
-
-declare global {
-  interface Window {
-    hf: {
-      pins: Pin[];
-    };
-  }
-}
+import { findTopElement, sendMessageToParent } from './utils/helpers';
 
 const handleCreateComment = (event: MouseEvent) => {
+  if (window.hf.mode === 'browse') return;
   event.preventDefault();
 
   const el = findTopElement(event);
@@ -39,6 +28,7 @@ const handleCreateComment = (event: MouseEvent) => {
       type: 'pinAction',
       data: {
         ...pin,
+        pathname: window.location.pathname,
         relativeElement: unique(
           pin?.relativeElement as Element,
           uniqueSelectorOptions
@@ -46,20 +36,6 @@ const handleCreateComment = (event: MouseEvent) => {
       },
     });
 };
-
-const handleEvents = (event: MessageEvent) => {
-  if (event?.data?.type === 'uiAction') {
-    return handleUIAction(event.data);
-  } else if (event?.data?.type === 'dataSyncAction') {
-    return handleDataSyncAction(event.data);
-  }
-};
-
-interface ActionEvents {
-  type: 'uiAction' | 'dataSyncAction';
-  action: 'repositionPins' | 'addedComment' | 'syncComments';
-  data: any;
-}
 
 const handleDataSyncAction = (event: ActionEvents) => {
   switch (event.action) {
@@ -71,12 +47,24 @@ const handleDataSyncAction = (event: ActionEvents) => {
   }
 };
 
+const changeMode = (mode: Window['hf']['mode']) => {
+  window.hf.mode = mode;
+
+  if (typeof mode === 'string' && mode) {
+    window.document.body.setAttribute('data-hf-mode', window.hf.mode);
+  }
+
+  repositionPins();
+};
+
 const handleUIAction = (data: ActionEvents) => {
   switch (data.action) {
     case 'repositionPins':
       return repositionPins();
     case 'addedComment':
       return getPins();
+    case 'modeChange':
+      return changeMode(data.data.newMode);
     default:
       return;
   }
@@ -87,17 +75,21 @@ const handleMessage = (event: MessageEvent) => {
   if (event.origin !== import.meta.env.VITE_HF_APP_URL || !event.data) return;
   console.log(`Received message PROXY:`, event);
 
-  handleEvents(event);
+  if (event?.data?.type === 'uiAction') {
+    return handleUIAction(event.data);
+  } else if (event?.data?.type === 'dataSyncAction') {
+    return handleDataSyncAction(event.data);
+  }
 };
 
 const main = async () => {
-  disableAllLinks();
   if (!window?.hf?.pins) {
     console.log('window.hf.pins is undefined', window.hf.pins);
     // sometimes for some reason, the pins are not defined on the first load
-    window.hf = { pins: [] };
+    window.hf = initialHFState;
   }
-
+  window.document.body.setAttribute('data-hf-mode', window.hf.mode);
+  window.document.body.setAttribute('hf-pathname', window.location.pathname);
   // Event Listeners
   window.addEventListener('message', handleMessage);
   window.document.addEventListener('click', handleCreateComment);
@@ -111,7 +103,7 @@ const main = async () => {
 
 (function (window) {
   // for some reason, the pins are not defined on the first load
-  window.hf = { pins: [] };
+  window.hf = initialHFState;
 })(window);
 
-document.addEventListener('DOMContentLoaded', main);
+window.document.addEventListener('DOMContentLoaded', main);

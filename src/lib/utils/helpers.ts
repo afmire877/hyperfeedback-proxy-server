@@ -27,7 +27,7 @@ const stringToHTML = function (str: string) {
 export const renderPin = (x: number, y: number, id: string, number: number) => {
   const pin = stringToHTML(
     `
-    <div id='${id}' class='hf-pin' style="top: ${y}px; left: ${x}px;" data-hf-x='${x}' data-hf-y='${y}' >
+    <div id='${id}' class='hf-pin' style="top: ${y}px; left: ${x}px; font-family: 'Inter', sans-serif;" data-hf-x='${x}' data-hf-y='${y}' >
       ${number}
     </div>
     `
