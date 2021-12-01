@@ -15,6 +15,7 @@ export interface Pin {
   mouseY: number;
   relativeElement: HTMLElement | Element | string;
   isCompleted?: boolean;
+  pathname: string;
 }
 export interface ActionEvents {
   type: 'uiAction' | 'dataSyncAction';

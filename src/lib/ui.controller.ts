@@ -23,7 +23,6 @@ export const setPins = (data: any) => {
         relativeElement = document?.querySelector(relativeElement);
       }
       return {
-        // @ts-ignore
         relativeX: p.pos_x,
         relativeY: p.pos_y,
         idSelector: p.pin_id_selector,
@@ -31,6 +30,7 @@ export const setPins = (data: any) => {
         mouseY: p.mouse_y,
         relativeElement: relativeElement,
         isCompleted: p.is_completed,
+        pathname: p.pathname ?? window.location.pathname,
       };
     });
     console.log('pins', window.hf.pins);
@@ -72,6 +72,7 @@ const removeAllPins = () => {
 };
 
 export const repositionPins = () => {
+  console.log('repositionPins', window.hf.pins);
   window.hf.pins.forEach((pin, index) => {
     const {
       relativeElement: el,
@@ -83,7 +84,10 @@ export const repositionPins = () => {
     document.querySelector(`#${pin.idSelector}`)?.remove();
     if (isCompleted) return;
 
-    if (el instanceof HTMLElement) {
+    if (
+      el instanceof HTMLElement &&
+      pin.pathname === window.location.pathname
+    ) {
       const { left, top } = el.getBoundingClientRect();
       const pointX = relativeX + left + window.scrollX;
       const pointY = relativeY + top + window.scrollY;
@@ -111,6 +115,7 @@ export const calculatePinMatrix = (
       mouseX: clientX,
       mouseY: clientY,
       relativeElement: el,
+      pathname: window.location.pathname,
     };
   } catch (err) {
     console.log(err);

@@ -28,6 +28,7 @@ const handleCreateComment = (event: MouseEvent) => {
       type: 'pinAction',
       data: {
         ...pin,
+        pathname: window.location.pathname,
         relativeElement: unique(
           pin?.relativeElement as Element,
           uniqueSelectorOptions
@@ -87,8 +88,8 @@ const main = async () => {
     // sometimes for some reason, the pins are not defined on the first load
     window.hf = initialHFState;
   }
-
   window.document.body.setAttribute('data-hf-mode', window.hf.mode);
+  window.document.body.setAttribute('hf-pathname', window.location.pathname);
   // Event Listeners
   window.addEventListener('message', handleMessage);
   window.document.addEventListener('click', handleCreateComment);
