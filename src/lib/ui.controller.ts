@@ -1,5 +1,6 @@
 import { Pin } from '../types/lib';
 import { pid, SQLnotFoundMessage } from './constants';
+import { focusIfNeeded } from './main';
 import {
   generateRandomString,
   isSelectorValid,
@@ -93,6 +94,7 @@ export const repositionPins = () => {
       const pointY = relativeY + top + window.scrollY;
       renderPin(pointX, pointY, idSelector, index + 1);
     }
+    focusIfNeeded();
 
     return null;
   });

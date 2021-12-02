@@ -61,6 +61,36 @@ const changeMode = (mode: Window['hf']['mode']) => {
   repositionPins();
 };
 
+const handleFocus = (idSelector: string) => {
+  const comment = window.hf.pins.find((pin) => pin.idSelector === idSelector);
+
+  if (comment && window.location.pathname !== comment?.pathname) {
+    window.location.href =
+      window.location.origin + comment?.pathname + '?scroll_to=' + idSelector;
+  }
+  const pin = document.querySelector(`#${idSelector}`);
+
+  if (!pin) return;
+  pin.scrollIntoView({
+    behavior: 'smooth',
+    block: 'center',
+  });
+};
+
+export const focusIfNeeded = () => {
+  const queryParams = new URLSearchParams(window.location.search);
+  console.log('queryParams', queryParams.get('scroll_to'));
+  if (!queryParams.get('scroll_to')) return;
+
+  const pin = document.querySelector(`#${queryParams.get('scroll_to')}`);
+
+  if (!pin) return;
+  pin.scrollIntoView({
+    behavior: 'smooth',
+    block: 'center',
+  });
+};
+
 const handleUIAction = (data: ActionEvents) => {
   switch (data.action) {
     case 'repositionPins':
@@ -69,6 +99,8 @@ const handleUIAction = (data: ActionEvents) => {
       return getPins();
     case 'modeChange':
       return changeMode(data.data.newMode);
+    case 'focus':
+      return handleFocus(data.data.idSelector);
     default:
       return;
   }

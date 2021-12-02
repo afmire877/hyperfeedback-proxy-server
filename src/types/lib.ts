@@ -19,6 +19,11 @@ export interface Pin {
 }
 export interface ActionEvents {
   type: 'uiAction' | 'dataSyncAction';
-  action: 'repositionPins' | 'addedComment' | 'syncComments' | 'modeChange';
+  action:
+    | 'repositionPins'
+    | 'addedComment'
+    | 'syncComments'
+    | 'modeChange'
+    | 'focus';
   data: any;
 }
