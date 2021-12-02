@@ -79,7 +79,6 @@ const handleFocus = (idSelector: string) => {
 
 export const focusIfNeeded = () => {
   const queryParams = new URLSearchParams(window.location.search);
-  console.log('queryParams', queryParams.get('scroll_to'));
   if (!queryParams.get('scroll_to')) return;
 
   const pin = document.querySelector(`#${queryParams.get('scroll_to')}`);
