@@ -54,7 +54,7 @@ export const openExternalLinkInNewTab = () => {
 };
 
 export const isExternalURL = (url: string) => {
-  return new URL(url).origin !== window.location.origin;
+  return url && new URL(url).origin !== window.location.origin;
 };
 
 export const findTopElement = (event: MouseEvent): HTMLElement | SVGElement => {
