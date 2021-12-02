@@ -16,7 +16,6 @@ export interface Position {
 
 export const setPins = (data: any) => {
   try {
-    console.log('setPins', data);
     removeAllPins();
     window.hf.pins = data?.map((p: any) => {
       let relativeElement = p.relative_element_selector;
