@@ -55,7 +55,7 @@ export const openExternalLinkInNewTab = () => {
 
 export const isExternalURL = (url: string) => {
   try {
-    return new URL(url).origin !== window.location.origin;
+    return url && new URL(url).origin !== window.location.origin;
   } catch (e) {
     console.log('Error: ', url, e);
     return false;
