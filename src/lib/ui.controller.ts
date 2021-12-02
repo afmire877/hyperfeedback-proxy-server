@@ -1,50 +1,80 @@
-import { supabase } from './utils/supabase-client';
-import unique from 'unique-selector';
 import { Pin } from '../types/lib';
-import { uniqueSelectorOptions, pid } from './constants';
+import { pid, SQLnotFoundMessage } from './constants';
+import { focusIfNeeded } from './main';
 import {
   generateRandomString,
   isSelectorValid,
   renderPin,
   sendMessageToParent,
 } from './utils/helpers';
-
-let pins: Pin[] = [];
+import { supabase } from './utils/supabase-client';
 
 export interface Position {
   clientX: number;
   clientY: number;
 }
 
-export const getPins = async () => {
-  const { data } = await supabase
-    .from('projects')
-    .select('*, comments(*)')
-    .eq('pid', pid)
-    .single();
+export const setPins = (data: any) => {
+  try {
+    console.log('setPins', data);
+    removeAllPins();
+    window.hf.pins = data?.map((p: any) => {
+      let relativeElement = p.relative_element_selector;
+      if (isSelectorValid(relativeElement)) {
+        relativeElement = document?.querySelector(relativeElement);
+      }
+      return {
+        relativeX: p.pos_x,
+        relativeY: p.pos_y,
+        idSelector: p.pin_id_selector,
+        mouseX: p.mouse_x,
+        mouseY: p.mouse_y,
+        relativeElement: relativeElement,
+        isCompleted: p.is_completed,
+        pathname: p.pathname ?? window.location.pathname,
+      };
+    });
+    console.log('pins', window.hf.pins);
+    repositionPins();
+  } catch (error) {
+    console.log(error);
+  }
+};
 
-  // update types
-  pins = data?.comments?.map((p: any) => {
-    let relativeElement = p.relative_element_selector;
-    if (isSelectorValid(relativeElement)) {
-      relativeElement = document?.querySelector(relativeElement);
+export const getPins = async () => {
+  try {
+    const { data, error } = await supabase
+      .from('projects')
+      .select('*, comments(*)')
+      .eq('pid', pid)
+      .single();
+
+    if (error) {
+      if (error.message === SQLnotFoundMessage) {
+        location.reload();
+      }
+
+      throw new Error(error.message);
     }
-    return {
-      // @ts-ignore
-      relativeX: p.pos_x,
-      relativeY: p.pos_y,
-      idSelector: p.pin_id_selector,
-      mouseX: p.mouse_x,
-      mouseY: p.mouse_y,
-      relativeElement: relativeElement,
-      isCompleted: p.is_completed,
-    };
+
+    // update types
+    setPins(data);
+  } catch (error) {
+    console.log('error', error);
+  }
+};
+
+const removeAllPins = () => {
+  window.hf.pins = [];
+  const pins = document.querySelectorAll('.hf-pin');
+  pins.forEach((pin: HTMLElement | Element) => {
+    pin.remove();
   });
-  repositionPins();
 };
 
 export const repositionPins = () => {
-  pins.forEach((pin, index) => {
+  console.log('repositionPins', window.hf.pins);
+  window.hf.pins.forEach((pin, index) => {
     const {
       relativeElement: el,
       idSelector,
@@ -55,18 +85,22 @@ export const repositionPins = () => {
     document.querySelector(`#${pin.idSelector}`)?.remove();
     if (isCompleted) return;
 
-    if (el instanceof HTMLElement) {
+    if (
+      el instanceof HTMLElement &&
+      pin.pathname === window.location.pathname
+    ) {
       const { left, top } = el.getBoundingClientRect();
       const pointX = relativeX + left + window.scrollX;
       const pointY = relativeY + top + window.scrollY;
       renderPin(pointX, pointY, idSelector, index + 1);
     }
+    focusIfNeeded();
 
     return null;
   });
 };
 
-export const placePin = (
+export const calculatePinMatrix = (
   el: HTMLElement | SVGElement,
   { clientY, clientX }: Position
 ): Pin | void => {
@@ -76,22 +110,14 @@ export const placePin = (
     const relativeX = clientX - left; //x position within the element.
     const relativeY = clientY - top; //y position within the element.
 
-    pins.push({
-      idSelector: randId,
-      relativeElement: el,
-      relativeX,
-      relativeY,
-      mouseX: clientX,
-      mouseY: clientY,
-    });
-
     return {
       relativeX: relativeX,
       relativeY: relativeY,
       idSelector: randId,
       mouseX: clientX,
       mouseY: clientY,
-      relativeElement: unique(el, uniqueSelectorOptions),
+      relativeElement: el,
+      pathname: window.location.pathname,
     };
   } catch (err) {
     console.log(err);

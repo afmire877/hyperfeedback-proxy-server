@@ -24,16 +24,11 @@ const stringToHTML = function (str: string) {
   return doc.body;
 };
 
-export const renderPin = (
-  x: number,
-  y: number,
-  id: string,
-  number?: number
-) => {
+export const renderPin = (x: number, y: number, id: string, number: number) => {
   const pin = stringToHTML(
     `
-    <div id='${id}' class='hf-pin' style="top: ${y}px; left: ${x}px;" data-hf-x='${x}' data-hf-y='${y}' >
-      ${number ?? ''}
+    <div id='${id}' class='hf-pin' style="top: ${y}px; left: ${x}px; font-family: 'Inter', sans-serif;" data-hf-x='${x}' data-hf-y='${y}' >
+      ${number}
     </div>
     `
   );
@@ -51,6 +46,16 @@ export const disableAllLinks = () => {
     };
   }
 };
+export const openExternalLinkInNewTab = () => {
+  const links = document.querySelectorAll('a');
+  for (let i = 0; i <= links.length - 1; i++) {
+    isExternalURL(links[i].href) && (links[i].target = '_blank');
+  }
+};
+
+export const isExternalURL = (url: string) => {
+  return new URL(url).origin !== window.location.origin;
+};
 
 export const findTopElement = (event: MouseEvent): HTMLElement | SVGElement => {
   const els = window.document.elementsFromPoint(event.clientX, event.clientY);
@@ -64,6 +69,7 @@ export const findTopElement = (event: MouseEvent): HTMLElement | SVGElement => {
 
 export const sendMessageToParent = (message: object): boolean => {
   try {
+    console.log('sending message to parent', message);
     parent.postMessage(message, '*');
     return true;
   } catch (error) {
@@ -71,3 +77,8 @@ export const sendMessageToParent = (message: object): boolean => {
     return false;
   }
 };
+
+export const getProxyURL = (pid: string) =>
+  process.env.NODE_ENV === 'development'
+    ? `http://${pid}.p.subdomain.test:4333`
+    : `https://${pid}.p.${process.env.NEXT_PUBLIC_PROXY_BASE_URL}`;
