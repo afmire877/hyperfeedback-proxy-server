@@ -47,6 +47,7 @@ export const getPins = async () => {
       .from('projects')
       .select('*, comments(*)')
       .eq('pid', pid)
+      .order('created_at', { foreignTable: 'comments' })
       .single();
 
     if (error) {
