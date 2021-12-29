@@ -131,6 +131,8 @@ const injectJSIntoWebsite = (html: string) => {
 
 const setHeaders = (proxyRes: any, res: Response) => {
   delete proxyRes.headers['content-length'];
+  delete proxyRes.headers['content-security-policy'];
+  proxyRes.headers['X-Frame-Options'] = '';
   res.writeHead(proxyRes.statusCode, proxyRes.headers);
 };
 
