@@ -14,6 +14,8 @@ import {
   openExternalLinkInNewTab,
   sendMessageToParent,
 } from './utils/helpers';
+import { init, captureMessage } from '@sentry/browser';
+import { Integrations } from '@sentry/tracing';
 
 const handleCreateComment = (event: MouseEvent) => {
   if (window.hf.mode === 'browse') return;
@@ -79,7 +81,6 @@ const handleFocus = (idSelector: string) => {
 
 export const focusIfNeeded = () => {
   const queryParams = new URLSearchParams(window.location.search);
-  console.log('queryParams', queryParams.get('scroll_to'));
   if (!queryParams.get('scroll_to')) return;
 
   const pin = document.querySelector(`#${queryParams.get('scroll_to')}`);
@@ -144,4 +145,16 @@ const main = async () => {
   // for some reason, the pins are not defined on the first load
   window.hf = initialHFState;
   window.document.addEventListener('DOMContentLoaded', main);
+
+  init({
+    dsn: 'https://37b633aac3c24294baadbe2c46419721@o1070880.ingest.sentry.io/6091543',
+    integrations: [new Integrations.BrowserTracing()],
+
+    // Set tracesSampleRate to 1.0 to capture 100%
+    // of transactions for performance monitoring.
+    // We recommend adjusting this value in production
+    tracesSampleRate: 1.0,
+  });
+
+  captureMessage('Hello, world!');
 })(window);
