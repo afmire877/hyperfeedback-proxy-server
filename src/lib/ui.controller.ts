@@ -33,7 +33,6 @@ export const setPins = (data: any) => {
         pathname: p.pathname ?? window.location.pathname,
       };
     });
-    console.log('pins', window.hf.pins);
     repositionPins();
   } catch (error) {
     console.log(error);
@@ -73,7 +72,6 @@ const removeAllPins = () => {
 };
 
 export const repositionPins = () => {
-  console.log('repositionPins', window.hf.pins);
   window.hf.pins.forEach((pin, index) => {
     const {
       relativeElement: el,

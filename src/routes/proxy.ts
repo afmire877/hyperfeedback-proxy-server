@@ -101,7 +101,6 @@ console.log(process.env.NODE_ENV);
 const buildPath =
   process.env.NODE_ENV === 'development' ? '../../build/main/lib' : '../lib';
 const injectJSIntoWebsite = (html: string) => {
-  console.log('Injecting JS and CSS');
   const js = readFileSync(
     path.resolve(__dirname, `${buildPath}/main.iife.js`),
     'utf8'

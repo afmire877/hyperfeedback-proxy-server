@@ -74,7 +74,6 @@ export const findTopElement = (event: MouseEvent): HTMLElement | SVGElement => {
 
 export const sendMessageToParent = (message: object): boolean => {
   try {
-    console.log('sending message to parent', message);
     parent.postMessage(message, '*');
     return true;
   } catch (error) {

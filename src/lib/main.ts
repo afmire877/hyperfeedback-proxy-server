@@ -46,7 +46,6 @@ const handleCreateComment = (event: MouseEvent) => {
 const handleDataSyncAction = (event: ActionEvents) => {
   switch (event.action) {
     case 'syncComments':
-      console.log('syncComments', event);
       return setPins(event.data);
     default:
       return;
@@ -137,7 +136,6 @@ const main = async () => {
 
   document.querySelectorAll('.hf-pin').forEach((pin) => {
     pin.addEventListener('click', handleOnClickPin);
-    console.log('window.hf', window.hf);
   });
 };
 
