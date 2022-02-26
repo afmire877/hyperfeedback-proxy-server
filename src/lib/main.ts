@@ -62,7 +62,11 @@ const changeMode = (mode: Window['hf']['mode']) => {
 
   repositionPins();
 };
-
+const changeScreenSize = (mode: Window['hf']['screen_size']) => {
+  console.log(mode);
+  window.hf.screen_size = mode;
+  repositionPins();
+};
 const handleFocus = (idSelector: string) => {
   const comment = window.hf.pins.find((pin) => pin.idSelector === idSelector);
 
@@ -99,7 +103,9 @@ const handleUIAction = (data: ActionEvents) => {
     case 'addedComment':
       return getPins();
     case 'modeChange':
-      return changeMode(data.data.newMode);
+      if (data.data?.screenSize) changeScreenSize(data.data?.screenSize);
+      if (data.data?.canvasMode) changeMode(data.data.canvasMode);
+      return;
     case 'focus':
       return handleFocus(data.data.idSelector);
     default:
@@ -149,10 +155,6 @@ const main = async () => {
   init({
     dsn: 'https://37b633aac3c24294baadbe2c46419721@o1070880.ingest.sentry.io/6091543',
     integrations: [new Integrations.BrowserTracing()],
-
-    // Set tracesSampleRate to 1.0 to capture 100%
-    // of transactions for performance monitoring.
-    // We recommend adjusting this value in production
     tracesSampleRate: 1.0,
   });
 

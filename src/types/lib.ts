@@ -3,6 +3,7 @@ declare global {
     hf: {
       pins: Pin[];
       mode: 'browse' | 'comment';
+      screen_size: 'desktop' | 'mobile';
     };
   }
 }
@@ -16,6 +17,7 @@ export interface Pin {
   relativeElement: HTMLElement | Element | string;
   isCompleted?: boolean;
   pathname: string;
+  screen_size?: 'desktop' | 'mobile';
 }
 export interface ActionEvents {
   type: 'uiAction' | 'dataSyncAction';
