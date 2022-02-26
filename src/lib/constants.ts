@@ -11,4 +11,8 @@ export const SQLnotFoundMessage =
 
 export const PIN_CLASSNAME = 'hf-pin';
 
-export const initialHFState: Window['hf'] = { pins: [], mode: 'browse' };
+export const initialHFState: Window['hf'] = {
+  pins: [],
+  mode: 'browse',
+  screen_size: 'desktop',
+};
