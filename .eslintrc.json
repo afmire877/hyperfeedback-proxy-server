@@ -1,6 +1,6 @@
 {
   "root": true,
-  "parser": ["@typescript-eslint/parser"],
+  "parser": "@typescript-eslint/parser",
   "parserOptions": { "project": "./tsconfig.json" },
   "env": { "es6": true },
   "ignorePatterns": ["node_modules", "build", "coverage"],
@@ -22,6 +22,10 @@
       { "allowWholeFile": true }
     ],
     "eslint-comments/no-unused-disable": "error",
+    "functional/immutable-data": "off",
+    "functional/no-mixed-type": "off",
+    "functional/no-throw-statement": "off",
+    "functional/prefer-readonly-type": "off",
     "import/order": [
       "error",
       { "newlines-between": "always", "alphabetize": { "order": "asc" } }

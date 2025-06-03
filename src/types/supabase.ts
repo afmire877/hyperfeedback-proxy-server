@@ -3,1654 +3,1656 @@
  * Do not make direct changes to the file.
  */
 
-export interface paths {
-  "/": {
-    get: {
-      responses: {
+export type paths = {
+  readonly '/': {
+    readonly get: {
+      readonly responses: {
         /** OK */
-        200: unknown;
+        readonly 200: unknown;
       };
     };
   };
-  "/comments": {
-    get: {
-      parameters: {
-        query: {
-          id?: parameters["rowFilter.comments.id"];
-          is_completed?: parameters["rowFilter.comments.is_completed"];
-          author_id?: parameters["rowFilter.comments.author_id"];
-          content?: parameters["rowFilter.comments.content"];
-          project_id?: parameters["rowFilter.comments.project_id"];
+  readonly '/comments': {
+    readonly get: {
+      readonly parameters: {
+        readonly query: {
+          readonly id?: parameters['rowFilter.comments.id'];
+          readonly is_completed?: parameters['rowFilter.comments.is_completed'];
+          readonly author_id?: parameters['rowFilter.comments.author_id'];
+          readonly content?: parameters['rowFilter.comments.content'];
+          readonly project_id?: parameters['rowFilter.comments.project_id'];
           /** Filtering Columns */
-          select?: parameters["select"];
+          readonly select?: parameters['select'];
           /** Ordering */
-          order?: parameters["order"];
+          readonly order?: parameters['order'];
           /** Limiting and Pagination */
-          offset?: parameters["offset"];
+          readonly offset?: parameters['offset'];
           /** Limiting and Pagination */
-          limit?: parameters["limit"];
+          readonly limit?: parameters['limit'];
         };
-        header: {
+        readonly header: {
           /** Limiting and Pagination */
-          Range?: parameters["range"];
+          readonly Range?: parameters['range'];
           /** Limiting and Pagination */
-          "Range-Unit"?: parameters["rangeUnit"];
+          readonly 'Range-Unit'?: parameters['rangeUnit'];
           /** Preference */
-          Prefer?: parameters["preferCount"];
+          readonly Prefer?: parameters['preferCount'];
         };
       };
-      responses: {
+      readonly responses: {
         /** OK */
-        200: {
-          schema: definitions["comments"][];
+        readonly 200: {
+          readonly schema: readonly definitions['comments'][];
         };
         /** Partial Content */
-        206: unknown;
+        readonly 206: unknown;
       };
     };
-    post: {
-      parameters: {
-        body: {
+    readonly post: {
+      readonly parameters: {
+        readonly body: {
           /** comments */
-          comments?: definitions["comments"];
+          readonly comments?: definitions['comments'];
         };
-        query: {
+        readonly query: {
           /** Filtering Columns */
-          select?: parameters["select"];
+          readonly select?: parameters['select'];
         };
-        header: {
+        readonly header: {
           /** Preference */
-          Prefer?: parameters["preferReturn"];
+          readonly Prefer?: parameters['preferReturn'];
         };
       };
-      responses: {
+      readonly responses: {
         /** Created */
-        201: unknown;
+        readonly 201: unknown;
       };
     };
-    delete: {
-      parameters: {
-        query: {
-          id?: parameters["rowFilter.comments.id"];
-          is_completed?: parameters["rowFilter.comments.is_completed"];
-          author_id?: parameters["rowFilter.comments.author_id"];
-          content?: parameters["rowFilter.comments.content"];
-          project_id?: parameters["rowFilter.comments.project_id"];
+    readonly delete: {
+      readonly parameters: {
+        readonly query: {
+          readonly id?: parameters['rowFilter.comments.id'];
+          readonly is_completed?: parameters['rowFilter.comments.is_completed'];
+          readonly author_id?: parameters['rowFilter.comments.author_id'];
+          readonly content?: parameters['rowFilter.comments.content'];
+          readonly project_id?: parameters['rowFilter.comments.project_id'];
         };
-        header: {
+        readonly header: {
           /** Preference */
-          Prefer?: parameters["preferReturn"];
+          readonly Prefer?: parameters['preferReturn'];
         };
       };
-      responses: {
+      readonly responses: {
         /** No Content */
-        204: never;
+        readonly 204: never;
       };
     };
-    patch: {
-      parameters: {
-        query: {
-          id?: parameters["rowFilter.comments.id"];
-          is_completed?: parameters["rowFilter.comments.is_completed"];
-          author_id?: parameters["rowFilter.comments.author_id"];
-          content?: parameters["rowFilter.comments.content"];
-          project_id?: parameters["rowFilter.comments.project_id"];
+    readonly patch: {
+      readonly parameters: {
+        readonly query: {
+          readonly id?: parameters['rowFilter.comments.id'];
+          readonly is_completed?: parameters['rowFilter.comments.is_completed'];
+          readonly author_id?: parameters['rowFilter.comments.author_id'];
+          readonly content?: parameters['rowFilter.comments.content'];
+          readonly project_id?: parameters['rowFilter.comments.project_id'];
         };
-        body: {
+        readonly body: {
           /** comments */
-          comments?: definitions["comments"];
+          readonly comments?: definitions['comments'];
         };
-        header: {
+        readonly header: {
           /** Preference */
-          Prefer?: parameters["preferReturn"];
+          readonly Prefer?: parameters['preferReturn'];
         };
       };
-      responses: {
+      readonly responses: {
         /** No Content */
-        204: never;
+        readonly 204: never;
       };
     };
   };
-  "/customers": {
-    get: {
-      parameters: {
-        query: {
-          id?: parameters["rowFilter.customers.id"];
-          stripe_customer_id?: parameters["rowFilter.customers.stripe_customer_id"];
+  readonly '/customers': {
+    readonly get: {
+      readonly parameters: {
+        readonly query: {
+          readonly id?: parameters['rowFilter.customers.id'];
+          readonly stripe_customer_id?: parameters['rowFilter.customers.stripe_customer_id'];
           /** Filtering Columns */
-          select?: parameters["select"];
+          readonly select?: parameters['select'];
           /** Ordering */
-          order?: parameters["order"];
+          readonly order?: parameters['order'];
           /** Limiting and Pagination */
-          offset?: parameters["offset"];
+          readonly offset?: parameters['offset'];
           /** Limiting and Pagination */
-          limit?: parameters["limit"];
+          readonly limit?: parameters['limit'];
         };
-        header: {
+        readonly header: {
           /** Limiting and Pagination */
-          Range?: parameters["range"];
+          readonly Range?: parameters['range'];
           /** Limiting and Pagination */
-          "Range-Unit"?: parameters["rangeUnit"];
+          readonly 'Range-Unit'?: parameters['rangeUnit'];
           /** Preference */
-          Prefer?: parameters["preferCount"];
+          readonly Prefer?: parameters['preferCount'];
         };
       };
-      responses: {
+      readonly responses: {
         /** OK */
-        200: {
-          schema: definitions["customers"][];
+        readonly 200: {
+          readonly schema: readonly definitions['customers'][];
         };
         /** Partial Content */
-        206: unknown;
+        readonly 206: unknown;
       };
     };
-    post: {
-      parameters: {
-        body: {
+    readonly post: {
+      readonly parameters: {
+        readonly body: {
           /** customers */
-          customers?: definitions["customers"];
+          readonly customers?: definitions['customers'];
         };
-        query: {
+        readonly query: {
           /** Filtering Columns */
-          select?: parameters["select"];
+          readonly select?: parameters['select'];
         };
-        header: {
+        readonly header: {
           /** Preference */
-          Prefer?: parameters["preferReturn"];
+          readonly Prefer?: parameters['preferReturn'];
         };
       };
-      responses: {
+      readonly responses: {
         /** Created */
-        201: unknown;
+        readonly 201: unknown;
       };
     };
-    delete: {
-      parameters: {
-        query: {
-          id?: parameters["rowFilter.customers.id"];
-          stripe_customer_id?: parameters["rowFilter.customers.stripe_customer_id"];
+    readonly delete: {
+      readonly parameters: {
+        readonly query: {
+          readonly id?: parameters['rowFilter.customers.id'];
+          readonly stripe_customer_id?: parameters['rowFilter.customers.stripe_customer_id'];
         };
-        header: {
+        readonly header: {
           /** Preference */
-          Prefer?: parameters["preferReturn"];
+          readonly Prefer?: parameters['preferReturn'];
         };
       };
-      responses: {
+      readonly responses: {
         /** No Content */
-        204: never;
+        readonly 204: never;
       };
     };
-    patch: {
-      parameters: {
-        query: {
-          id?: parameters["rowFilter.customers.id"];
-          stripe_customer_id?: parameters["rowFilter.customers.stripe_customer_id"];
+    readonly patch: {
+      readonly parameters: {
+        readonly query: {
+          readonly id?: parameters['rowFilter.customers.id'];
+          readonly stripe_customer_id?: parameters['rowFilter.customers.stripe_customer_id'];
         };
-        body: {
+        readonly body: {
           /** customers */
-          customers?: definitions["customers"];
+          readonly customers?: definitions['customers'];
         };
-        header: {
+        readonly header: {
           /** Preference */
-          Prefer?: parameters["preferReturn"];
+          readonly Prefer?: parameters['preferReturn'];
         };
       };
-      responses: {
+      readonly responses: {
         /** No Content */
-        204: never;
+        readonly 204: never;
       };
     };
   };
-  "/flyway_schema_history": {
-    get: {
-      parameters: {
-        query: {
-          installed_rank?: parameters["rowFilter.flyway_schema_history.installed_rank"];
-          version?: parameters["rowFilter.flyway_schema_history.version"];
-          description?: parameters["rowFilter.flyway_schema_history.description"];
-          type?: parameters["rowFilter.flyway_schema_history.type"];
-          script?: parameters["rowFilter.flyway_schema_history.script"];
-          checksum?: parameters["rowFilter.flyway_schema_history.checksum"];
-          installed_by?: parameters["rowFilter.flyway_schema_history.installed_by"];
-          installed_on?: parameters["rowFilter.flyway_schema_history.installed_on"];
-          execution_time?: parameters["rowFilter.flyway_schema_history.execution_time"];
-          success?: parameters["rowFilter.flyway_schema_history.success"];
+  readonly '/flyway_schema_history': {
+    readonly get: {
+      readonly parameters: {
+        readonly query: {
+          readonly installed_rank?: parameters['rowFilter.flyway_schema_history.installed_rank'];
+          readonly version?: parameters['rowFilter.flyway_schema_history.version'];
+          readonly description?: parameters['rowFilter.flyway_schema_history.description'];
+          readonly type?: parameters['rowFilter.flyway_schema_history.type'];
+          readonly script?: parameters['rowFilter.flyway_schema_history.script'];
+          readonly checksum?: parameters['rowFilter.flyway_schema_history.checksum'];
+          readonly installed_by?: parameters['rowFilter.flyway_schema_history.installed_by'];
+          readonly installed_on?: parameters['rowFilter.flyway_schema_history.installed_on'];
+          readonly execution_time?: parameters['rowFilter.flyway_schema_history.execution_time'];
+          readonly success?: parameters['rowFilter.flyway_schema_history.success'];
           /** Filtering Columns */
-          select?: parameters["select"];
+          readonly select?: parameters['select'];
           /** Ordering */
-          order?: parameters["order"];
+          readonly order?: parameters['order'];
           /** Limiting and Pagination */
-          offset?: parameters["offset"];
+          readonly offset?: parameters['offset'];
           /** Limiting and Pagination */
-          limit?: parameters["limit"];
+          readonly limit?: parameters['limit'];
         };
-        header: {
+        readonly header: {
           /** Limiting and Pagination */
-          Range?: parameters["range"];
+          readonly Range?: parameters['range'];
           /** Limiting and Pagination */
-          "Range-Unit"?: parameters["rangeUnit"];
+          readonly 'Range-Unit'?: parameters['rangeUnit'];
           /** Preference */
-          Prefer?: parameters["preferCount"];
+          readonly Prefer?: parameters['preferCount'];
         };
       };
-      responses: {
+      readonly responses: {
         /** OK */
-        200: {
-          schema: definitions["flyway_schema_history"][];
+        readonly 200: {
+          readonly schema: readonly definitions['flyway_schema_history'][];
         };
         /** Partial Content */
-        206: unknown;
+        readonly 206: unknown;
       };
     };
-    post: {
-      parameters: {
-        body: {
+    readonly post: {
+      readonly parameters: {
+        readonly body: {
           /** flyway_schema_history */
-          flyway_schema_history?: definitions["flyway_schema_history"];
+          readonly flyway_schema_history?: definitions['flyway_schema_history'];
         };
-        query: {
+        readonly query: {
           /** Filtering Columns */
-          select?: parameters["select"];
+          readonly select?: parameters['select'];
         };
-        header: {
+        readonly header: {
           /** Preference */
-          Prefer?: parameters["preferReturn"];
+          readonly Prefer?: parameters['preferReturn'];
         };
       };
-      responses: {
+      readonly responses: {
         /** Created */
-        201: unknown;
+        readonly 201: unknown;
       };
     };
-    delete: {
-      parameters: {
-        query: {
-          installed_rank?: parameters["rowFilter.flyway_schema_history.installed_rank"];
-          version?: parameters["rowFilter.flyway_schema_history.version"];
-          description?: parameters["rowFilter.flyway_schema_history.description"];
-          type?: parameters["rowFilter.flyway_schema_history.type"];
-          script?: parameters["rowFilter.flyway_schema_history.script"];
-          checksum?: parameters["rowFilter.flyway_schema_history.checksum"];
-          installed_by?: parameters["rowFilter.flyway_schema_history.installed_by"];
-          installed_on?: parameters["rowFilter.flyway_schema_history.installed_on"];
-          execution_time?: parameters["rowFilter.flyway_schema_history.execution_time"];
-          success?: parameters["rowFilter.flyway_schema_history.success"];
+    readonly delete: {
+      readonly parameters: {
+        readonly query: {
+          readonly installed_rank?: parameters['rowFilter.flyway_schema_history.installed_rank'];
+          readonly version?: parameters['rowFilter.flyway_schema_history.version'];
+          readonly description?: parameters['rowFilter.flyway_schema_history.description'];
+          readonly type?: parameters['rowFilter.flyway_schema_history.type'];
+          readonly script?: parameters['rowFilter.flyway_schema_history.script'];
+          readonly checksum?: parameters['rowFilter.flyway_schema_history.checksum'];
+          readonly installed_by?: parameters['rowFilter.flyway_schema_history.installed_by'];
+          readonly installed_on?: parameters['rowFilter.flyway_schema_history.installed_on'];
+          readonly execution_time?: parameters['rowFilter.flyway_schema_history.execution_time'];
+          readonly success?: parameters['rowFilter.flyway_schema_history.success'];
         };
-        header: {
+        readonly header: {
           /** Preference */
-          Prefer?: parameters["preferReturn"];
+          readonly Prefer?: parameters['preferReturn'];
         };
       };
-      responses: {
+      readonly responses: {
         /** No Content */
-        204: never;
+        readonly 204: never;
       };
     };
-    patch: {
-      parameters: {
-        query: {
-          installed_rank?: parameters["rowFilter.flyway_schema_history.installed_rank"];
-          version?: parameters["rowFilter.flyway_schema_history.version"];
-          description?: parameters["rowFilter.flyway_schema_history.description"];
-          type?: parameters["rowFilter.flyway_schema_history.type"];
-          script?: parameters["rowFilter.flyway_schema_history.script"];
-          checksum?: parameters["rowFilter.flyway_schema_history.checksum"];
-          installed_by?: parameters["rowFilter.flyway_schema_history.installed_by"];
-          installed_on?: parameters["rowFilter.flyway_schema_history.installed_on"];
-          execution_time?: parameters["rowFilter.flyway_schema_history.execution_time"];
-          success?: parameters["rowFilter.flyway_schema_history.success"];
+    readonly patch: {
+      readonly parameters: {
+        readonly query: {
+          readonly installed_rank?: parameters['rowFilter.flyway_schema_history.installed_rank'];
+          readonly version?: parameters['rowFilter.flyway_schema_history.version'];
+          readonly description?: parameters['rowFilter.flyway_schema_history.description'];
+          readonly type?: parameters['rowFilter.flyway_schema_history.type'];
+          readonly script?: parameters['rowFilter.flyway_schema_history.script'];
+          readonly checksum?: parameters['rowFilter.flyway_schema_history.checksum'];
+          readonly installed_by?: parameters['rowFilter.flyway_schema_history.installed_by'];
+          readonly installed_on?: parameters['rowFilter.flyway_schema_history.installed_on'];
+          readonly execution_time?: parameters['rowFilter.flyway_schema_history.execution_time'];
+          readonly success?: parameters['rowFilter.flyway_schema_history.success'];
         };
-        body: {
+        readonly body: {
           /** flyway_schema_history */
-          flyway_schema_history?: definitions["flyway_schema_history"];
+          readonly flyway_schema_history?: definitions['flyway_schema_history'];
         };
-        header: {
+        readonly header: {
           /** Preference */
-          Prefer?: parameters["preferReturn"];
+          readonly Prefer?: parameters['preferReturn'];
         };
       };
-      responses: {
+      readonly responses: {
         /** No Content */
-        204: never;
+        readonly 204: never;
       };
     };
   };
-  "/prices": {
-    get: {
-      parameters: {
-        query: {
-          id?: parameters["rowFilter.prices.id"];
-          product_id?: parameters["rowFilter.prices.product_id"];
-          active?: parameters["rowFilter.prices.active"];
-          description?: parameters["rowFilter.prices.description"];
-          unit_amount?: parameters["rowFilter.prices.unit_amount"];
-          currency?: parameters["rowFilter.prices.currency"];
-          type?: parameters["rowFilter.prices.type"];
-          interval?: parameters["rowFilter.prices.interval"];
-          interval_count?: parameters["rowFilter.prices.interval_count"];
-          trial_period_days?: parameters["rowFilter.prices.trial_period_days"];
-          metadata?: parameters["rowFilter.prices.metadata"];
+  readonly '/prices': {
+    readonly get: {
+      readonly parameters: {
+        readonly query: {
+          readonly id?: parameters['rowFilter.prices.id'];
+          readonly product_id?: parameters['rowFilter.prices.product_id'];
+          readonly active?: parameters['rowFilter.prices.active'];
+          readonly description?: parameters['rowFilter.prices.description'];
+          readonly unit_amount?: parameters['rowFilter.prices.unit_amount'];
+          readonly currency?: parameters['rowFilter.prices.currency'];
+          readonly type?: parameters['rowFilter.prices.type'];
+          readonly interval?: parameters['rowFilter.prices.interval'];
+          readonly interval_count?: parameters['rowFilter.prices.interval_count'];
+          readonly trial_period_days?: parameters['rowFilter.prices.trial_period_days'];
+          readonly metadata?: parameters['rowFilter.prices.metadata'];
           /** Filtering Columns */
-          select?: parameters["select"];
+          readonly select?: parameters['select'];
           /** Ordering */
-          order?: parameters["order"];
+          readonly order?: parameters['order'];
           /** Limiting and Pagination */
-          offset?: parameters["offset"];
+          readonly offset?: parameters['offset'];
           /** Limiting and Pagination */
-          limit?: parameters["limit"];
+          readonly limit?: parameters['limit'];
         };
-        header: {
+        readonly header: {
           /** Limiting and Pagination */
-          Range?: parameters["range"];
+          readonly Range?: parameters['range'];
           /** Limiting and Pagination */
-          "Range-Unit"?: parameters["rangeUnit"];
+          readonly 'Range-Unit'?: parameters['rangeUnit'];
           /** Preference */
-          Prefer?: parameters["preferCount"];
+          readonly Prefer?: parameters['preferCount'];
         };
       };
-      responses: {
+      readonly responses: {
         /** OK */
-        200: {
-          schema: definitions["prices"][];
+        readonly 200: {
+          readonly schema: readonly definitions['prices'][];
         };
         /** Partial Content */
-        206: unknown;
+        readonly 206: unknown;
       };
     };
-    post: {
-      parameters: {
-        body: {
+    readonly post: {
+      readonly parameters: {
+        readonly body: {
           /** prices */
-          prices?: definitions["prices"];
+          readonly prices?: definitions['prices'];
         };
-        query: {
+        readonly query: {
           /** Filtering Columns */
-          select?: parameters["select"];
+          readonly select?: parameters['select'];
         };
-        header: {
+        readonly header: {
           /** Preference */
-          Prefer?: parameters["preferReturn"];
+          readonly Prefer?: parameters['preferReturn'];
         };
       };
-      responses: {
+      readonly responses: {
         /** Created */
-        201: unknown;
+        readonly 201: unknown;
       };
     };
-    delete: {
-      parameters: {
-        query: {
-          id?: parameters["rowFilter.prices.id"];
-          product_id?: parameters["rowFilter.prices.product_id"];
-          active?: parameters["rowFilter.prices.active"];
-          description?: parameters["rowFilter.prices.description"];
-          unit_amount?: parameters["rowFilter.prices.unit_amount"];
-          currency?: parameters["rowFilter.prices.currency"];
-          type?: parameters["rowFilter.prices.type"];
-          interval?: parameters["rowFilter.prices.interval"];
-          interval_count?: parameters["rowFilter.prices.interval_count"];
-          trial_period_days?: parameters["rowFilter.prices.trial_period_days"];
-          metadata?: parameters["rowFilter.prices.metadata"];
+    readonly delete: {
+      readonly parameters: {
+        readonly query: {
+          readonly id?: parameters['rowFilter.prices.id'];
+          readonly product_id?: parameters['rowFilter.prices.product_id'];
+          readonly active?: parameters['rowFilter.prices.active'];
+          readonly description?: parameters['rowFilter.prices.description'];
+          readonly unit_amount?: parameters['rowFilter.prices.unit_amount'];
+          readonly currency?: parameters['rowFilter.prices.currency'];
+          readonly type?: parameters['rowFilter.prices.type'];
+          readonly interval?: parameters['rowFilter.prices.interval'];
+          readonly interval_count?: parameters['rowFilter.prices.interval_count'];
+          readonly trial_period_days?: parameters['rowFilter.prices.trial_period_days'];
+          readonly metadata?: parameters['rowFilter.prices.metadata'];
         };
-        header: {
+        readonly header: {
           /** Preference */
-          Prefer?: parameters["preferReturn"];
+          readonly Prefer?: parameters['preferReturn'];
         };
       };
-      responses: {
+      readonly responses: {
         /** No Content */
-        204: never;
+        readonly 204: never;
       };
     };
-    patch: {
-      parameters: {
-        query: {
-          id?: parameters["rowFilter.prices.id"];
-          product_id?: parameters["rowFilter.prices.product_id"];
-          active?: parameters["rowFilter.prices.active"];
-          description?: parameters["rowFilter.prices.description"];
-          unit_amount?: parameters["rowFilter.prices.unit_amount"];
-          currency?: parameters["rowFilter.prices.currency"];
-          type?: parameters["rowFilter.prices.type"];
-          interval?: parameters["rowFilter.prices.interval"];
-          interval_count?: parameters["rowFilter.prices.interval_count"];
-          trial_period_days?: parameters["rowFilter.prices.trial_period_days"];
-          metadata?: parameters["rowFilter.prices.metadata"];
+    readonly patch: {
+      readonly parameters: {
+        readonly query: {
+          readonly id?: parameters['rowFilter.prices.id'];
+          readonly product_id?: parameters['rowFilter.prices.product_id'];
+          readonly active?: parameters['rowFilter.prices.active'];
+          readonly description?: parameters['rowFilter.prices.description'];
+          readonly unit_amount?: parameters['rowFilter.prices.unit_amount'];
+          readonly currency?: parameters['rowFilter.prices.currency'];
+          readonly type?: parameters['rowFilter.prices.type'];
+          readonly interval?: parameters['rowFilter.prices.interval'];
+          readonly interval_count?: parameters['rowFilter.prices.interval_count'];
+          readonly trial_period_days?: parameters['rowFilter.prices.trial_period_days'];
+          readonly metadata?: parameters['rowFilter.prices.metadata'];
         };
-        body: {
+        readonly body: {
           /** prices */
-          prices?: definitions["prices"];
+          readonly prices?: definitions['prices'];
         };
-        header: {
+        readonly header: {
           /** Preference */
-          Prefer?: parameters["preferReturn"];
+          readonly Prefer?: parameters['preferReturn'];
         };
       };
-      responses: {
+      readonly responses: {
         /** No Content */
-        204: never;
+        readonly 204: never;
       };
     };
   };
-  "/products": {
-    get: {
-      parameters: {
-        query: {
-          id?: parameters["rowFilter.products.id"];
-          active?: parameters["rowFilter.products.active"];
-          name?: parameters["rowFilter.products.name"];
-          description?: parameters["rowFilter.products.description"];
-          image?: parameters["rowFilter.products.image"];
-          metadata?: parameters["rowFilter.products.metadata"];
+  readonly '/products': {
+    readonly get: {
+      readonly parameters: {
+        readonly query: {
+          readonly id?: parameters['rowFilter.products.id'];
+          readonly active?: parameters['rowFilter.products.active'];
+          readonly name?: parameters['rowFilter.products.name'];
+          readonly description?: parameters['rowFilter.products.description'];
+          readonly image?: parameters['rowFilter.products.image'];
+          readonly metadata?: parameters['rowFilter.products.metadata'];
           /** Filtering Columns */
-          select?: parameters["select"];
+          readonly select?: parameters['select'];
           /** Ordering */
-          order?: parameters["order"];
+          readonly order?: parameters['order'];
           /** Limiting and Pagination */
-          offset?: parameters["offset"];
+          readonly offset?: parameters['offset'];
           /** Limiting and Pagination */
-          limit?: parameters["limit"];
+          readonly limit?: parameters['limit'];
         };
-        header: {
+        readonly header: {
           /** Limiting and Pagination */
-          Range?: parameters["range"];
+          readonly Range?: parameters['range'];
           /** Limiting and Pagination */
-          "Range-Unit"?: parameters["rangeUnit"];
+          readonly 'Range-Unit'?: parameters['rangeUnit'];
           /** Preference */
-          Prefer?: parameters["preferCount"];
+          readonly Prefer?: parameters['preferCount'];
         };
       };
-      responses: {
+      readonly responses: {
         /** OK */
-        200: {
-          schema: definitions["products"][];
+        readonly 200: {
+          readonly schema: readonly definitions['products'][];
         };
         /** Partial Content */
-        206: unknown;
+        readonly 206: unknown;
       };
     };
-    post: {
-      parameters: {
-        body: {
+    readonly post: {
+      readonly parameters: {
+        readonly body: {
           /** products */
-          products?: definitions["products"];
+          readonly products?: definitions['products'];
         };
-        query: {
+        readonly query: {
           /** Filtering Columns */
-          select?: parameters["select"];
+          readonly select?: parameters['select'];
         };
-        header: {
+        readonly header: {
           /** Preference */
-          Prefer?: parameters["preferReturn"];
+          readonly Prefer?: parameters['preferReturn'];
         };
       };
-      responses: {
+      readonly responses: {
         /** Created */
-        201: unknown;
+        readonly 201: unknown;
       };
     };
-    delete: {
-      parameters: {
-        query: {
-          id?: parameters["rowFilter.products.id"];
-          active?: parameters["rowFilter.products.active"];
-          name?: parameters["rowFilter.products.name"];
-          description?: parameters["rowFilter.products.description"];
-          image?: parameters["rowFilter.products.image"];
-          metadata?: parameters["rowFilter.products.metadata"];
+    readonly delete: {
+      readonly parameters: {
+        readonly query: {
+          readonly id?: parameters['rowFilter.products.id'];
+          readonly active?: parameters['rowFilter.products.active'];
+          readonly name?: parameters['rowFilter.products.name'];
+          readonly description?: parameters['rowFilter.products.description'];
+          readonly image?: parameters['rowFilter.products.image'];
+          readonly metadata?: parameters['rowFilter.products.metadata'];
         };
-        header: {
+        readonly header: {
           /** Preference */
-          Prefer?: parameters["preferReturn"];
+          readonly Prefer?: parameters['preferReturn'];
         };
       };
-      responses: {
+      readonly responses: {
         /** No Content */
-        204: never;
+        readonly 204: never;
       };
     };
-    patch: {
-      parameters: {
-        query: {
-          id?: parameters["rowFilter.products.id"];
-          active?: parameters["rowFilter.products.active"];
-          name?: parameters["rowFilter.products.name"];
-          description?: parameters["rowFilter.products.description"];
-          image?: parameters["rowFilter.products.image"];
-          metadata?: parameters["rowFilter.products.metadata"];
+    readonly patch: {
+      readonly parameters: {
+        readonly query: {
+          readonly id?: parameters['rowFilter.products.id'];
+          readonly active?: parameters['rowFilter.products.active'];
+          readonly name?: parameters['rowFilter.products.name'];
+          readonly description?: parameters['rowFilter.products.description'];
+          readonly image?: parameters['rowFilter.products.image'];
+          readonly metadata?: parameters['rowFilter.products.metadata'];
         };
-        body: {
+        readonly body: {
           /** products */
-          products?: definitions["products"];
+          readonly products?: definitions['products'];
         };
-        header: {
+        readonly header: {
           /** Preference */
-          Prefer?: parameters["preferReturn"];
+          readonly Prefer?: parameters['preferReturn'];
         };
       };
-      responses: {
+      readonly responses: {
         /** No Content */
-        204: never;
+        readonly 204: never;
       };
     };
   };
-  "/project_user": {
-    get: {
-      parameters: {
-        query: {
-          project_id?: parameters["rowFilter.project_user.project_id"];
-          user_id?: parameters["rowFilter.project_user.user_id"];
-          is_owner?: parameters["rowFilter.project_user.is_owner"];
+  readonly '/project_user': {
+    readonly get: {
+      readonly parameters: {
+        readonly query: {
+          readonly project_id?: parameters['rowFilter.project_user.project_id'];
+          readonly user_id?: parameters['rowFilter.project_user.user_id'];
+          readonly is_owner?: parameters['rowFilter.project_user.is_owner'];
           /** Filtering Columns */
-          select?: parameters["select"];
+          readonly select?: parameters['select'];
           /** Ordering */
-          order?: parameters["order"];
+          readonly order?: parameters['order'];
           /** Limiting and Pagination */
-          offset?: parameters["offset"];
+          readonly offset?: parameters['offset'];
           /** Limiting and Pagination */
-          limit?: parameters["limit"];
+          readonly limit?: parameters['limit'];
         };
-        header: {
+        readonly header: {
           /** Limiting and Pagination */
-          Range?: parameters["range"];
+          readonly Range?: parameters['range'];
           /** Limiting and Pagination */
-          "Range-Unit"?: parameters["rangeUnit"];
+          readonly 'Range-Unit'?: parameters['rangeUnit'];
           /** Preference */
-          Prefer?: parameters["preferCount"];
+          readonly Prefer?: parameters['preferCount'];
         };
       };
-      responses: {
+      readonly responses: {
         /** OK */
-        200: {
-          schema: definitions["project_user"][];
+        readonly 200: {
+          readonly schema: readonly definitions['project_user'][];
         };
         /** Partial Content */
-        206: unknown;
+        readonly 206: unknown;
       };
     };
-    post: {
-      parameters: {
-        body: {
+    readonly post: {
+      readonly parameters: {
+        readonly body: {
           /** project_user */
-          project_user?: definitions["project_user"];
+          readonly project_user?: definitions['project_user'];
         };
-        query: {
+        readonly query: {
           /** Filtering Columns */
-          select?: parameters["select"];
+          readonly select?: parameters['select'];
         };
-        header: {
+        readonly header: {
           /** Preference */
-          Prefer?: parameters["preferReturn"];
+          readonly Prefer?: parameters['preferReturn'];
         };
       };
-      responses: {
+      readonly responses: {
         /** Created */
-        201: unknown;
+        readonly 201: unknown;
       };
     };
-    delete: {
-      parameters: {
-        query: {
-          project_id?: parameters["rowFilter.project_user.project_id"];
-          user_id?: parameters["rowFilter.project_user.user_id"];
-          is_owner?: parameters["rowFilter.project_user.is_owner"];
+    readonly delete: {
+      readonly parameters: {
+        readonly query: {
+          readonly project_id?: parameters['rowFilter.project_user.project_id'];
+          readonly user_id?: parameters['rowFilter.project_user.user_id'];
+          readonly is_owner?: parameters['rowFilter.project_user.is_owner'];
         };
-        header: {
+        readonly header: {
           /** Preference */
-          Prefer?: parameters["preferReturn"];
+          readonly Prefer?: parameters['preferReturn'];
         };
       };
-      responses: {
+      readonly responses: {
         /** No Content */
-        204: never;
+        readonly 204: never;
       };
     };
-    patch: {
-      parameters: {
-        query: {
-          project_id?: parameters["rowFilter.project_user.project_id"];
-          user_id?: parameters["rowFilter.project_user.user_id"];
-          is_owner?: parameters["rowFilter.project_user.is_owner"];
+    readonly patch: {
+      readonly parameters: {
+        readonly query: {
+          readonly project_id?: parameters['rowFilter.project_user.project_id'];
+          readonly user_id?: parameters['rowFilter.project_user.user_id'];
+          readonly is_owner?: parameters['rowFilter.project_user.is_owner'];
         };
-        body: {
+        readonly body: {
           /** project_user */
-          project_user?: definitions["project_user"];
+          readonly project_user?: definitions['project_user'];
         };
-        header: {
+        readonly header: {
           /** Preference */
-          Prefer?: parameters["preferReturn"];
+          readonly Prefer?: parameters['preferReturn'];
         };
       };
-      responses: {
+      readonly responses: {
         /** No Content */
-        204: never;
+        readonly 204: never;
       };
     };
   };
-  "/projects": {
-    get: {
-      parameters: {
-        query: {
-          id?: parameters["rowFilter.projects.id"];
-          title?: parameters["rowFilter.projects.title"];
-          pid?: parameters["rowFilter.projects.pid"];
-          website_url?: parameters["rowFilter.projects.website_url"];
-          invite_id?: parameters["rowFilter.projects.invite_id"];
-          updated_at?: parameters["rowFilter.projects.updated_at"];
-          created_at?: parameters["rowFilter.projects.created_at"];
+  readonly '/projects': {
+    readonly get: {
+      readonly parameters: {
+        readonly query: {
+          readonly id?: parameters['rowFilter.projects.id'];
+          readonly title?: parameters['rowFilter.projects.title'];
+          readonly pid?: parameters['rowFilter.projects.pid'];
+          readonly website_url?: parameters['rowFilter.projects.website_url'];
+          readonly invite_id?: parameters['rowFilter.projects.invite_id'];
+          readonly updated_at?: parameters['rowFilter.projects.updated_at'];
+          readonly created_at?: parameters['rowFilter.projects.created_at'];
           /** Filtering Columns */
-          select?: parameters["select"];
+          readonly select?: parameters['select'];
           /** Ordering */
-          order?: parameters["order"];
+          readonly order?: parameters['order'];
           /** Limiting and Pagination */
-          offset?: parameters["offset"];
+          readonly offset?: parameters['offset'];
           /** Limiting and Pagination */
-          limit?: parameters["limit"];
+          readonly limit?: parameters['limit'];
         };
-        header: {
+        readonly header: {
           /** Limiting and Pagination */
-          Range?: parameters["range"];
+          readonly Range?: parameters['range'];
           /** Limiting and Pagination */
-          "Range-Unit"?: parameters["rangeUnit"];
+          readonly 'Range-Unit'?: parameters['rangeUnit'];
           /** Preference */
-          Prefer?: parameters["preferCount"];
+          readonly Prefer?: parameters['preferCount'];
         };
       };
-      responses: {
+      readonly responses: {
         /** OK */
-        200: {
-          schema: definitions["projects"][];
+        readonly 200: {
+          readonly schema: readonly definitions['projects'][];
         };
         /** Partial Content */
-        206: unknown;
+        readonly 206: unknown;
       };
     };
-    post: {
-      parameters: {
-        body: {
+    readonly post: {
+      readonly parameters: {
+        readonly body: {
           /** projects */
-          projects?: definitions["projects"];
+          readonly projects?: definitions['projects'];
         };
-        query: {
+        readonly query: {
           /** Filtering Columns */
-          select?: parameters["select"];
+          readonly select?: parameters['select'];
         };
-        header: {
+        readonly header: {
           /** Preference */
-          Prefer?: parameters["preferReturn"];
+          readonly Prefer?: parameters['preferReturn'];
         };
       };
-      responses: {
+      readonly responses: {
         /** Created */
-        201: unknown;
+        readonly 201: unknown;
       };
     };
-    delete: {
-      parameters: {
-        query: {
-          id?: parameters["rowFilter.projects.id"];
-          title?: parameters["rowFilter.projects.title"];
-          pid?: parameters["rowFilter.projects.pid"];
-          website_url?: parameters["rowFilter.projects.website_url"];
-          invite_id?: parameters["rowFilter.projects.invite_id"];
-          updated_at?: parameters["rowFilter.projects.updated_at"];
-          created_at?: parameters["rowFilter.projects.created_at"];
+    readonly delete: {
+      readonly parameters: {
+        readonly query: {
+          readonly id?: parameters['rowFilter.projects.id'];
+          readonly title?: parameters['rowFilter.projects.title'];
+          readonly pid?: parameters['rowFilter.projects.pid'];
+          readonly website_url?: parameters['rowFilter.projects.website_url'];
+          readonly invite_id?: parameters['rowFilter.projects.invite_id'];
+          readonly updated_at?: parameters['rowFilter.projects.updated_at'];
+          readonly created_at?: parameters['rowFilter.projects.created_at'];
         };
-        header: {
+        readonly header: {
           /** Preference */
-          Prefer?: parameters["preferReturn"];
+          readonly Prefer?: parameters['preferReturn'];
         };
       };
-      responses: {
+      readonly responses: {
         /** No Content */
-        204: never;
+        readonly 204: never;
       };
     };
-    patch: {
-      parameters: {
-        query: {
-          id?: parameters["rowFilter.projects.id"];
-          title?: parameters["rowFilter.projects.title"];
-          pid?: parameters["rowFilter.projects.pid"];
-          website_url?: parameters["rowFilter.projects.website_url"];
-          invite_id?: parameters["rowFilter.projects.invite_id"];
-          updated_at?: parameters["rowFilter.projects.updated_at"];
-          created_at?: parameters["rowFilter.projects.created_at"];
+    readonly patch: {
+      readonly parameters: {
+        readonly query: {
+          readonly id?: parameters['rowFilter.projects.id'];
+          readonly title?: parameters['rowFilter.projects.title'];
+          readonly pid?: parameters['rowFilter.projects.pid'];
+          readonly website_url?: parameters['rowFilter.projects.website_url'];
+          readonly invite_id?: parameters['rowFilter.projects.invite_id'];
+          readonly updated_at?: parameters['rowFilter.projects.updated_at'];
+          readonly created_at?: parameters['rowFilter.projects.created_at'];
         };
-        body: {
+        readonly body: {
           /** projects */
-          projects?: definitions["projects"];
+          readonly projects?: definitions['projects'];
         };
-        header: {
+        readonly header: {
           /** Preference */
-          Prefer?: parameters["preferReturn"];
+          readonly Prefer?: parameters['preferReturn'];
         };
       };
-      responses: {
+      readonly responses: {
         /** No Content */
-        204: never;
+        readonly 204: never;
       };
     };
   };
-  "/subscriptions": {
-    get: {
-      parameters: {
-        query: {
-          id?: parameters["rowFilter.subscriptions.id"];
-          user_id?: parameters["rowFilter.subscriptions.user_id"];
-          status?: parameters["rowFilter.subscriptions.status"];
-          metadata?: parameters["rowFilter.subscriptions.metadata"];
-          price_id?: parameters["rowFilter.subscriptions.price_id"];
-          quantity?: parameters["rowFilter.subscriptions.quantity"];
-          cancel_at_period_end?: parameters["rowFilter.subscriptions.cancel_at_period_end"];
-          created?: parameters["rowFilter.subscriptions.created"];
-          current_period_start?: parameters["rowFilter.subscriptions.current_period_start"];
-          current_period_end?: parameters["rowFilter.subscriptions.current_period_end"];
-          ended_at?: parameters["rowFilter.subscriptions.ended_at"];
-          cancel_at?: parameters["rowFilter.subscriptions.cancel_at"];
-          canceled_at?: parameters["rowFilter.subscriptions.canceled_at"];
-          trial_start?: parameters["rowFilter.subscriptions.trial_start"];
-          trial_end?: parameters["rowFilter.subscriptions.trial_end"];
+  readonly '/subscriptions': {
+    readonly get: {
+      readonly parameters: {
+        readonly query: {
+          readonly id?: parameters['rowFilter.subscriptions.id'];
+          readonly user_id?: parameters['rowFilter.subscriptions.user_id'];
+          readonly status?: parameters['rowFilter.subscriptions.status'];
+          readonly metadata?: parameters['rowFilter.subscriptions.metadata'];
+          readonly price_id?: parameters['rowFilter.subscriptions.price_id'];
+          readonly quantity?: parameters['rowFilter.subscriptions.quantity'];
+          readonly cancel_at_period_end?: parameters['rowFilter.subscriptions.cancel_at_period_end'];
+          readonly created?: parameters['rowFilter.subscriptions.created'];
+          readonly current_period_start?: parameters['rowFilter.subscriptions.current_period_start'];
+          readonly current_period_end?: parameters['rowFilter.subscriptions.current_period_end'];
+          readonly ended_at?: parameters['rowFilter.subscriptions.ended_at'];
+          readonly cancel_at?: parameters['rowFilter.subscriptions.cancel_at'];
+          readonly canceled_at?: parameters['rowFilter.subscriptions.canceled_at'];
+          readonly trial_start?: parameters['rowFilter.subscriptions.trial_start'];
+          readonly trial_end?: parameters['rowFilter.subscriptions.trial_end'];
           /** Filtering Columns */
-          select?: parameters["select"];
+          readonly select?: parameters['select'];
           /** Ordering */
-          order?: parameters["order"];
+          readonly order?: parameters['order'];
           /** Limiting and Pagination */
-          offset?: parameters["offset"];
+          readonly offset?: parameters['offset'];
           /** Limiting and Pagination */
-          limit?: parameters["limit"];
+          readonly limit?: parameters['limit'];
         };
-        header: {
+        readonly header: {
           /** Limiting and Pagination */
-          Range?: parameters["range"];
+          readonly Range?: parameters['range'];
           /** Limiting and Pagination */
-          "Range-Unit"?: parameters["rangeUnit"];
+          readonly 'Range-Unit'?: parameters['rangeUnit'];
           /** Preference */
-          Prefer?: parameters["preferCount"];
+          readonly Prefer?: parameters['preferCount'];
         };
       };
-      responses: {
+      readonly responses: {
         /** OK */
-        200: {
-          schema: definitions["subscriptions"][];
+        readonly 200: {
+          readonly schema: readonly definitions['subscriptions'][];
         };
         /** Partial Content */
-        206: unknown;
+        readonly 206: unknown;
       };
     };
-    post: {
-      parameters: {
-        body: {
+    readonly post: {
+      readonly parameters: {
+        readonly body: {
           /** subscriptions */
-          subscriptions?: definitions["subscriptions"];
+          readonly subscriptions?: definitions['subscriptions'];
         };
-        query: {
+        readonly query: {
           /** Filtering Columns */
-          select?: parameters["select"];
+          readonly select?: parameters['select'];
         };
-        header: {
+        readonly header: {
           /** Preference */
-          Prefer?: parameters["preferReturn"];
+          readonly Prefer?: parameters['preferReturn'];
         };
       };
-      responses: {
+      readonly responses: {
         /** Created */
-        201: unknown;
+        readonly 201: unknown;
       };
     };
-    delete: {
-      parameters: {
-        query: {
-          id?: parameters["rowFilter.subscriptions.id"];
-          user_id?: parameters["rowFilter.subscriptions.user_id"];
-          status?: parameters["rowFilter.subscriptions.status"];
-          metadata?: parameters["rowFilter.subscriptions.metadata"];
-          price_id?: parameters["rowFilter.subscriptions.price_id"];
-          quantity?: parameters["rowFilter.subscriptions.quantity"];
-          cancel_at_period_end?: parameters["rowFilter.subscriptions.cancel_at_period_end"];
-          created?: parameters["rowFilter.subscriptions.created"];
-          current_period_start?: parameters["rowFilter.subscriptions.current_period_start"];
-          current_period_end?: parameters["rowFilter.subscriptions.current_period_end"];
-          ended_at?: parameters["rowFilter.subscriptions.ended_at"];
-          cancel_at?: parameters["rowFilter.subscriptions.cancel_at"];
-          canceled_at?: parameters["rowFilter.subscriptions.canceled_at"];
-          trial_start?: parameters["rowFilter.subscriptions.trial_start"];
-          trial_end?: parameters["rowFilter.subscriptions.trial_end"];
+    readonly delete: {
+      readonly parameters: {
+        readonly query: {
+          readonly id?: parameters['rowFilter.subscriptions.id'];
+          readonly user_id?: parameters['rowFilter.subscriptions.user_id'];
+          readonly status?: parameters['rowFilter.subscriptions.status'];
+          readonly metadata?: parameters['rowFilter.subscriptions.metadata'];
+          readonly price_id?: parameters['rowFilter.subscriptions.price_id'];
+          readonly quantity?: parameters['rowFilter.subscriptions.quantity'];
+          readonly cancel_at_period_end?: parameters['rowFilter.subscriptions.cancel_at_period_end'];
+          readonly created?: parameters['rowFilter.subscriptions.created'];
+          readonly current_period_start?: parameters['rowFilter.subscriptions.current_period_start'];
+          readonly current_period_end?: parameters['rowFilter.subscriptions.current_period_end'];
+          readonly ended_at?: parameters['rowFilter.subscriptions.ended_at'];
+          readonly cancel_at?: parameters['rowFilter.subscriptions.cancel_at'];
+          readonly canceled_at?: parameters['rowFilter.subscriptions.canceled_at'];
+          readonly trial_start?: parameters['rowFilter.subscriptions.trial_start'];
+          readonly trial_end?: parameters['rowFilter.subscriptions.trial_end'];
         };
-        header: {
+        readonly header: {
           /** Preference */
-          Prefer?: parameters["preferReturn"];
+          readonly Prefer?: parameters['preferReturn'];
         };
       };
-      responses: {
+      readonly responses: {
         /** No Content */
-        204: never;
+        readonly 204: never;
       };
     };
-    patch: {
-      parameters: {
-        query: {
-          id?: parameters["rowFilter.subscriptions.id"];
-          user_id?: parameters["rowFilter.subscriptions.user_id"];
-          status?: parameters["rowFilter.subscriptions.status"];
-          metadata?: parameters["rowFilter.subscriptions.metadata"];
-          price_id?: parameters["rowFilter.subscriptions.price_id"];
-          quantity?: parameters["rowFilter.subscriptions.quantity"];
-          cancel_at_period_end?: parameters["rowFilter.subscriptions.cancel_at_period_end"];
-          created?: parameters["rowFilter.subscriptions.created"];
-          current_period_start?: parameters["rowFilter.subscriptions.current_period_start"];
-          current_period_end?: parameters["rowFilter.subscriptions.current_period_end"];
-          ended_at?: parameters["rowFilter.subscriptions.ended_at"];
-          cancel_at?: parameters["rowFilter.subscriptions.cancel_at"];
-          canceled_at?: parameters["rowFilter.subscriptions.canceled_at"];
-          trial_start?: parameters["rowFilter.subscriptions.trial_start"];
-          trial_end?: parameters["rowFilter.subscriptions.trial_end"];
+    readonly patch: {
+      readonly parameters: {
+        readonly query: {
+          readonly id?: parameters['rowFilter.subscriptions.id'];
+          readonly user_id?: parameters['rowFilter.subscriptions.user_id'];
+          readonly status?: parameters['rowFilter.subscriptions.status'];
+          readonly metadata?: parameters['rowFilter.subscriptions.metadata'];
+          readonly price_id?: parameters['rowFilter.subscriptions.price_id'];
+          readonly quantity?: parameters['rowFilter.subscriptions.quantity'];
+          readonly cancel_at_period_end?: parameters['rowFilter.subscriptions.cancel_at_period_end'];
+          readonly created?: parameters['rowFilter.subscriptions.created'];
+          readonly current_period_start?: parameters['rowFilter.subscriptions.current_period_start'];
+          readonly current_period_end?: parameters['rowFilter.subscriptions.current_period_end'];
+          readonly ended_at?: parameters['rowFilter.subscriptions.ended_at'];
+          readonly cancel_at?: parameters['rowFilter.subscriptions.cancel_at'];
+          readonly canceled_at?: parameters['rowFilter.subscriptions.canceled_at'];
+          readonly trial_start?: parameters['rowFilter.subscriptions.trial_start'];
+          readonly trial_end?: parameters['rowFilter.subscriptions.trial_end'];
         };
-        body: {
+        readonly body: {
           /** subscriptions */
-          subscriptions?: definitions["subscriptions"];
+          readonly subscriptions?: definitions['subscriptions'];
         };
-        header: {
+        readonly header: {
           /** Preference */
-          Prefer?: parameters["preferReturn"];
+          readonly Prefer?: parameters['preferReturn'];
         };
       };
-      responses: {
+      readonly responses: {
         /** No Content */
-        204: never;
+        readonly 204: never;
       };
     };
   };
-  "/team_user": {
-    get: {
-      parameters: {
-        query: {
-          team_id?: parameters["rowFilter.team_user.team_id"];
-          user_id?: parameters["rowFilter.team_user.user_id"];
+  readonly '/team_user': {
+    readonly get: {
+      readonly parameters: {
+        readonly query: {
+          readonly team_id?: parameters['rowFilter.team_user.team_id'];
+          readonly user_id?: parameters['rowFilter.team_user.user_id'];
           /** Filtering Columns */
-          select?: parameters["select"];
+          readonly select?: parameters['select'];
           /** Ordering */
-          order?: parameters["order"];
+          readonly order?: parameters['order'];
           /** Limiting and Pagination */
-          offset?: parameters["offset"];
+          readonly offset?: parameters['offset'];
           /** Limiting and Pagination */
-          limit?: parameters["limit"];
+          readonly limit?: parameters['limit'];
         };
-        header: {
+        readonly header: {
           /** Limiting and Pagination */
-          Range?: parameters["range"];
+          readonly Range?: parameters['range'];
           /** Limiting and Pagination */
-          "Range-Unit"?: parameters["rangeUnit"];
+          readonly 'Range-Unit'?: parameters['rangeUnit'];
           /** Preference */
-          Prefer?: parameters["preferCount"];
+          readonly Prefer?: parameters['preferCount'];
         };
       };
-      responses: {
+      readonly responses: {
         /** OK */
-        200: {
-          schema: definitions["team_user"][];
+        readonly 200: {
+          readonly schema: readonly definitions['team_user'][];
         };
         /** Partial Content */
-        206: unknown;
+        readonly 206: unknown;
       };
     };
-    post: {
-      parameters: {
-        body: {
+    readonly post: {
+      readonly parameters: {
+        readonly body: {
           /** team_user */
-          team_user?: definitions["team_user"];
+          readonly team_user?: definitions['team_user'];
         };
-        query: {
+        readonly query: {
           /** Filtering Columns */
-          select?: parameters["select"];
+          readonly select?: parameters['select'];
         };
-        header: {
+        readonly header: {
           /** Preference */
-          Prefer?: parameters["preferReturn"];
+          readonly Prefer?: parameters['preferReturn'];
         };
       };
-      responses: {
+      readonly responses: {
         /** Created */
-        201: unknown;
+        readonly 201: unknown;
       };
     };
-    delete: {
-      parameters: {
-        query: {
-          team_id?: parameters["rowFilter.team_user.team_id"];
-          user_id?: parameters["rowFilter.team_user.user_id"];
+    readonly delete: {
+      readonly parameters: {
+        readonly query: {
+          readonly team_id?: parameters['rowFilter.team_user.team_id'];
+          readonly user_id?: parameters['rowFilter.team_user.user_id'];
         };
-        header: {
+        readonly header: {
           /** Preference */
-          Prefer?: parameters["preferReturn"];
+          readonly Prefer?: parameters['preferReturn'];
         };
       };
-      responses: {
+      readonly responses: {
         /** No Content */
-        204: never;
+        readonly 204: never;
       };
     };
-    patch: {
-      parameters: {
-        query: {
-          team_id?: parameters["rowFilter.team_user.team_id"];
-          user_id?: parameters["rowFilter.team_user.user_id"];
+    readonly patch: {
+      readonly parameters: {
+        readonly query: {
+          readonly team_id?: parameters['rowFilter.team_user.team_id'];
+          readonly user_id?: parameters['rowFilter.team_user.user_id'];
         };
-        body: {
+        readonly body: {
           /** team_user */
-          team_user?: definitions["team_user"];
+          readonly team_user?: definitions['team_user'];
         };
-        header: {
+        readonly header: {
           /** Preference */
-          Prefer?: parameters["preferReturn"];
+          readonly Prefer?: parameters['preferReturn'];
         };
       };
-      responses: {
+      readonly responses: {
         /** No Content */
-        204: never;
+        readonly 204: never;
       };
     };
   };
-  "/teams": {
-    get: {
-      parameters: {
-        query: {
-          id?: parameters["rowFilter.teams.id"];
-          name?: parameters["rowFilter.teams.name"];
-          photo_url?: parameters["rowFilter.teams.photo_url"];
-          stripe_id?: parameters["rowFilter.teams.stripe_id"];
-          current_billing_plan?: parameters["rowFilter.teams.current_billing_plan"];
+  readonly '/teams': {
+    readonly get: {
+      readonly parameters: {
+        readonly query: {
+          readonly id?: parameters['rowFilter.teams.id'];
+          readonly name?: parameters['rowFilter.teams.name'];
+          readonly photo_url?: parameters['rowFilter.teams.photo_url'];
+          readonly stripe_id?: parameters['rowFilter.teams.stripe_id'];
+          readonly current_billing_plan?: parameters['rowFilter.teams.current_billing_plan'];
           /** Filtering Columns */
-          select?: parameters["select"];
+          readonly select?: parameters['select'];
           /** Ordering */
-          order?: parameters["order"];
+          readonly order?: parameters['order'];
           /** Limiting and Pagination */
-          offset?: parameters["offset"];
+          readonly offset?: parameters['offset'];
           /** Limiting and Pagination */
-          limit?: parameters["limit"];
+          readonly limit?: parameters['limit'];
         };
-        header: {
+        readonly header: {
           /** Limiting and Pagination */
-          Range?: parameters["range"];
+          readonly Range?: parameters['range'];
           /** Limiting and Pagination */
-          "Range-Unit"?: parameters["rangeUnit"];
+          readonly 'Range-Unit'?: parameters['rangeUnit'];
           /** Preference */
-          Prefer?: parameters["preferCount"];
+          readonly Prefer?: parameters['preferCount'];
         };
       };
-      responses: {
+      readonly responses: {
         /** OK */
-        200: {
-          schema: definitions["teams"][];
+        readonly 200: {
+          readonly schema: readonly definitions['teams'][];
         };
         /** Partial Content */
-        206: unknown;
+        readonly 206: unknown;
       };
     };
-    post: {
-      parameters: {
-        body: {
+    readonly post: {
+      readonly parameters: {
+        readonly body: {
           /** teams */
-          teams?: definitions["teams"];
+          readonly teams?: definitions['teams'];
         };
-        query: {
+        readonly query: {
           /** Filtering Columns */
-          select?: parameters["select"];
+          readonly select?: parameters['select'];
         };
-        header: {
+        readonly header: {
           /** Preference */
-          Prefer?: parameters["preferReturn"];
+          readonly Prefer?: parameters['preferReturn'];
         };
       };
-      responses: {
+      readonly responses: {
         /** Created */
-        201: unknown;
+        readonly 201: unknown;
       };
     };
-    delete: {
-      parameters: {
-        query: {
-          id?: parameters["rowFilter.teams.id"];
-          name?: parameters["rowFilter.teams.name"];
-          photo_url?: parameters["rowFilter.teams.photo_url"];
-          stripe_id?: parameters["rowFilter.teams.stripe_id"];
-          current_billing_plan?: parameters["rowFilter.teams.current_billing_plan"];
+    readonly delete: {
+      readonly parameters: {
+        readonly query: {
+          readonly id?: parameters['rowFilter.teams.id'];
+          readonly name?: parameters['rowFilter.teams.name'];
+          readonly photo_url?: parameters['rowFilter.teams.photo_url'];
+          readonly stripe_id?: parameters['rowFilter.teams.stripe_id'];
+          readonly current_billing_plan?: parameters['rowFilter.teams.current_billing_plan'];
         };
-        header: {
+        readonly header: {
           /** Preference */
-          Prefer?: parameters["preferReturn"];
+          readonly Prefer?: parameters['preferReturn'];
         };
       };
-      responses: {
+      readonly responses: {
         /** No Content */
-        204: never;
+        readonly 204: never;
       };
     };
-    patch: {
-      parameters: {
-        query: {
-          id?: parameters["rowFilter.teams.id"];
-          name?: parameters["rowFilter.teams.name"];
-          photo_url?: parameters["rowFilter.teams.photo_url"];
-          stripe_id?: parameters["rowFilter.teams.stripe_id"];
-          current_billing_plan?: parameters["rowFilter.teams.current_billing_plan"];
+    readonly patch: {
+      readonly parameters: {
+        readonly query: {
+          readonly id?: parameters['rowFilter.teams.id'];
+          readonly name?: parameters['rowFilter.teams.name'];
+          readonly photo_url?: parameters['rowFilter.teams.photo_url'];
+          readonly stripe_id?: parameters['rowFilter.teams.stripe_id'];
+          readonly current_billing_plan?: parameters['rowFilter.teams.current_billing_plan'];
         };
-        body: {
+        readonly body: {
           /** teams */
-          teams?: definitions["teams"];
+          readonly teams?: definitions['teams'];
         };
-        header: {
+        readonly header: {
           /** Preference */
-          Prefer?: parameters["preferReturn"];
+          readonly Prefer?: parameters['preferReturn'];
         };
       };
-      responses: {
+      readonly responses: {
         /** No Content */
-        204: never;
+        readonly 204: never;
       };
     };
   };
-  "/teams_subscriptions": {
-    get: {
-      parameters: {
-        query: {
-          id?: parameters["rowFilter.teams_subscriptions.id"];
-          team_id?: parameters["rowFilter.teams_subscriptions.team_id"];
-          status?: parameters["rowFilter.teams_subscriptions.status"];
-          metadata?: parameters["rowFilter.teams_subscriptions.metadata"];
-          price_id?: parameters["rowFilter.teams_subscriptions.price_id"];
-          quantity?: parameters["rowFilter.teams_subscriptions.quantity"];
-          cancel_at_period_end?: parameters["rowFilter.teams_subscriptions.cancel_at_period_end"];
-          created?: parameters["rowFilter.teams_subscriptions.created"];
-          current_period_start?: parameters["rowFilter.teams_subscriptions.current_period_start"];
-          current_period_end?: parameters["rowFilter.teams_subscriptions.current_period_end"];
-          ended_at?: parameters["rowFilter.teams_subscriptions.ended_at"];
-          cancel_at?: parameters["rowFilter.teams_subscriptions.cancel_at"];
-          canceled_at?: parameters["rowFilter.teams_subscriptions.canceled_at"];
-          trial_start?: parameters["rowFilter.teams_subscriptions.trial_start"];
-          trial_end?: parameters["rowFilter.teams_subscriptions.trial_end"];
+  readonly '/teams_subscriptions': {
+    readonly get: {
+      readonly parameters: {
+        readonly query: {
+          readonly id?: parameters['rowFilter.teams_subscriptions.id'];
+          readonly team_id?: parameters['rowFilter.teams_subscriptions.team_id'];
+          readonly status?: parameters['rowFilter.teams_subscriptions.status'];
+          readonly metadata?: parameters['rowFilter.teams_subscriptions.metadata'];
+          readonly price_id?: parameters['rowFilter.teams_subscriptions.price_id'];
+          readonly quantity?: parameters['rowFilter.teams_subscriptions.quantity'];
+          readonly cancel_at_period_end?: parameters['rowFilter.teams_subscriptions.cancel_at_period_end'];
+          readonly created?: parameters['rowFilter.teams_subscriptions.created'];
+          readonly current_period_start?: parameters['rowFilter.teams_subscriptions.current_period_start'];
+          readonly current_period_end?: parameters['rowFilter.teams_subscriptions.current_period_end'];
+          readonly ended_at?: parameters['rowFilter.teams_subscriptions.ended_at'];
+          readonly cancel_at?: parameters['rowFilter.teams_subscriptions.cancel_at'];
+          readonly canceled_at?: parameters['rowFilter.teams_subscriptions.canceled_at'];
+          readonly trial_start?: parameters['rowFilter.teams_subscriptions.trial_start'];
+          readonly trial_end?: parameters['rowFilter.teams_subscriptions.trial_end'];
           /** Filtering Columns */
-          select?: parameters["select"];
+          readonly select?: parameters['select'];
           /** Ordering */
-          order?: parameters["order"];
+          readonly order?: parameters['order'];
           /** Limiting and Pagination */
-          offset?: parameters["offset"];
+          readonly offset?: parameters['offset'];
           /** Limiting and Pagination */
-          limit?: parameters["limit"];
+          readonly limit?: parameters['limit'];
         };
-        header: {
+        readonly header: {
           /** Limiting and Pagination */
-          Range?: parameters["range"];
+          readonly Range?: parameters['range'];
           /** Limiting and Pagination */
-          "Range-Unit"?: parameters["rangeUnit"];
+          readonly 'Range-Unit'?: parameters['rangeUnit'];
           /** Preference */
-          Prefer?: parameters["preferCount"];
+          readonly Prefer?: parameters['preferCount'];
         };
       };
-      responses: {
+      readonly responses: {
         /** OK */
-        200: {
-          schema: definitions["teams_subscriptions"][];
+        readonly 200: {
+          readonly schema: readonly definitions['teams_subscriptions'][];
         };
         /** Partial Content */
-        206: unknown;
+        readonly 206: unknown;
       };
     };
-    post: {
-      parameters: {
-        body: {
+    readonly post: {
+      readonly parameters: {
+        readonly body: {
           /** teams_subscriptions */
-          teams_subscriptions?: definitions["teams_subscriptions"];
+          readonly teams_subscriptions?: definitions['teams_subscriptions'];
         };
-        query: {
+        readonly query: {
           /** Filtering Columns */
-          select?: parameters["select"];
+          readonly select?: parameters['select'];
         };
-        header: {
+        readonly header: {
           /** Preference */
-          Prefer?: parameters["preferReturn"];
+          readonly Prefer?: parameters['preferReturn'];
         };
       };
-      responses: {
+      readonly responses: {
         /** Created */
-        201: unknown;
+        readonly 201: unknown;
       };
     };
-    delete: {
-      parameters: {
-        query: {
-          id?: parameters["rowFilter.teams_subscriptions.id"];
-          team_id?: parameters["rowFilter.teams_subscriptions.team_id"];
-          status?: parameters["rowFilter.teams_subscriptions.status"];
-          metadata?: parameters["rowFilter.teams_subscriptions.metadata"];
-          price_id?: parameters["rowFilter.teams_subscriptions.price_id"];
-          quantity?: parameters["rowFilter.teams_subscriptions.quantity"];
-          cancel_at_period_end?: parameters["rowFilter.teams_subscriptions.cancel_at_period_end"];
-          created?: parameters["rowFilter.teams_subscriptions.created"];
-          current_period_start?: parameters["rowFilter.teams_subscriptions.current_period_start"];
-          current_period_end?: parameters["rowFilter.teams_subscriptions.current_period_end"];
-          ended_at?: parameters["rowFilter.teams_subscriptions.ended_at"];
-          cancel_at?: parameters["rowFilter.teams_subscriptions.cancel_at"];
-          canceled_at?: parameters["rowFilter.teams_subscriptions.canceled_at"];
-          trial_start?: parameters["rowFilter.teams_subscriptions.trial_start"];
-          trial_end?: parameters["rowFilter.teams_subscriptions.trial_end"];
+    readonly delete: {
+      readonly parameters: {
+        readonly query: {
+          readonly id?: parameters['rowFilter.teams_subscriptions.id'];
+          readonly team_id?: parameters['rowFilter.teams_subscriptions.team_id'];
+          readonly status?: parameters['rowFilter.teams_subscriptions.status'];
+          readonly metadata?: parameters['rowFilter.teams_subscriptions.metadata'];
+          readonly price_id?: parameters['rowFilter.teams_subscriptions.price_id'];
+          readonly quantity?: parameters['rowFilter.teams_subscriptions.quantity'];
+          readonly cancel_at_period_end?: parameters['rowFilter.teams_subscriptions.cancel_at_period_end'];
+          readonly created?: parameters['rowFilter.teams_subscriptions.created'];
+          readonly current_period_start?: parameters['rowFilter.teams_subscriptions.current_period_start'];
+          readonly current_period_end?: parameters['rowFilter.teams_subscriptions.current_period_end'];
+          readonly ended_at?: parameters['rowFilter.teams_subscriptions.ended_at'];
+          readonly cancel_at?: parameters['rowFilter.teams_subscriptions.cancel_at'];
+          readonly canceled_at?: parameters['rowFilter.teams_subscriptions.canceled_at'];
+          readonly trial_start?: parameters['rowFilter.teams_subscriptions.trial_start'];
+          readonly trial_end?: parameters['rowFilter.teams_subscriptions.trial_end'];
         };
-        header: {
+        readonly header: {
           /** Preference */
-          Prefer?: parameters["preferReturn"];
+          readonly Prefer?: parameters['preferReturn'];
         };
       };
-      responses: {
+      readonly responses: {
         /** No Content */
-        204: never;
+        readonly 204: never;
       };
     };
-    patch: {
-      parameters: {
-        query: {
-          id?: parameters["rowFilter.teams_subscriptions.id"];
-          team_id?: parameters["rowFilter.teams_subscriptions.team_id"];
-          status?: parameters["rowFilter.teams_subscriptions.status"];
-          metadata?: parameters["rowFilter.teams_subscriptions.metadata"];
-          price_id?: parameters["rowFilter.teams_subscriptions.price_id"];
-          quantity?: parameters["rowFilter.teams_subscriptions.quantity"];
-          cancel_at_period_end?: parameters["rowFilter.teams_subscriptions.cancel_at_period_end"];
-          created?: parameters["rowFilter.teams_subscriptions.created"];
-          current_period_start?: parameters["rowFilter.teams_subscriptions.current_period_start"];
-          current_period_end?: parameters["rowFilter.teams_subscriptions.current_period_end"];
-          ended_at?: parameters["rowFilter.teams_subscriptions.ended_at"];
-          cancel_at?: parameters["rowFilter.teams_subscriptions.cancel_at"];
-          canceled_at?: parameters["rowFilter.teams_subscriptions.canceled_at"];
-          trial_start?: parameters["rowFilter.teams_subscriptions.trial_start"];
-          trial_end?: parameters["rowFilter.teams_subscriptions.trial_end"];
+    readonly patch: {
+      readonly parameters: {
+        readonly query: {
+          readonly id?: parameters['rowFilter.teams_subscriptions.id'];
+          readonly team_id?: parameters['rowFilter.teams_subscriptions.team_id'];
+          readonly status?: parameters['rowFilter.teams_subscriptions.status'];
+          readonly metadata?: parameters['rowFilter.teams_subscriptions.metadata'];
+          readonly price_id?: parameters['rowFilter.teams_subscriptions.price_id'];
+          readonly quantity?: parameters['rowFilter.teams_subscriptions.quantity'];
+          readonly cancel_at_period_end?: parameters['rowFilter.teams_subscriptions.cancel_at_period_end'];
+          readonly created?: parameters['rowFilter.teams_subscriptions.created'];
+          readonly current_period_start?: parameters['rowFilter.teams_subscriptions.current_period_start'];
+          readonly current_period_end?: parameters['rowFilter.teams_subscriptions.current_period_end'];
+          readonly ended_at?: parameters['rowFilter.teams_subscriptions.ended_at'];
+          readonly cancel_at?: parameters['rowFilter.teams_subscriptions.cancel_at'];
+          readonly canceled_at?: parameters['rowFilter.teams_subscriptions.canceled_at'];
+          readonly trial_start?: parameters['rowFilter.teams_subscriptions.trial_start'];
+          readonly trial_end?: parameters['rowFilter.teams_subscriptions.trial_end'];
         };
-        body: {
+        readonly body: {
           /** teams_subscriptions */
-          teams_subscriptions?: definitions["teams_subscriptions"];
+          readonly teams_subscriptions?: definitions['teams_subscriptions'];
         };
-        header: {
+        readonly header: {
           /** Preference */
-          Prefer?: parameters["preferReturn"];
+          readonly Prefer?: parameters['preferReturn'];
         };
       };
-      responses: {
+      readonly responses: {
         /** No Content */
-        204: never;
+        readonly 204: never;
       };
     };
   };
-  "/users": {
-    get: {
-      parameters: {
-        query: {
-          id?: parameters["rowFilter.users.id"];
-          full_name?: parameters["rowFilter.users.full_name"];
-          avatar_url?: parameters["rowFilter.users.avatar_url"];
-          billing_address?: parameters["rowFilter.users.billing_address"];
-          payment_method?: parameters["rowFilter.users.payment_method"];
-          role?: parameters["rowFilter.users.role"];
-          email?: parameters["rowFilter.users.email"];
+  readonly '/users': {
+    readonly get: {
+      readonly parameters: {
+        readonly query: {
+          readonly id?: parameters['rowFilter.users.id'];
+          readonly full_name?: parameters['rowFilter.users.full_name'];
+          readonly avatar_url?: parameters['rowFilter.users.avatar_url'];
+          readonly billing_address?: parameters['rowFilter.users.billing_address'];
+          readonly payment_method?: parameters['rowFilter.users.payment_method'];
+          readonly role?: parameters['rowFilter.users.role'];
+          readonly email?: parameters['rowFilter.users.email'];
           /** Filtering Columns */
-          select?: parameters["select"];
+          readonly select?: parameters['select'];
           /** Ordering */
-          order?: parameters["order"];
+          readonly order?: parameters['order'];
           /** Limiting and Pagination */
-          offset?: parameters["offset"];
+          readonly offset?: parameters['offset'];
           /** Limiting and Pagination */
-          limit?: parameters["limit"];
+          readonly limit?: parameters['limit'];
         };
-        header: {
+        readonly header: {
           /** Limiting and Pagination */
-          Range?: parameters["range"];
+          readonly Range?: parameters['range'];
           /** Limiting and Pagination */
-          "Range-Unit"?: parameters["rangeUnit"];
+          readonly 'Range-Unit'?: parameters['rangeUnit'];
           /** Preference */
-          Prefer?: parameters["preferCount"];
+          readonly Prefer?: parameters['preferCount'];
         };
       };
-      responses: {
+      readonly responses: {
         /** OK */
-        200: {
-          schema: definitions["users"][];
+        readonly 200: {
+          readonly schema: readonly definitions['users'][];
         };
         /** Partial Content */
-        206: unknown;
+        readonly 206: unknown;
       };
     };
-    post: {
-      parameters: {
-        body: {
+    readonly post: {
+      readonly parameters: {
+        readonly body: {
           /** users */
-          users?: definitions["users"];
+          readonly users?: definitions['users'];
         };
-        query: {
+        readonly query: {
           /** Filtering Columns */
-          select?: parameters["select"];
+          readonly select?: parameters['select'];
         };
-        header: {
+        readonly header: {
           /** Preference */
-          Prefer?: parameters["preferReturn"];
+          readonly Prefer?: parameters['preferReturn'];
         };
       };
-      responses: {
+      readonly responses: {
         /** Created */
-        201: unknown;
+        readonly 201: unknown;
       };
     };
-    delete: {
-      parameters: {
-        query: {
-          id?: parameters["rowFilter.users.id"];
-          full_name?: parameters["rowFilter.users.full_name"];
-          avatar_url?: parameters["rowFilter.users.avatar_url"];
-          billing_address?: parameters["rowFilter.users.billing_address"];
-          payment_method?: parameters["rowFilter.users.payment_method"];
-          role?: parameters["rowFilter.users.role"];
-          email?: parameters["rowFilter.users.email"];
+    readonly delete: {
+      readonly parameters: {
+        readonly query: {
+          readonly id?: parameters['rowFilter.users.id'];
+          readonly full_name?: parameters['rowFilter.users.full_name'];
+          readonly avatar_url?: parameters['rowFilter.users.avatar_url'];
+          readonly billing_address?: parameters['rowFilter.users.billing_address'];
+          readonly payment_method?: parameters['rowFilter.users.payment_method'];
+          readonly role?: parameters['rowFilter.users.role'];
+          readonly email?: parameters['rowFilter.users.email'];
         };
-        header: {
+        readonly header: {
           /** Preference */
-          Prefer?: parameters["preferReturn"];
+          readonly Prefer?: parameters['preferReturn'];
         };
       };
-      responses: {
+      readonly responses: {
         /** No Content */
-        204: never;
+        readonly 204: never;
       };
     };
-    patch: {
-      parameters: {
-        query: {
-          id?: parameters["rowFilter.users.id"];
-          full_name?: parameters["rowFilter.users.full_name"];
-          avatar_url?: parameters["rowFilter.users.avatar_url"];
-          billing_address?: parameters["rowFilter.users.billing_address"];
-          payment_method?: parameters["rowFilter.users.payment_method"];
-          role?: parameters["rowFilter.users.role"];
-          email?: parameters["rowFilter.users.email"];
+    readonly patch: {
+      readonly parameters: {
+        readonly query: {
+          readonly id?: parameters['rowFilter.users.id'];
+          readonly full_name?: parameters['rowFilter.users.full_name'];
+          readonly avatar_url?: parameters['rowFilter.users.avatar_url'];
+          readonly billing_address?: parameters['rowFilter.users.billing_address'];
+          readonly payment_method?: parameters['rowFilter.users.payment_method'];
+          readonly role?: parameters['rowFilter.users.role'];
+          readonly email?: parameters['rowFilter.users.email'];
         };
-        body: {
+        readonly body: {
           /** users */
-          users?: definitions["users"];
+          readonly users?: definitions['users'];
         };
-        header: {
+        readonly header: {
           /** Preference */
-          Prefer?: parameters["preferReturn"];
+          readonly Prefer?: parameters['preferReturn'];
         };
       };
-      responses: {
+      readonly responses: {
         /** No Content */
-        204: never;
+        readonly 204: never;
       };
     };
   };
-  "/rpc/handle_new_user": {
-    post: {
-      parameters: {
-        body: {
-          args: { [key: string]: unknown };
+  readonly '/rpc/handle_new_user': {
+    readonly post: {
+      readonly parameters: {
+        readonly body: {
+          readonly args: { readonly [key: string]: unknown };
         };
-        header: {
+        readonly header: {
           /** Preference */
-          Prefer?: parameters["preferParams"];
+          readonly Prefer?: parameters['preferParams'];
         };
       };
-      responses: {
+      readonly responses: {
         /** OK */
-        200: unknown;
+        readonly 200: unknown;
       };
     };
   };
-}
+};
 
-export interface definitions {
-  comments: {
+export type definitions = {
+  readonly comments: {
     /**
      * Note:
      * This is a Primary Key.<pk/>
      */
-    id: number;
-    is_completed?: boolean;
+    readonly id: number;
+    readonly is_completed?: boolean;
     /**
      * Note:
      * This is a Foreign Key to `users.id`.<fk table='users' column='id'/>
      */
-    author_id: string;
-    content: string;
+    readonly author_id: string;
+    readonly content: string;
     /**
      * Note:
      * This is a Foreign Key to `projects.id`.<fk table='projects' column='id'/>
      */
-    project_id: number;
+    readonly project_id: number;
   };
-  customers: {
+  readonly customers: {
     /**
      * Note:
      * This is a Primary Key.<pk/>
      */
-    id: string;
-    stripe_customer_id?: string;
+    readonly id: string;
+    readonly stripe_customer_id?: string;
   };
-  flyway_schema_history: {
+  readonly flyway_schema_history: {
     /**
      * Note:
      * This is a Primary Key.<pk/>
      */
-    installed_rank: number;
-    version?: string;
-    description: string;
-    type: string;
-    script: string;
-    checksum?: number;
-    installed_by: string;
-    installed_on: string;
-    execution_time: number;
-    success: boolean;
+    readonly installed_rank: number;
+    readonly version?: string;
+    readonly description: string;
+    readonly type: string;
+    readonly script: string;
+    readonly checksum?: number;
+    readonly installed_by: string;
+    readonly installed_on: string;
+    readonly execution_time: number;
+    readonly success: boolean;
   };
-  prices: {
+  readonly prices: {
     /**
      * Note:
      * This is a Primary Key.<pk/>
      */
-    id: string;
+    readonly id: string;
     /**
      * Note:
      * This is a Foreign Key to `products.id`.<fk table='products' column='id'/>
      */
-    product_id?: string;
-    active?: boolean;
-    description?: string;
-    unit_amount?: number;
-    currency?: string;
-    type?: "one_time" | "recurring";
-    interval?: "day" | "week" | "month" | "year";
-    interval_count?: number;
-    trial_period_days?: number;
-    metadata?: string;
+    readonly product_id?: string;
+    readonly active?: boolean;
+    readonly description?: string;
+    readonly unit_amount?: number;
+    readonly currency?: string;
+    readonly type?: 'one_time' | 'recurring';
+    readonly interval?: 'day' | 'week' | 'month' | 'year';
+    readonly interval_count?: number;
+    readonly trial_period_days?: number;
+    readonly metadata?: string;
   };
-  products: {
+  readonly products: {
     /**
      * Note:
      * This is a Primary Key.<pk/>
      */
-    id: string;
-    active?: boolean;
-    name?: string;
-    description?: string;
-    image?: string;
-    metadata?: string;
+    readonly id: string;
+    readonly active?: boolean;
+    readonly name?: string;
+    readonly description?: string;
+    readonly image?: string;
+    readonly metadata?: string;
   };
-  project_user: {
+  readonly project_user: {
     /**
      * Note:
      * This is a Primary Key.<pk/>
      * This is a Foreign Key to `projects.id`.<fk table='projects' column='id'/>
      */
-    project_id: number;
+    readonly project_id: number;
     /**
      * Note:
      * This is a Primary Key.<pk/>
      * This is a Foreign Key to `users.id`.<fk table='users' column='id'/>
      */
-    user_id: string;
-    is_owner?: boolean;
+    readonly user_id: string;
+    readonly is_owner?: boolean;
   };
-  projects: {
+  readonly projects: {
     /**
      * Note:
      * This is a Primary Key.<pk/>
      */
-    id: number;
-    title?: string;
-    pid?: string;
-    website_url: string;
-    invite_id: string;
-    updated_at: string;
-    created_at: string;
+    readonly id: number;
+    readonly title?: string;
+    readonly pid?: string;
+    readonly website_url: string;
+    readonly invite_id: string;
+    readonly updated_at: string;
+    readonly created_at: string;
   };
-  subscriptions: {
+  readonly subscriptions: {
     /**
      * Note:
      * This is a Primary Key.<pk/>
      */
-    id: string;
-    user_id: string;
-    status?:
-      | "trialing"
-      | "active"
-      | "canceled"
-      | "incomplete"
-      | "incomplete_expired"
-      | "past_due"
-      | "unpaid";
-    metadata?: string;
+    readonly id: string;
+    readonly user_id: string;
+    readonly status?:
+      | 'trialing'
+      | 'active'
+      | 'canceled'
+      | 'incomplete'
+      | 'incomplete_expired'
+      | 'past_due'
+      | 'unpaid';
+    readonly metadata?: string;
     /**
      * Note:
      * This is a Foreign Key to `prices.id`.<fk table='prices' column='id'/>
      */
-    price_id?: string;
-    quantity?: number;
-    cancel_at_period_end?: boolean;
-    created: string;
-    current_period_start: string;
-    current_period_end: string;
-    ended_at?: string;
-    cancel_at?: string;
-    canceled_at?: string;
-    trial_start?: string;
-    trial_end?: string;
+    readonly price_id?: string;
+    readonly quantity?: number;
+    readonly cancel_at_period_end?: boolean;
+    readonly created: string;
+    readonly current_period_start: string;
+    readonly current_period_end: string;
+    readonly ended_at?: string;
+    readonly cancel_at?: string;
+    readonly canceled_at?: string;
+    readonly trial_start?: string;
+    readonly trial_end?: string;
   };
-  team_user: {
+  readonly team_user: {
     /**
      * Note:
      * This is a Primary Key.<pk/>
      * This is a Foreign Key to `teams.id`.<fk table='teams' column='id'/>
      */
-    team_id: number;
+    readonly team_id: number;
     /**
      * Note:
      * This is a Primary Key.<pk/>
      * This is a Foreign Key to `users.id`.<fk table='users' column='id'/>
      */
-    user_id: string;
+    readonly user_id: string;
   };
-  teams: {
+  readonly teams: {
     /**
      * Note:
      * This is a Primary Key.<pk/>
      */
-    id: number;
-    name: string;
-    photo_url?: string;
-    stripe_id?: string;
-    current_billing_plan?: string;
+    readonly id: number;
+    readonly name: string;
+    readonly photo_url?: string;
+    readonly stripe_id?: string;
+    readonly current_billing_plan?: string;
   };
-  teams_subscriptions: {
+  readonly teams_subscriptions: {
     /**
      * Note:
      * This is a Primary Key.<pk/>
      */
-    id: string;
+    readonly id: string;
     /**
      * Note:
      * This is a Foreign Key to `teams.id`.<fk table='teams' column='id'/>
      */
-    team_id: number;
-    status?:
-      | "trialing"
-      | "active"
-      | "canceled"
-      | "incomplete"
-      | "incomplete_expired"
-      | "past_due"
-      | "unpaid";
-    metadata?: string;
+    readonly team_id: number;
+    readonly status?:
+      | 'trialing'
+      | 'active'
+      | 'canceled'
+      | 'incomplete'
+      | 'incomplete_expired'
+      | 'past_due'
+      | 'unpaid';
+    readonly metadata?: string;
     /**
      * Note:
      * This is a Foreign Key to `prices.id`.<fk table='prices' column='id'/>
      */
-    price_id?: string;
-    quantity?: number;
-    cancel_at_period_end?: boolean;
-    created: string;
-    current_period_start: string;
-    current_period_end: string;
-    ended_at?: string;
-    cancel_at?: string;
-    canceled_at?: string;
-    trial_start?: string;
-    trial_end?: string;
+    readonly price_id?: string;
+    readonly quantity?: number;
+    readonly cancel_at_period_end?: boolean;
+    readonly created: string;
+    readonly current_period_start: string;
+    readonly current_period_end: string;
+    readonly ended_at?: string;
+    readonly cancel_at?: string;
+    readonly canceled_at?: string;
+    readonly trial_start?: string;
+    readonly trial_end?: string;
   };
-  users: {
+  readonly users: {
     /**
      * Note:
      * This is a Primary Key.<pk/>
      */
-    id: string;
-    full_name?: string;
-    avatar_url?: string;
-    billing_address?: string;
-    payment_method?: string;
-    role?: "team_member" | "team_admin" | "individual";
-    email?: string;
+    readonly id: string;
+    readonly full_name?: string;
+    readonly avatar_url?: string;
+    readonly billing_address?: string;
+    readonly payment_method?: string;
+    readonly role?: 'team_member' | 'team_admin' | 'individual';
+    readonly email?: string;
   };
-}
+};
 
-export interface parameters {
+export type parameters = {
   /** Preference */
-  preferParams: "params=single-object";
+  readonly preferParams: 'params=single-object';
   /** Preference */
-  preferReturn: "return=representation" | "return=minimal" | "return=none";
+  readonly preferReturn: 'return=representation' | 'return=minimal' | 'return=none';
   /** Preference */
-  preferCount: "count=none";
+  readonly preferCount: 'count=none';
   /** Filtering Columns */
-  select: string;
+  readonly select: string;
   /** On Conflict */
-  on_conflict: string;
+  readonly on_conflict: string;
   /** Ordering */
-  order: string;
+  readonly order: string;
   /** Limiting and Pagination */
-  range: string;
+  readonly range: string;
   /** Limiting and Pagination */
-  rangeUnit: string;
+  readonly rangeUnit: string;
   /** Limiting and Pagination */
-  offset: string;
+  readonly offset: string;
   /** Limiting and Pagination */
-  limit: string;
+  readonly limit: string;
   /** comments */
-  "body.comments": definitions["comments"];
-  "rowFilter.comments.id": string;
-  "rowFilter.comments.is_completed": string;
-  "rowFilter.comments.author_id": string;
-  "rowFilter.comments.content": string;
-  "rowFilter.comments.project_id": string;
+  readonly 'body.comments': definitions['comments'];
+  readonly 'rowFilter.comments.id': string;
+  readonly 'rowFilter.comments.is_completed': string;
+  readonly 'rowFilter.comments.author_id': string;
+  readonly 'rowFilter.comments.content': string;
+  readonly 'rowFilter.comments.project_id': string;
   /** customers */
-  "body.customers": definitions["customers"];
-  "rowFilter.customers.id": string;
-  "rowFilter.customers.stripe_customer_id": string;
+  readonly 'body.customers': definitions['customers'];
+  readonly 'rowFilter.customers.id': string;
+  readonly 'rowFilter.customers.stripe_customer_id': string;
   /** flyway_schema_history */
-  "body.flyway_schema_history": definitions["flyway_schema_history"];
-  "rowFilter.flyway_schema_history.installed_rank": string;
-  "rowFilter.flyway_schema_history.version": string;
-  "rowFilter.flyway_schema_history.description": string;
-  "rowFilter.flyway_schema_history.type": string;
-  "rowFilter.flyway_schema_history.script": string;
-  "rowFilter.flyway_schema_history.checksum": string;
-  "rowFilter.flyway_schema_history.installed_by": string;
-  "rowFilter.flyway_schema_history.installed_on": string;
-  "rowFilter.flyway_schema_history.execution_time": string;
-  "rowFilter.flyway_schema_history.success": string;
+  readonly 'body.flyway_schema_history': definitions['flyway_schema_history'];
+  readonly 'rowFilter.flyway_schema_history.installed_rank': string;
+  readonly 'rowFilter.flyway_schema_history.version': string;
+  readonly 'rowFilter.flyway_schema_history.description': string;
+  readonly 'rowFilter.flyway_schema_history.type': string;
+  readonly 'rowFilter.flyway_schema_history.script': string;
+  readonly 'rowFilter.flyway_schema_history.checksum': string;
+  readonly 'rowFilter.flyway_schema_history.installed_by': string;
+  readonly 'rowFilter.flyway_schema_history.installed_on': string;
+  readonly 'rowFilter.flyway_schema_history.execution_time': string;
+  readonly 'rowFilter.flyway_schema_history.success': string;
   /** prices */
-  "body.prices": definitions["prices"];
-  "rowFilter.prices.id": string;
-  "rowFilter.prices.product_id": string;
-  "rowFilter.prices.active": string;
-  "rowFilter.prices.description": string;
-  "rowFilter.prices.unit_amount": string;
-  "rowFilter.prices.currency": string;
-  "rowFilter.prices.type": string;
-  "rowFilter.prices.interval": string;
-  "rowFilter.prices.interval_count": string;
-  "rowFilter.prices.trial_period_days": string;
-  "rowFilter.prices.metadata": string;
+  readonly 'body.prices': definitions['prices'];
+  readonly 'rowFilter.prices.id': string;
+  readonly 'rowFilter.prices.product_id': string;
+  readonly 'rowFilter.prices.active': string;
+  readonly 'rowFilter.prices.description': string;
+  readonly 'rowFilter.prices.unit_amount': string;
+  readonly 'rowFilter.prices.currency': string;
+  readonly 'rowFilter.prices.type': string;
+  readonly 'rowFilter.prices.interval': string;
+  readonly 'rowFilter.prices.interval_count': string;
+  readonly 'rowFilter.prices.trial_period_days': string;
+  readonly 'rowFilter.prices.metadata': string;
   /** products */
-  "body.products": definitions["products"];
-  "rowFilter.products.id": string;
-  "rowFilter.products.active": string;
-  "rowFilter.products.name": string;
-  "rowFilter.products.description": string;
-  "rowFilter.products.image": string;
-  "rowFilter.products.metadata": string;
+  readonly 'body.products': definitions['products'];
+  readonly 'rowFilter.products.id': string;
+  readonly 'rowFilter.products.active': string;
+  readonly 'rowFilter.products.name': string;
+  readonly 'rowFilter.products.description': string;
+  readonly 'rowFilter.products.image': string;
+  readonly 'rowFilter.products.metadata': string;
   /** project_user */
-  "body.project_user": definitions["project_user"];
-  "rowFilter.project_user.project_id": string;
-  "rowFilter.project_user.user_id": string;
-  "rowFilter.project_user.is_owner": string;
+  readonly 'body.project_user': definitions['project_user'];
+  readonly 'rowFilter.project_user.project_id': string;
+  readonly 'rowFilter.project_user.user_id': string;
+  readonly 'rowFilter.project_user.is_owner': string;
   /** projects */
-  "body.projects": definitions["projects"];
-  "rowFilter.projects.id": string;
-  "rowFilter.projects.title": string;
-  "rowFilter.projects.pid": string;
-  "rowFilter.projects.website_url": string;
-  "rowFilter.projects.invite_id": string;
-  "rowFilter.projects.updated_at": string;
-  "rowFilter.projects.created_at": string;
+  readonly 'body.projects': definitions['projects'];
+  readonly 'rowFilter.projects.id': string;
+  readonly 'rowFilter.projects.title': string;
+  readonly 'rowFilter.projects.pid': string;
+  readonly 'rowFilter.projects.website_url': string;
+  readonly 'rowFilter.projects.invite_id': string;
+  readonly 'rowFilter.projects.updated_at': string;
+  readonly 'rowFilter.projects.created_at': string;
   /** subscriptions */
-  "body.subscriptions": definitions["subscriptions"];
-  "rowFilter.subscriptions.id": string;
-  "rowFilter.subscriptions.user_id": string;
-  "rowFilter.subscriptions.status": string;
-  "rowFilter.subscriptions.metadata": string;
-  "rowFilter.subscriptions.price_id": string;
-  "rowFilter.subscriptions.quantity": string;
-  "rowFilter.subscriptions.cancel_at_period_end": string;
-  "rowFilter.subscriptions.created": string;
-  "rowFilter.subscriptions.current_period_start": string;
-  "rowFilter.subscriptions.current_period_end": string;
-  "rowFilter.subscriptions.ended_at": string;
-  "rowFilter.subscriptions.cancel_at": string;
-  "rowFilter.subscriptions.canceled_at": string;
-  "rowFilter.subscriptions.trial_start": string;
-  "rowFilter.subscriptions.trial_end": string;
+  readonly 'body.subscriptions': definitions['subscriptions'];
+  readonly 'rowFilter.subscriptions.id': string;
+  readonly 'rowFilter.subscriptions.user_id': string;
+  readonly 'rowFilter.subscriptions.status': string;
+  readonly 'rowFilter.subscriptions.metadata': string;
+  readonly 'rowFilter.subscriptions.price_id': string;
+  readonly 'rowFilter.subscriptions.quantity': string;
+  readonly 'rowFilter.subscriptions.cancel_at_period_end': string;
+  readonly 'rowFilter.subscriptions.created': string;
+  readonly 'rowFilter.subscriptions.current_period_start': string;
+  readonly 'rowFilter.subscriptions.current_period_end': string;
+  readonly 'rowFilter.subscriptions.ended_at': string;
+  readonly 'rowFilter.subscriptions.cancel_at': string;
+  readonly 'rowFilter.subscriptions.canceled_at': string;
+  readonly 'rowFilter.subscriptions.trial_start': string;
+  readonly 'rowFilter.subscriptions.trial_end': string;
   /** team_user */
-  "body.team_user": definitions["team_user"];
-  "rowFilter.team_user.team_id": string;
-  "rowFilter.team_user.user_id": string;
+  readonly 'body.team_user': definitions['team_user'];
+  readonly 'rowFilter.team_user.team_id': string;
+  readonly 'rowFilter.team_user.user_id': string;
   /** teams */
-  "body.teams": definitions["teams"];
-  "rowFilter.teams.id": string;
-  "rowFilter.teams.name": string;
-  "rowFilter.teams.photo_url": string;
-  "rowFilter.teams.stripe_id": string;
-  "rowFilter.teams.current_billing_plan": string;
+  readonly 'body.teams': definitions['teams'];
+  readonly 'rowFilter.teams.id': string;
+  readonly 'rowFilter.teams.name': string;
+  readonly 'rowFilter.teams.photo_url': string;
+  readonly 'rowFilter.teams.stripe_id': string;
+  readonly 'rowFilter.teams.current_billing_plan': string;
   /** teams_subscriptions */
-  "body.teams_subscriptions": definitions["teams_subscriptions"];
-  "rowFilter.teams_subscriptions.id": string;
-  "rowFilter.teams_subscriptions.team_id": string;
-  "rowFilter.teams_subscriptions.status": string;
-  "rowFilter.teams_subscriptions.metadata": string;
-  "rowFilter.teams_subscriptions.price_id": string;
-  "rowFilter.teams_subscriptions.quantity": string;
-  "rowFilter.teams_subscriptions.cancel_at_period_end": string;
-  "rowFilter.teams_subscriptions.created": string;
-  "rowFilter.teams_subscriptions.current_period_start": string;
-  "rowFilter.teams_subscriptions.current_period_end": string;
-  "rowFilter.teams_subscriptions.ended_at": string;
-  "rowFilter.teams_subscriptions.cancel_at": string;
-  "rowFilter.teams_subscriptions.canceled_at": string;
-  "rowFilter.teams_subscriptions.trial_start": string;
-  "rowFilter.teams_subscriptions.trial_end": string;
+  readonly 'body.teams_subscriptions': definitions['teams_subscriptions'];
+  readonly 'rowFilter.teams_subscriptions.id': string;
+  readonly 'rowFilter.teams_subscriptions.team_id': string;
+  readonly 'rowFilter.teams_subscriptions.status': string;
+  readonly 'rowFilter.teams_subscriptions.metadata': string;
+  readonly 'rowFilter.teams_subscriptions.price_id': string;
+  readonly 'rowFilter.teams_subscriptions.quantity': string;
+  readonly 'rowFilter.teams_subscriptions.cancel_at_period_end': string;
+  readonly 'rowFilter.teams_subscriptions.created': string;
+  readonly 'rowFilter.teams_subscriptions.current_period_start': string;
+  readonly 'rowFilter.teams_subscriptions.current_period_end': string;
+  readonly 'rowFilter.teams_subscriptions.ended_at': string;
+  readonly 'rowFilter.teams_subscriptions.cancel_at': string;
+  readonly 'rowFilter.teams_subscriptions.canceled_at': string;
+  readonly 'rowFilter.teams_subscriptions.trial_start': string;
+  readonly 'rowFilter.teams_subscriptions.trial_end': string;
   /** users */
-  "body.users": definitions["users"];
-  "rowFilter.users.id": string;
-  "rowFilter.users.full_name": string;
-  "rowFilter.users.avatar_url": string;
-  "rowFilter.users.billing_address": string;
-  "rowFilter.users.payment_method": string;
-  "rowFilter.users.role": string;
-  "rowFilter.users.email": string;
-}
+  readonly 'body.users': definitions['users'];
+  readonly 'rowFilter.users.id': string;
+  readonly 'rowFilter.users.full_name': string;
+  readonly 'rowFilter.users.avatar_url': string;
+  readonly 'rowFilter.users.billing_address': string;
+  readonly 'rowFilter.users.payment_method': string;
+  readonly 'rowFilter.users.role': string;
+  readonly 'rowFilter.users.email': string;
+};
 
-export interface operations {}
+// eslint-disable-next-line @typescript-eslint/ban-types
+export type operations = {};
 
-export interface external {}
+// eslint-disable-next-line @typescript-eslint/ban-types
+export type external = {};

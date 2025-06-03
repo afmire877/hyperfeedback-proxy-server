@@ -1,4 +1,5 @@
 import { handleOnClickPin } from '../ui.controller';
+
 import { body } from './elements';
 
 export const generateRandomString = function (length = 6) {
@@ -39,18 +40,17 @@ export const renderPin = (x: number, y: number, id: string, number: number) => {
 };
 
 export const disableAllLinks = () => {
-  const links = document.querySelectorAll('a');
-  for (let i = 0; i <= links.length - 1; i++) {
-    links[i].onclick = function () {
-      return false;
-    };
-  }
+  document.querySelectorAll('a').forEach(link => {
+    link.onclick = () => false;
+  });
 };
+
 export const openExternalLinkInNewTab = () => {
-  const links = document.querySelectorAll('a');
-  for (let i = 0; i <= links.length - 1; i++) {
-    isExternalURL(links[i].href) && (links[i].target = '_blank');
-  }
+  document.querySelectorAll('a').forEach(link => {
+    if (isExternalURL(link.href)) {
+      link.target = '_blank';
+    }
+  });
 };
 
 export const isExternalURL = (url: string) => {
@@ -64,15 +64,15 @@ export const isExternalURL = (url: string) => {
 
 export const findTopElement = (event: MouseEvent): HTMLElement | SVGElement => {
   const els = window.document.elementsFromPoint(event.clientX, event.clientY);
+  const foundElement = els.find(el => el instanceof SVGElement || el instanceof HTMLElement);
 
-  for (let i = 0; i <= els.length - 1; i++) {
-    if (els[i] instanceof SVGElement) return els[i] as SVGElement;
-    if (els[i] instanceof HTMLElement) return els[i] as HTMLElement;
+  if (foundElement) {
+    return foundElement as HTMLElement | SVGElement;
   }
   throw Error('Element not found');
 };
 
-export const sendMessageToParent = (message: object): boolean => {
+export const sendMessageToParent = (message: Record<string, unknown>): boolean => {
   try {
     console.log('sending message to parent', message);
     parent.postMessage(message, '*');

@@ -1,4 +1,5 @@
-import { Pin } from '../types/lib';
+import { Pin, RawPinData } from '../types/lib';
+
 import { pid, SQLnotFoundMessage } from './constants';
 import { focusIfNeeded } from './main';
 import {
@@ -9,19 +10,19 @@ import {
 } from './utils/helpers';
 import { supabase } from './utils/supabase-client';
 
-export interface Position {
-  clientX: number;
-  clientY: number;
-}
+export type Position = {
+  readonly clientX: number;
+  readonly clientY: number;
+};
 
-export const setPins = (data: any) => {
+export const setPins = (data: RawPinData[] | null | undefined) => {
   try {
     removeAllPins();
-    window.hf.pins = data?.map((p: any) => {
-      let relativeElement = p.relative_element_selector;
-      if (isSelectorValid(relativeElement)) {
-        relativeElement = document?.querySelector(relativeElement);
-      }
+    window.hf.pins = data?.map((p: RawPinData): Pin => {
+      const initialRelativeElement = p.relative_element_selector;
+      const relativeElement = isSelectorValid(initialRelativeElement)
+        ? document?.querySelector(initialRelativeElement) ?? initialRelativeElement
+        : initialRelativeElement;
       return {
         relativeX: p.pos_x,
         relativeY: p.pos_y,
@@ -33,7 +34,7 @@ export const setPins = (data: any) => {
         pathname: p.pathname ?? window.location.pathname,
         screen_size: p.screen_size ?? 'desktop',
       };
-    });
+    }) || [];
     console.log('pins', window.hf.pins);
     repositionPins();
   } catch (error) {
@@ -119,14 +120,13 @@ export const calculatePinMatrix = (
     pathname: window.location.pathname,
   };
 };
-export const handleOnClickPin = (e: Event) => {
-  const target = e.target;
+export const handleOnClickPin = (e: MouseEvent) => {
+  const target = e.target as HTMLElement;
 
   sendMessageToParent({
     type: 'uiAction',
     action: 'focus',
     data: {
-      // @ts-ignore
       idSelector: target?.id,
     },
   });

@@ -1,14 +1,14 @@
 import http from 'http';
 
+import * as Sentry from '@sentry/node';
+import * as Tracing from '@sentry/tracing';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import * as dotenv from 'dotenv';
-dotenv.config();
 import express, { ErrorRequestHandler } from 'express';
 import session from 'express-session';
-import * as Sentry from '@sentry/node';
-import * as Tracing from '@sentry/tracing';
+dotenv.config();
 
 import proxyRoute from './routes/proxy';
 
@@ -63,8 +63,7 @@ app.use('/', cors(corsOptions), proxyRoute);
 app.use(Sentry.Handlers.errorHandler());
 const errorHandler: ErrorRequestHandler = (_, __, res) => {
   res.statusCode = 500;
-  // @ts-ignore
-  res.end(res.sentry + '\n');
+  res.end((res.sentry || '') + '\n');
 };
 app.use(errorHandler);
 
