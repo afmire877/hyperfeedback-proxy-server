@@ -1,5 +1,7 @@
-import { NextFunction, Request, Response } from 'express';
 import path from 'path';
+
+import { NextFunction, Request, Response } from 'express';
+
 import isUUID from '../utils/isUUID';
 
 const checkValidSubdomain = (

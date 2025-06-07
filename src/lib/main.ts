@@ -1,5 +1,10 @@
+/// <reference types="../types/env" />
+import { captureMessage, init } from '@sentry/browser';
+import { Integrations } from '@sentry/tracing';
 import unique from 'unique-selector';
+
 import { ActionEvents } from '../types/lib';
+
 import { initialHFState, uniqueSelectorOptions } from './constants';
 import './styles.css';
 import {
@@ -14,8 +19,6 @@ import {
   openExternalLinkInNewTab,
   sendMessageToParent,
 } from './utils/helpers';
-import { init, captureMessage } from '@sentry/browser';
-import { Integrations } from '@sentry/tracing';
 
 const handleCreateComment = (event: MouseEvent) => {
   if (window.hf.mode === 'browse') return;
@@ -103,7 +106,7 @@ const handleUIAction = (data: ActionEvents) => {
     case 'addedComment':
       return getPins();
     case 'modeChange':
-      if (data.data?.screenSize) changeScreenSize(data.data?.screenSize);
+      if (data.data?.screenSize) changeScreenSize(data.data.screenSize);
       if (data.data?.canvasMode) changeMode(data.data.canvasMode);
       return;
     case 'focus':
@@ -114,14 +117,14 @@ const handleUIAction = (data: ActionEvents) => {
 };
 
 const handleMessage = (event: MessageEvent) => {
-  // @ts-ignore
   if (event.origin !== import.meta.env.VITE_HF_APP_URL || !event.data) return;
   console.log(`Received message PROXY:`, event);
+  const actionEvent = event.data as ActionEvents;
 
-  if (event?.data?.type === 'uiAction') {
-    return handleUIAction(event.data);
-  } else if (event?.data?.type === 'dataSyncAction') {
-    return handleDataSyncAction(event.data);
+  if (actionEvent?.type === 'uiAction') {
+    return handleUIAction(actionEvent);
+  } else if (actionEvent?.type === 'dataSyncAction') {
+    return handleDataSyncAction(actionEvent);
   }
 };
 

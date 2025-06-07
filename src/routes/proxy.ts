@@ -1,16 +1,15 @@
-/* eslint-disable functional/immutable-data */
 import { readFileSync } from 'fs';
+import path from 'path';
 
 import chalk from 'chalk';
 import * as cheerio from 'cheerio';
-import express, { Response } from 'express';
+import express, { Request, Response } from 'express';
 import request from 'request';
 
+import { definitions } from '../types/supabase';
+import { NotFoundHTMLPath } from '../utils/helpers';
 import isUUID from '../utils/isUUID';
 import { supabase } from '../utils/supabase-client';
-import { definitions } from '../types/supabase';
-import path from 'path';
-import { NotFoundHTMLPath } from '../utils/helpers';
 
 const router = express.Router();
 // Allow proxying self-signed SSL certificates
@@ -18,7 +17,7 @@ console.log("Disabling Node's rejection of invalid/unauthorised certificates");
 
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '1';
 process.setMaxListeners(15);
-router.use('/', async (req: any, res: Response) => {
+router.use('/', async (req: Request, res: Response) => {
   const [pid, proxyType] = req.subdomains.reverse();
   if (proxyType !== 'p' && !pid) return;
 
@@ -42,57 +41,54 @@ router.use('/', async (req: any, res: Response) => {
 
   if (asset_url) {
     const url = req.session?.asset_url ? asset_url + req.path : asset_url;
-    requestFromUrl(req, url, (proxyRes: any) => {
-      const statusCode = proxyRes.statusCode;
-      const contentType = proxyRes.headers['content-type'];
+    requestFromUrl(req, url, (proxyRes: unknown) => {
+      const typedProxyRes = proxyRes as request.Response;
+      const statusCode = typedProxyRes.statusCode;
+      const contentType = typedProxyRes.headers['content-type'];
 
       if (statusCode === 404) {
         // hashHapOf404s[url] = true;
         res.send(404);
       } else if (!contentType || !contentType.includes('html')) {
-        setHeaders(proxyRes, res);
-        proxyRes.pipe(res);
+        setHeaders(typedProxyRes, res);
+        typedProxyRes.pipe(res);
       } else {
-        setHeaders(proxyRes, res);
-        res.end(injectJSIntoWebsite(proxyRes.html));
+        setHeaders(typedProxyRes, res);
+        res.end(injectJSIntoWebsite((typedProxyRes as any).html));
       }
     });
   }
 });
 
 const requestFromUrl = (
-  req: any,
+  req: Request,
   url: string,
-  callback: (ProxyRes: any) => any
+  callback: (proxyRes: unknown) => any
 ) => {
-  const { _body, body, headers, method } = req;
+  const { body, headers, method } = req;
 
-  const bodyStr = _body === true ? JSON.stringify(body) : undefined;
+  const bodyStr = (body && typeof body === 'object' && Object.keys(body).length > 0) ? JSON.stringify(body) : undefined;
 
-  headers['accept-encoding'] = 'identity'; // Request non-gzipped code, so we can alter the HTML below and inject our own code]
-  delete headers['host']; // So the request doesn't seem to come from localhost
+  (headers as Record<string, any>)['accept-encoding'] = 'identity';
+  delete (headers as Record<string, any>)['host'];
 
-  const proxy = request({ body: bodyStr, headers, method, url });
+  const proxy = request({ body: bodyStr, headers: headers as request.Headers, method, url });
   proxy.setMaxListeners(Infinity);
   proxy.on('error', (error) => {
     console.error(`${chalk.red('ERROR:')} ${url}`, error);
   });
 
-  proxy.on('response', (proxyRes: any) => {
-    // logResponse(url, proxyRes);
-
-    // non-HTML -> return proxyRes so we can pipe it
-    const contentType = proxyRes.headers['content-type'];
+  proxy.on('response', (proxyResponse: unknown) => {
+    const typedProxyResponse = proxyResponse as request.Response;
+    const contentType = typedProxyResponse.headers['content-type'];
     if (!contentType || !contentType.includes('html')) {
-      callback(proxyRes);
-
-      // HTML -> get HTML as string
+      callback(typedProxyResponse);
     } else {
-      const dataArr: any = [];
-      proxyRes.on('data', (chunk: any) => dataArr.push(chunk));
-      proxyRes.on('end', () => {
-        proxyRes.html = Buffer.concat(dataArr).toString();
-        callback(proxyRes);
+      const dataArr: Buffer[] = [];
+      typedProxyResponse.on('data', (chunk: Buffer) => dataArr.push(chunk));
+      typedProxyResponse.on('end', () => {
+        (typedProxyResponse as any).html = Buffer.concat(dataArr).toString();
+        callback(typedProxyResponse);
       });
     }
   });
@@ -129,7 +125,7 @@ const injectJSIntoWebsite = (html: string) => {
 //   console.log(`${chalk[color](statusCode)} ${url}`);
 // };
 
-const setHeaders = (proxyRes: any, res: Response) => {
+const setHeaders = (proxyRes: request.Response, res: Response) => {
   delete proxyRes.headers['content-length'];
   delete proxyRes.headers['content-security-policy'];
   proxyRes.headers['X-Frame-Options'] = '';
