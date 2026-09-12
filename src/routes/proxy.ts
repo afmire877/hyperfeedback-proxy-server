@@ -9,22 +9,21 @@ import request from 'request';
 import { definitions } from '../types/supabase';
 import { NotFoundHTMLPath } from '../utils/helpers';
 import isUUID from '../utils/isUUID';
+import { buildProxyTarget, validateProxyTarget } from '../utils/proxy-target';
 import { supabase } from '../utils/supabase-client';
 
 const router = express.Router();
-// Allow proxying self-signed SSL certificates
-console.log("Disabling Node's rejection of invalid/unauthorised certificates");
-
-process.env.NODE_TLS_REJECT_UNAUTHORIZED = '1';
 process.setMaxListeners(15);
 router.use('/', async (req: Request, res: Response) => {
   const [pid, proxyType] = req.subdomains.reverse();
-  if (proxyType !== 'p' && !pid) return;
+  if (proxyType !== 'p' || !isUUID(pid)) {
+    return res.sendFile(NotFoundHTMLPath);
+  }
 
   // eslint-disable-next-line functional/no-let
   let asset_url: string | undefined = req.session?.asset_url;
 
-  if (!asset_url && isUUID(pid)) {
+  if (!asset_url) {
     const { data, error } = await supabase
       .from<definitions['projects']>('projects')
       .select()
@@ -40,8 +39,15 @@ router.use('/', async (req: Request, res: Response) => {
   }
 
   if (asset_url) {
-    const url = req.session?.asset_url ? asset_url + req.path : asset_url;
-    requestFromUrl(req, url, (proxyRes: unknown) => {
+    const url = buildProxyTarget(asset_url, req.originalUrl);
+    try {
+      await validateProxyTarget(url);
+    } catch (error) {
+      console.error('Blocked unsafe proxy target', error);
+      return res.status(400).send('Invalid proxy target');
+    }
+
+    return requestFromUrl(req, url, (proxyRes: unknown) => {
       const typedProxyRes = proxyRes as request.Response;
       const statusCode = typedProxyRes.statusCode;
       const contentType = typedProxyRes.headers['content-type'];
@@ -58,6 +64,8 @@ router.use('/', async (req: Request, res: Response) => {
       }
     });
   }
+
+  return res.sendFile(NotFoundHTMLPath);
 });
 
 const requestFromUrl = (
@@ -67,12 +75,21 @@ const requestFromUrl = (
 ) => {
   const { body, headers, method } = req;
 
-  const bodyStr = (body && typeof body === 'object' && Object.keys(body).length > 0) ? JSON.stringify(body) : undefined;
+  const bodyStr =
+    body && typeof body === 'object' && Object.keys(body).length > 0
+      ? JSON.stringify(body)
+      : undefined;
 
   (headers as Record<string, any>)['accept-encoding'] = 'identity';
   delete (headers as Record<string, any>)['host'];
 
-  const proxy = request({ body: bodyStr, headers: headers as request.Headers, method, url });
+  const proxy = request({
+    body: bodyStr,
+    followRedirect: false,
+    headers: headers as request.Headers,
+    method,
+    url,
+  });
   proxy.setMaxListeners(Infinity);
   proxy.on('error', (error) => {
     console.error(`${chalk.red('ERROR:')} ${url}`, error);

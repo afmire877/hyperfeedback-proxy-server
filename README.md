@@ -6,19 +6,50 @@ Seamlessly integrate Hyperfeedback visual feedback and commenting into any websi
 [![Code Coverage](https://img.shields.io/codecov/c/github/afmire877/hyperfeedback-proxy-server.svg?style=flat-square)](https://codecov.io/gh/afmire877/hyperfeedback-proxy-server)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square)](https://opensource.org/licenses/MIT)
 [![TypeScript](https://img.shields.io/badge/%3C%2F%3E-TypeScript-%230074c1.svg?style=flat-square)](http://www.typescriptlang.org/)
-[![Node.js](https://img.shields.io/badge/Node.js-%3E%3D10-blue.svg?style=flat-square)](https://nodejs.org/)
+[![Node.js](https://img.shields.io/badge/Node.js-%3E%3D16-blue.svg?style=flat-square)](https://nodejs.org/)
 
-The Hyperfeedback Proxy Server is a powerful Node.js application that allows you to dynamically load any website through a proxy, injecting the Hyperfeedback client-side UI. This enables users to leave visual feedback and comments directly on the proxied website, streamlining the review and feedback process for web projects.
+Hyperfeedback lets a product team review a live web page in context. This service
+looks up a project's target URL, proxies the page, and injects the commenting UI
+into HTML responses while streaming other assets unchanged.
 
-Built with TypeScript and Express.js, this server is designed for robustness and easy integration.
+This repository is a compact example of full-stack product infrastructure: a
+TypeScript/Express gateway, a Vite-built browser client, Supabase-backed project
+resolution, HTML transformation, and automated quality checks.
+
+## Engineering case study
+
+**Problem:** Feedback shared in screenshots and chat loses its relationship to the
+page element being discussed.
+
+**Approach:** Give each project a proxy subdomain. The server resolves the project,
+requests its configured website, and injects the Hyperfeedback interface into HTML.
+The browser client records element selectors and positions so discussion remains
+attached to the page.
+
+**Important decisions:**
+
+- Keep project identifiers in subdomains so nested site routes continue to work.
+- Transform only HTML; stream images, scripts, and other assets without buffering.
+- Build the injected client separately with Vite while keeping the proxy typed with
+  TypeScript.
+- Treat stored target URLs as untrusted input. Targets must use HTTP(S), resolve
+  only to public IP addresses, and cannot redirect through the proxy.
+
+**Current trade-offs:** Redirects are returned to the browser rather than followed
+because every redirect destination would otherwise require another DNS safety
+check. This service also changes framing headers to support the review experience;
+only use it for websites you are authorised to review.
 
 ## Features
 
-- **Dynamic Website Proxying**: Load any external website through the server.
+- **Dynamic Website Proxying**: Load configured public websites through the server.
 - **Hyperfeedback UI Injection**: Automatically embeds the Hyperfeedback client script into proxied pages.
 - **Subdomain-based Project Identification**: Uses subdomains (`<project_id>.p.yourdomain.com`) to associate proxied sites with specific Hyperfeedback projects.
 - **Session Management**: Basic session support for persisting context if needed.
-- **Secure Communication**: Leverages environment variables for sensitive configurations like API keys.
+- **Target Boundary**: Rejects credentials, non-HTTP protocols, localhost, and
+  private or reserved network addresses.
+- **Environment Configuration**: Keeps database credentials and the session secret
+  outside source control.
 - **Comprehensive Tooling**: Includes linters (ESLint), formatters (Prettier), testing frameworks (Ava), and type checking (TypeScript) for a high-quality codebase.
 - **Documentation Generation**: Supports API documentation generation using TypeDoc.
 
@@ -34,7 +65,7 @@ Built with TypeScript and Express.js, this server is designed for robustness and
 
 ## Prerequisites
 
-- [Node.js](https://nodejs.org/) (version >=10, as per `package.json`)
+- [Node.js](https://nodejs.org/) 16 or newer
 - [Yarn](https://yarnpkg.com/) (or npm)
 
 ## Getting Started
@@ -65,8 +96,10 @@ cp .env.example .env
 Now, edit the `.env` file. Key variables include:
 
 - `PORT`: The port the server will run on (default: `5000`).
+- `SESSION_SECRET`: A long, random value used to sign session cookies.
 - `PUBLIC_SUPABASE_URL`: Your Supabase project URL.
-- `SUPABASE_SERVICE_ROLE_KEY`: Your Supabase service role key (use with caution, consider a more restricted key if possible for some operations).
+- `SUPABASE_SERVICE_ROLE_KEY`: Server-side Supabase credential. Prefer a restricted
+  key and database policies that expose only the project data this service needs.
 - `HF_APP_URL`: The URL of your main Hyperfeedback application (e.g., `http://localhost:3000`). This is used by the server and also by Vite for client-side scripts.
 - `NEXT_PUBLIC_PROXY_BASE_URL`: The base domain under which this proxy server will operate. For local development, this could be `localhost:PORT` or a custom domain configured in your hosts file. For production, this would be your public domain (e.g., `hyperfeedback.io`). The proxy works by creating URLs like `<pid>.p.NEXT_PUBLIC_PROXY_BASE_URL`.
 
@@ -112,6 +145,18 @@ Once the server is running and configured:
     The Hyperfeedback UI should be injected into the proxied page.
 
 The communication between the injected client script and the main Hyperfeedback application (running at `HF_APP_URL`) typically uses `window.postMessage` for cross-origin communication if the main app is in an iframe, or direct API calls if the architecture allows.
+
+## Security model
+
+The proxy validates the final constructed target before each outbound request. DNS
+must return at least one address and every returned address must be public. Loopback,
+link-local, private, documentation, multicast, and other reserved ranges are
+blocked for IPv4 and IPv6. Automatic redirects are disabled.
+
+This reduces server-side request forgery risk, but it is not a complete production
+sandbox. A hardened deployment should also use outbound firewall rules, revalidate
+redirect destinations if redirect support is added, restrict which users can set
+project URLs, rate-limit requests, and cap buffered HTML response sizes.
 
 ## Development
 

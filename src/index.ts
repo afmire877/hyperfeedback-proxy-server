@@ -13,6 +13,8 @@ dotenv.config();
 import proxyRoute from './routes/proxy';
 
 const PORT = process.env.PORT || 5000;
+const SESSION_SECRET = process.env.SESSION_SECRET;
+if (!SESSION_SECRET) throw new Error('SESSION_SECRET is required');
 // const allowedRoutes = ['https://hyperfeedback.io', 'http://localhost:3000', 'http://a4b2-79-69-253-85.ngrok.io'];
 const corsOptions = {
   origin: '*',
@@ -24,7 +26,7 @@ app.use(cors());
 app.use(cookieParser());
 app.use(
   session({
-    secret: 'clnWVutlVogJR3a0E0JQa8m',
+    secret: SESSION_SECRET,
     resave: true,
     saveUninitialized: true,
     cookie: { path: '/', httpOnly: true, secure: false, maxAge: 3600000 },
