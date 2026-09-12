@@ -40,12 +40,12 @@
     "version": "standard-version",
     "reset-hard": "git clean -dfx && git reset --hard && yarn",
     "prepare-release": "run-s reset-hard test cov:check doc:html version doc:publish",
-    "update-types": "npx openapi-typescript https://rrmogqijedgnegnuxcmb.supabase.co/rest/v1/?apikey=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTYyNDExMTkyMSwiZXhwIjoxOTM5Njg3OTIxfQ.P0g8kXvJsL2zNRRsY34_9YhKfty-VrTYtx1F3dGIHe4 --output ./src/types/supabase.ts",
+    "update-types": "openapi-typescript \"$PUBLIC_SUPABASE_URL/rest/v1/?apikey=$SUPABASE_SERVICE_ROLE_KEY\" --output ./src/types/supabase.ts",
     "js:dev": "tsc && vite build --watch",
     "js:serve": "vite preview"
   },
   "engines": {
-    "node": ">=10"
+    "node": ">=16"
   },
   "dependencies": {
     "@bitauth/libauth": "^1.17.1",
